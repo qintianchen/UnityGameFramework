@@ -4,3 +4,6 @@ Logs
 Temp
 *.meta
 *.sln
+.idea
+obj
+*.csproj
