@@ -7,3 +7,4 @@ Temp
 .idea
 obj
 *.csproj
+*.user
