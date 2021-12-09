@@ -1,10 +1,14 @@
 {
-    "name": "TheThirdParty",
+    "name": "TheThirdParty.ToLua.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:0edef751d42ed1f4ca8f984fa00f2e01"
+    ],
     "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": true,
+    "excludePlatforms": [
+        "Android"
+    ],
+    "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,

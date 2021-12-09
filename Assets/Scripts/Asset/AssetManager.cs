@@ -16,7 +16,8 @@ public class AssetManager : SingleTon<AssetManager>
 	/// 定义哪些是合法的资源加载目录
 	public List<string> assetDirs = new List<string>
 	{
-		"Assets/Content/Environment/Prefabs"
+		"Assets/Content/Environment/Prefabs",
+		"Assets/Content/Scenes",
 	};
 	
 	/// 指示编辑器使用AssetBundleMode，否则默认走AssetDataBase机制
@@ -43,7 +44,7 @@ public class AssetManager : SingleTon<AssetManager>
 			InitAssetNameMapInAssetDataBaseMode();
 		}
 #else
-		InitAssetNameMapInAssetBundle();
+		InitAssetNameMapInAssetBundleMode();
 #endif
 		foreach (var keyValuePair in assetName_assetPath)
 		{
@@ -105,7 +106,7 @@ public class AssetManager : SingleTon<AssetManager>
 			return;
 		}
 #else
-		return null;
+		return;
 #endif
 	}
 }

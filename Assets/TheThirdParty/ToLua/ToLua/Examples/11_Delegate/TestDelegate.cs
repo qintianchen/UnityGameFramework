@@ -338,7 +338,7 @@ public class TestDelegate: MonoBehaviour
 #if UNITY_5 || UNITY_2017 || UNITY_2018
         Application.logMessageReceived -= ShowTips;
 #else
-        Application.RegisterLogCallback(null);
+        // Application.RegisterLogCallback(null);
 #endif    
     }
 }

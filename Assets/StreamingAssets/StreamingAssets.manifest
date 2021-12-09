@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 3129533459
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: assets_content_environment_prefabs
+      Dependencies: {}
+    Info_1:
+      Name: assets_content_scenes
+      Dependencies: {}

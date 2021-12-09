@@ -149,7 +149,7 @@ public class UseList : LuaClient
 #if UNITY_5 || UNITY_2017 || UNITY_2018
         Application.logMessageReceived += ShowTips;
 #else
-        Application.RegisterLogCallback(ShowTips);
+        // Application.RegisterLogCallback(ShowTips);
 #endif          
         base.OnLoadFinished();
         luaState.DoString(script, "UseList.cs");
