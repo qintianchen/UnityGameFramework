@@ -1,7 +1,9 @@
 {
     "name": "Core.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:f36609c3d5dfdd147a650d1cc6a63fee"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,

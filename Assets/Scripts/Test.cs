@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Test : MonoBehaviour
@@ -7,9 +6,5 @@ public class Test : MonoBehaviour
 	{
 		Application.targetFrameRate = 30;
 		AssetManager.Instance.Init();
-	}
-
-	private void Update()
-	{
 	}
 }

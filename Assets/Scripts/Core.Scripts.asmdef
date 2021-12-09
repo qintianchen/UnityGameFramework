@@ -1,9 +1,7 @@
 {
     "name": "Core.Scripts",
     "rootNamespace": "",
-    "references": [
-        "GUID:56cb8e572c5b8cf48bdfadbb13cb9b22"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,
