@@ -5,19 +5,8 @@ using System.Linq;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using SerializationHelper;
 
-[Serializable]
-class ListSerializationWrap<T>
-{
-	public List<T> items;
-}
-
-[Serializable]
-class KeyValuePairWrap<T, K>
-{
-	public T key;
-	public K value;
-}
 
 [Serializable]
 class DictionarySerializationWrap<T, K>
@@ -56,6 +45,7 @@ public class AssetBundleBuilder : Editor
 		// 构造 <目录，目录下所有的文件> 映射，<文件名, 目录名> 映射。前者用于打包，后者用于运行时查询。
 		Dictionary<string, List<string>> dir_files = new Dictionary<string, List<string>>();
 		Dictionary<string, string> fileName_dirName = new Dictionary<string, string>();
+		Dictionary<string, string> fileName_assetBundleName = new Dictionary<string, string>();
 		foreach (var assetDir in AssetManager.Instance.assetDirs)
 		{
 			var files = Directory.GetFiles(assetDir);
@@ -86,10 +76,17 @@ public class AssetBundleBuilder : Editor
 			{
 				assetBundleNames.Add(s);
 			}
-
+			
 			build.assetNames = assetBundleNames.ToArray();
 			string assetBundleName = keyValuePair.Key.Replace("/", "_").ToLower();
 			build.assetBundleName = assetBundleName;
+			
+			foreach (var s in keyValuePair.Value)
+			{
+				var fileName = Path.GetFileName(s);
+				fileName_assetBundleName[fileName] = assetBundleName;
+			}
+			
 			Debug.Log($"{build.assetBundleName}: {PrintUtils.Print(build.assetNames)}");
 			builds.Add(build);
 		}
@@ -102,15 +99,15 @@ public class AssetBundleBuilder : Editor
 		BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath, builds.ToArray(), BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.Android);
 
 		// 序列化 <文件名, 目录名>
-		ListSerializationWrap<KeyValuePairWrap<string, string>> wrap = new ListSerializationWrap<KeyValuePairWrap<string, string>>();
-		wrap.items = new List<KeyValuePairWrap<string, string>>();
-		foreach (var keyValuePair in fileName_dirName)
-		{
-			var pair = new KeyValuePairWrap<string, string>();
-			pair.key = keyValuePair.Key;
-			pair.value = keyValuePair.Value;
-			wrap.items.Add(pair);
-		}
+		// ListSerializationWrap<KeyValuePairWrap<string, string>> wrap = new ListSerializationWrap<KeyValuePairWrap<string, string>>();
+		// wrap.items = new List<KeyValuePairWrap<string, string>>();
+		// foreach (var keyValuePair in fileName_dirName)
+		// {
+		// 	var pair = new KeyValuePairWrap<string, string>();
+		// 	pair.key = keyValuePair.Key;
+		// 	pair.value = keyValuePair.Value;
+		// 	wrap.items.Add(pair);
+		// }
 		
 		// Dictionary<string, ListSerializationWrap<string>> wrap = new Dictionary<string, ListSerializationWrap<string>>();
 		// foreach (var keyValuePair in dir_files)
@@ -122,7 +119,23 @@ public class AssetBundleBuilder : Editor
 		// 	wrap[keyValuePair.Key] = listWrap;
 		// }
 
-		File.WriteAllText(Application.streamingAssetsPath + "/fileName_dirName.json", JsonUtility.ToJson(wrap, true));
+		StringBuilder sb = new StringBuilder();
+		foreach (var keyValuePair in fileName_dirName)
+		{
+			sb.Append(keyValuePair.Key).Append(",").Append(keyValuePair.Value).Append("\n");
+		}
+
+		// File.WriteAllText(Application.streamingAssetsPath + "/fileName_dirName.json", JsonUtility.ToJson(wrap, true));
+		File.WriteAllText(Application.streamingAssetsPath + "/fileName_dirName.csv", sb.ToString());
+		
+		sb = new StringBuilder();
+		foreach (var keyValuePair in fileName_assetBundleName)
+		{
+			sb.Append(keyValuePair.Key).Append(",").Append(keyValuePair.Value).Append("\n");
+		}
+
+		// File.WriteAllText(Application.streamingAssetsPath + "/fileName_dirName.json", JsonUtility.ToJson(wrap, true));
+		File.WriteAllText(Application.streamingAssetsPath + "/fileName_assetBundleName.csv", sb.ToString());
 		
 		AssetDatabase.Refresh();
 	}
