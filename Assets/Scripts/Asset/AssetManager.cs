@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -195,7 +196,7 @@ public class AssetManager : SingleTon<AssetManager>
 			LoadAssetAsyncFromAssetBundle<T>(assetName, onLoaded);
 		}
 #else
-		LoadAssetAsyncInAssetBundleMode<T>(assetName, onLoaded);
+		LoadAssetAsyncFromAssetBundle<T>(assetName, onLoaded);
 #endif
 	}
 
