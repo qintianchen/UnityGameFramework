@@ -1,16 +1,21 @@
 using System;
 
-public class AssetTicker : SingletonBehaviour<AssetTicker>
+namespace QTC
 {
-	private void Start()
+	/// 为AssetBundle管理器提供一个Unity运行时生命周期的环境
+	public class AssetTicker : SingletonBehaviour<AssetTicker>
 	{
-		DontDestroyOnLoad(this);
-	}
+		private void Start()
+		{
+			DontDestroyOnLoad(this);
+		}
 
-	public Action onUpdate;
+		public Action onUpdate;
 	
-	private void Update()
-	{
-		onUpdate?.Invoke();
+		private void Update()
+		{
+			onUpdate?.Invoke();
+		}
 	}
 }
+

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1667312651
+CRC: 722526549
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 18c72c99f94588925126ca94622187de
+    Hash: 511616efc4ceb645bf822de3510b41e7
   TypeTreeHash:
     serializedVersion: 2
-    Hash: c7c8f23525276bfcbf101883644800a3
+    Hash: 357002b3b5d821a7b90e42d919d1ec65
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -15,23 +15,21 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 21
   Script: {instanceID: 0}
-- Class: 28
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
-- Class: 89
+- Class: 65
   Script: {instanceID: 0}
-- Class: 104
-  Script: {instanceID: 0}
-- Class: 114
-  Script: {fileID: 11500000, guid: b5272f3a1fc5f814780c54a8aade4b2f, type: 3}
-- Class: 115
-  Script: {instanceID: 0}
-- Class: 157
-  Script: {instanceID: 0}
-- Class: 196
+- Class: 135
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Content/Scenes/scene_test.unity
-Dependencies: []
+- Assets/Content/Environment/Prefabs/prefab_cube.prefab
+- Assets/Content/Environment/Prefabs/prefab_sphere.prefab
+Dependencies:
+- D:/program/Github/UnityGameFramework/Assets/StreamingAssets/AssetBundles/content_environment_materials

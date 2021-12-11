@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 2630670025
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b04af6db66cabedc93b6b37fbe18a9d8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5651999fa58938ac55fc849c3d2539bc
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Content/Environment/Materials/mat_common_red.mat
+- Assets/Content/Environment/Materials/mat_common_green.mat
+Dependencies:
+- D:/program/Github/UnityGameFramework/Assets/StreamingAssets/AssetBundles/content_shaders
