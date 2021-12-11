@@ -2,12 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 using Object = UnityEngine.Object;
-using SerializationHelper;
 
 public class AssetManager : SingleTon<AssetManager>
 {
@@ -43,17 +42,9 @@ public class AssetManager : SingleTon<AssetManager>
 		AssetTicker.Instance.onUpdate += Update;
 		isInited = true;
 		onInit?.Invoke();
-		
-		foreach (var keyValuePair in assetName_assetPath)
-		{
-			Debug.Log($"{keyValuePair.Key}:{keyValuePair.Value}");
-		}
 
-		Debug.Log($"**************");
-		foreach (var keyValuePair in assetName_assetBundleName)
-		{
-			Debug.Log($"{keyValuePair.Key}:{keyValuePair.Value}");
-		}
+		// Debug.Log($"assetName_assetPath = \n{JsonConvert.SerializeObject(assetName_assetPath, Formatting.Indented)}");
+		// Debug.Log($"assetName_assetBundleName = \n{JsonConvert.SerializeObject(assetName_assetBundleName, Formatting.Indented)}");
 	}
 
 	public IEnumerator InitAssetNameMap()
@@ -133,17 +124,13 @@ public class AssetManager : SingleTon<AssetManager>
 	private void Update()
 	{
 		List<string> keysToRemove = new List<string>();
-		
+
 		// 先遍历正在加载中的 AssetBundle
 		foreach (var keyValuePair in assetBundleName_loadingAssetBundle)
 		{
 			if (keyValuePair.Value.request.isDone)
 			{
 				keysToRemove.Add(keyValuePair.Key);
-				if (keyValuePair.Value == null)
-				{
-					Debug.LogError($"这里怎么会报错");
-				}
 				keyValuePair.Value?.onLoaded();
 			}
 		}
@@ -152,6 +139,7 @@ public class AssetManager : SingleTon<AssetManager>
 		{
 			assetBundleName_loadingAssetBundle.Remove(key);
 		}
+		
 		keysToRemove.Clear();
 
 		// 再遍历正在加载中的 Asset
@@ -163,11 +151,12 @@ public class AssetManager : SingleTon<AssetManager>
 				keyValuePair.Value?.onLoaded();
 			}
 		}
-		
+
 		foreach (var key in keysToRemove)
 		{
 			assetName_loadingAsset.Remove(key);
 		}
+
 		keysToRemove.Clear();
 	}
 
