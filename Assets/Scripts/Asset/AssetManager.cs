@@ -2,12 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
-using Formatting = Unity.Plastic.Newtonsoft.Json.Formatting;
-using JsonConvert = Unity.Plastic.Newtonsoft.Json.JsonConvert;
 using Object = UnityEngine.Object;
 
 // 在这个管理器中，我们有以下命名约定：
@@ -49,11 +48,12 @@ namespace QTC
 			}
 		}
 		private AssetMode assetModeInEditor = AssetMode.AssetBundle; // 指示编辑器使用AssetBundleMode，否则默认走AssetDataBase机制
-		private Dictionary<string, string> assetName_assetFullName; // 资源名字和资源路径的对应关系
-		private Dictionary<string, string> assetName_assetBundleFullName; // 资源名字和资源路径的对应关系
+		private Dictionary<string, string> assetName_assetFullName;
+		private Dictionary<string, string> assetName_assetBundleName;
+		private Dictionary<string, string> assetBundleName_assetBundleFullName;
 		private Dictionary<string, AssetBundleRequestWrap> assetName_loadingAsset; // 正在从AssetBundle中加载的AssetBundle
-		private Dictionary<string, AssetBundleCreateRequestWrap> assetBundleFullName_loadingAssetBundle; // 正在加载的AssetBundle
-		private Dictionary<string, AssetBundle> assetBundleFullName_loadedAssetBundle; // 已经加载了的AssetBundle
+		private Dictionary<string, AssetBundleCreateRequestWrap> assetBundleName_loadingAssetBundle; // 正在加载的AssetBundle
+		private Dictionary<string, AssetBundle> assetBundleName_loadedAssetBundle; // 已经加载了的AssetBundle
 		private AssetBundleManifest assetBundleManifest; // 资源的依赖关系
 
 		public bool isInited = false; // 指示资源管理器是否初始化过
@@ -64,9 +64,9 @@ namespace QTC
 		public IEnumerator Init()
 		{
 			yield return InitAssetNameMap();
-			assetBundleFullName_loadingAssetBundle = new Dictionary<string, AssetBundleCreateRequestWrap>();
 			assetName_loadingAsset = new Dictionary<string, AssetBundleRequestWrap>();
-			assetBundleFullName_loadedAssetBundle = new Dictionary<string, AssetBundle>();
+			assetBundleName_loadingAssetBundle = new Dictionary<string, AssetBundleCreateRequestWrap>();
+			assetBundleName_loadedAssetBundle = new Dictionary<string, AssetBundle>();
 			AssetTicker.Instance.onUpdate += Update;
 
 			LoadAssetAsync<AssetBundleManifest>("AssetBundleManifest", manifest =>
@@ -74,9 +74,6 @@ namespace QTC
 				assetBundleManifest = manifest;
 				isInited = true;
 				onInit?.Invoke();
-
-				// Debug.Log($"manifest = {JsonConvert.SerializeObject(manifest.GetAllDependencies("content_environment_prefabs"), Formatting.Indented)}");
-				// Debug.Log($"manifest = {JsonConvert.SerializeObject(manifest.GetDirectDependencies("content_environment_prefabs"), Formatting.Indented)}");
 			});
 			
 		}
@@ -112,10 +109,9 @@ namespace QTC
 
 		public void UnLoadAssetBundle(string assetBundleName)
 		{
-			var assetBundleFullName = Path.Combine(ASSETBUNDLE_DIR, assetBundleName).Replace("\\", "/");
-			if (assetBundleFullName_loadedAssetBundle.TryGetValue(assetBundleFullName, out var assetBundle))
+			if (assetBundleName_loadedAssetBundle.TryGetValue(assetBundleName, out var assetBundle))
 			{
-				assetBundleFullName_loadedAssetBundle.Remove(assetBundleFullName);
+				assetBundleName_loadedAssetBundle.Remove(assetBundleName);
 				assetBundle.Unload(true);
 			}
 		}
@@ -125,7 +121,8 @@ namespace QTC
 		private IEnumerator InitAssetNameMap()
 		{
 			assetName_assetFullName = new Dictionary<string, string>();
-			assetName_assetBundleFullName = new Dictionary<string, string>();
+			assetName_assetBundleName = new Dictionary<string, string>();
+			assetBundleName_assetBundleFullName = new Dictionary<string, string>();
 #if UNITY_EDITOR
 			if (assetModeInEditor == AssetMode.AssetBundle)
 			{
@@ -140,7 +137,7 @@ namespace QTC
 #endif
 
 			Debug.Log($"assetName_assetFullName = {JsonConvert.SerializeObject(assetName_assetFullName, Formatting.Indented)}");
-			Debug.Log($"assetName_assetBundleFullName = {JsonConvert.SerializeObject(assetName_assetBundleFullName, Formatting.Indented)}");
+			Debug.Log($"assetName_assetBundleFullName = {JsonConvert.SerializeObject(assetName_assetBundleName, Formatting.Indented)}");
 		}
 
 		private IEnumerator InitAssetNameMapInAssetBundleMode()
@@ -158,8 +155,10 @@ namespace QTC
 					if (cells.Length == 2 && !string.IsNullOrEmpty(cells[0]) && !string.IsNullOrEmpty(cells[1]))
 					{
 						var assetName = Path.GetFileNameWithoutExtension(cells[0]);
+						var assetBundleName = AssetHelper.DirectoryPathToAssetBundleName(cells[1]);
 						assetName_assetFullName[assetName] = Path.Combine(cells[1], cells[0]).Replace("\\", "/");
-						assetName_assetBundleFullName[assetName] = Path.Combine(ASSETBUNDLE_DIR, AssetHelper.DirectoryPathToAssetBundleName(cells[1])).Replace("\\", "/");
+						assetName_assetBundleName[assetName] = assetBundleName;
+						assetBundleName_assetBundleFullName[assetBundleName] = Path.Combine(ASSETBUNDLE_DIR, assetBundleName).Replace("\\", "/");
 					}
 				}
 			}
@@ -167,7 +166,8 @@ namespace QTC
 			var dirs = ASSETBUNDLE_DIR.Split('/');
 			var manifestAssetBundleName = dirs[dirs.Length - 1];
 			assetName_assetFullName["AssetBundleManifest"] = "AssetBundleManifest";
-			assetName_assetBundleFullName["AssetBundleManifest"] = Path.Combine(ASSETBUNDLE_DIR, manifestAssetBundleName);
+			assetName_assetBundleName["AssetBundleManifest"] = manifestAssetBundleName;
+			assetBundleName_assetBundleFullName[manifestAssetBundleName] = Path.Combine(ASSETBUNDLE_DIR, manifestAssetBundleName).Replace("\\", "/");
 		}
 
 		private void InitAssetNameMapInAssetDataBaseMode()
@@ -194,34 +194,25 @@ namespace QTC
 			List<string> keysToRemove = new List<string>();
 
 			// 先遍历正在加载中的 AssetBundle
-			foreach (var keyValuePair in assetBundleFullName_loadingAssetBundle)
+			foreach (var keyValuePair in assetBundleName_loadingAssetBundle.Where(keyValuePair => keyValuePair.Value.isDone))
 			{
-				if (keyValuePair.Value.isDone)
-				{
-					Debug.Log($"完成加载AssetBundle: {keyValuePair.Key}");
-					keysToRemove.Add(keyValuePair.Key);
-					keyValuePair.Value.onLoaded?.Invoke(keyValuePair.Value.request.assetBundle);
-					assetBundleFullName_loadedAssetBundle[keyValuePair.Key] = keyValuePair.Value.request.assetBundle;
-				}
+				keysToRemove.Add(keyValuePair.Key);
+				keyValuePair.Value.onLoaded?.Invoke(keyValuePair.Value.request.assetBundle);
+				assetBundleName_loadedAssetBundle[keyValuePair.Key] = keyValuePair.Value.request.assetBundle;
 			}
-
 			foreach (var key in keysToRemove)
 			{
-				assetBundleFullName_loadingAssetBundle.Remove(key);
+				assetBundleName_loadingAssetBundle.Remove(key);
 			}
 
 			keysToRemove.Clear();
 
 			// 再遍历正在加载中的 Asset
-			foreach (var keyValuePair in assetName_loadingAsset)
+			foreach (var keyValuePair in assetName_loadingAsset.Where(keyValuePair => keyValuePair.Value.request.isDone))
 			{
-				if (keyValuePair.Value.request.isDone)
-				{
-					keysToRemove.Add(keyValuePair.Key);
-					keyValuePair.Value?.onLoaded(keyValuePair.Value.request.asset);
-				}
+				keysToRemove.Add(keyValuePair.Key);
+				keyValuePair.Value?.onLoaded(keyValuePair.Value.request.asset);
 			}
-
 			foreach (var key in keysToRemove)
 			{
 				assetName_loadingAsset.Remove(key);
@@ -232,17 +223,17 @@ namespace QTC
 
 		private void LoadAssetAsyncInAssetBundleMode<T>(string assetName, Action<T> onLoaded) where T : Object
 		{
-			if (!assetName_assetBundleFullName.TryGetValue(assetName, out var assetBundleFullName))
+			if (!assetName_assetBundleName.TryGetValue(assetName, out var assetBundleName))
 			{
 				Debug.LogError($"Fail to find asset, assetName = {assetName}");
 				return;
 			}
 
-			if (assetBundleFullName_loadedAssetBundle.TryGetValue(assetBundleFullName, out var assetBundle))
+			if (assetBundleName_loadedAssetBundle.TryGetValue(assetBundleName, out var assetBundle))
 			{
 				LoadAssetFromAssetBundle(assetName, assetBundle, onLoaded);
 			}
-			else if(assetBundleFullName_loadingAssetBundle.TryGetValue(assetBundleFullName, out var createRequestWrap))
+			else if(assetBundleName_loadingAssetBundle.TryGetValue(assetBundleName, out var createRequestWrap))
 			{
 				createRequestWrap.onLoaded += assetBundle2 =>
 				{
@@ -251,7 +242,7 @@ namespace QTC
 			}
 			else
 			{
-				LoadAssetBundleAsync(assetBundleFullName, assetBundle2 =>
+				LoadAssetBundleAsync(assetBundleName, assetBundle2 =>
 				{
 					LoadAssetFromAssetBundle(assetName, assetBundle2, onLoaded);
 				});
@@ -294,9 +285,10 @@ namespace QTC
 			}
 		}
 
-		private List<AssetBundleCreateRequestWrap> LoadAssetBundleAsync(string assetBundleFullName, Action<AssetBundle> onLoaded)
+		private List<AssetBundleCreateRequestWrap> LoadAssetBundleAsync(string assetBundleName, Action<AssetBundle> onLoaded)
 		{
-			if (assetBundleFullName_loadedAssetBundle.TryGetValue(assetBundleFullName, out var assetBundle))
+			var assetBundleFullName = assetBundleName_assetBundleFullName[assetBundleName];
+			if (assetBundleName_loadedAssetBundle.TryGetValue(assetBundleFullName, out var assetBundle))
 			{
 				onLoaded?.Invoke(assetBundle);
 				return null;
@@ -305,23 +297,23 @@ namespace QTC
 			var request = AssetBundle.LoadFromFileAsync(assetBundleFullName);
 			if (request.isDone)
 			{
-				assetBundleFullName_loadedAssetBundle[assetBundleFullName] = request.assetBundle;
+				assetBundleName_loadedAssetBundle[assetBundleName] = request.assetBundle;
 				onLoaded?.Invoke(request.assetBundle);
 			}
 			else
 			{
 				var requestWrap = new AssetBundleCreateRequestWrap(request);
 				requestWrap.onLoaded += onLoaded;
-				assetBundleFullName_loadingAssetBundle[assetBundleFullName] = requestWrap;
+				assetBundleName_loadingAssetBundle[assetBundleName] = requestWrap;
 				
 				if (assetBundleManifest != null)
 				{
-					string[] assetBundleNames = assetBundleManifest.GetAllDependencies(assetBundleFullName);
-					Debug.Log($"获取依赖：{assetBundleFullName} =>\n{JsonConvert.SerializeObject(assetBundleNames, Formatting.Indented)}");
+					string[] assetBundleNames = assetBundleManifest.GetDirectDependencies(assetBundleName);
+					Debug.Log($"获取依赖：{assetBundleName} =>\n{JsonConvert.SerializeObject(assetBundleNames, Formatting.Indented)}");
 					List<AssetBundleCreateRequestWrap> unLoadedDeps = new List<AssetBundleCreateRequestWrap>();
-					foreach (var assetBundleName in assetBundleNames)
+					foreach (var assetBundleName2 in assetBundleNames)
 					{
-						List<AssetBundleCreateRequestWrap> requestWraps = LoadAssetBundleAsync(Path.Combine(ASSETBUNDLE_DIR, assetBundleName).Replace("\\", "/"), null);
+						List<AssetBundleCreateRequestWrap> requestWraps = LoadAssetBundleAsync(assetBundleName2, null);
 						if (requestWraps != null)
 						{
 							unLoadedDeps.AddRange(requestWraps);
