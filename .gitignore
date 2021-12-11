@@ -2,7 +2,6 @@ Library
 UserSettings
 Logs
 Temp
-*.meta
 *.sln
 .idea
 obj
