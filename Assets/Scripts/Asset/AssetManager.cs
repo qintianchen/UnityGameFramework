@@ -10,13 +10,13 @@ using UnityEngine.Networking;
 using Object = UnityEngine.Object;
 
 // 在这个管理器中，我们有以下命名约定：
-// fileFullName =		"Assets/Content/Environment/Prefabs/prefab_cube.prefab"		是指带后缀的文件全路径
-// fileName =			"prefab_cube.prefab"										是指带后缀的文件名
-// filePath =			"Assets/Content/Environment/Prefabs"						是指文件所在的目录路径
-// assetName =			"prefab_cube"												是指资源名，也同时是不带后缀的文件名
-// assetFullName =		"Assets/Content/Environment/Prefabs/prefab_cube.prefab"		与fileFullName，带后缀的文件全路径
-// assetBundleName =	"content_environment_prefabs"								AssetBundle名称，是经过转换的filePath
-// assetBundleFullName =	"Assets/StreamingAssets/content_environment_prefabs"	AssetBundle全路径名称
+// fileFullName =         "Assets/Content/Environment/Prefabs/prefab_cube.prefab"       是指带后缀的文件全路径
+// fileName =             "prefab_cube.prefab"                                          是指带后缀的文件名
+// filePath =             "Assets/Content/Environment/Prefabs"                          是指文件所在的目录路径
+// assetName =            "prefab_cube"                                                 是指资源名，也同时是不带后缀的文件名
+// assetFullName =	      "Assets/Content/Environment/Prefabs/prefab_cube.prefab"       与fileFullName，带后缀的文件全路径
+// assetBundleName =	  "content_environment_prefabs"                                 AssetBundle名称，是经过转换的filePath
+// assetBundleFullName =  "Assets/StreamingAssets/content_environment_prefabs"          AssetBundle全路径名称
 
 namespace QTC
 {
@@ -36,9 +36,10 @@ namespace QTC
 			"Assets/Content/Scenes",
 			"Assets/Content/Shaders",
 		};
-		
+
 		private string m_ASSETBUNDLE_DIR;
-		public string ASSETBUNDLE_DIR
+
+		public string ASSETBUNDLE_DIR // AssetBundle的生成目录
 		{
 			get
 			{
@@ -47,73 +48,45 @@ namespace QTC
 				return m_ASSETBUNDLE_DIR;
 			}
 		}
+
 		private AssetMode assetModeInEditor = AssetMode.AssetBundle; // 指示编辑器使用AssetBundleMode，否则默认走AssetDataBase机制
-		private Dictionary<string, string> assetName_assetFullName;
-		private Dictionary<string, string> assetName_assetBundleName;
-		private Dictionary<string, string> assetBundleName_assetBundleFullName;
-		private Dictionary<string, AssetBundleRequestWrap> assetName_loadingAsset; // 正在从AssetBundle中加载的AssetBundle
-		private Dictionary<string, AssetBundleCreateRequestWrap> assetBundleName_loadingAssetBundle; // 正在加载的AssetBundle
-		private Dictionary<string, AssetBundle> assetBundleName_loadedAssetBundle; // 已经加载了的AssetBundle
+		public Dictionary<string, string> assetName_assetFullName;
+		public Dictionary<string, string> assetName_assetBundleName;
+		public Dictionary<string, string> assetBundleName_assetBundleFullName;
+
+		private Queue<AssetBundleWrap> assetBundlesToLoad; // 准备被加载的AssetBundle队列
+		private Dictionary<string, AssetBundleWrap> assetBundleName_loadingAssetBundle; // 正在加载的AssetBundle
+		private Dictionary<string, AssetBundleWrap> assetBundleName_loadedAssetBundle; // 加载完成的AssetBundle
+		private Dictionary<string, AssetBundleWrap> assetBundleName_assetBundleToRemove; // 准备卸载的AssetBundle
+
 		private AssetBundleManifest assetBundleManifest; // 资源的依赖关系
+
+		public int MAX_ASSETBUNDLE_LOAD_PER_FRAME = 32;
 
 		public bool isInited = false; // 指示资源管理器是否初始化过
 		public Action onInit;
 
 		#endregion
-		
+
 		public IEnumerator Init()
 		{
 			yield return InitAssetNameMap();
-			assetName_loadingAsset = new Dictionary<string, AssetBundleRequestWrap>();
-			assetBundleName_loadingAssetBundle = new Dictionary<string, AssetBundleCreateRequestWrap>();
-			assetBundleName_loadedAssetBundle = new Dictionary<string, AssetBundle>();
+			assetBundleName_loadingAssetBundle = new Dictionary<string, AssetBundleWrap>();
+			assetBundleName_loadedAssetBundle = new Dictionary<string, AssetBundleWrap>();
+			assetBundleName_assetBundleToRemove = new Dictionary<string, AssetBundleWrap>();
+			// assetBundleName_loadingAssetBundle = new Dictionary<string, AssetBundleCreateRequestWrap>();
+			// assetBundleName_loadedAssetBundle = new Dictionary<string, AssetBundle>();
 			AssetTicker.Instance.onUpdate += Update;
 
-			LoadAssetAsync<AssetBundleManifest>("AssetBundleManifest", manifest =>
-			{
-				assetBundleManifest = manifest;
-				isInited = true;
-				onInit?.Invoke();
-			});
-			
-		}
-		
-		public void LoadAssetAsync<T>(string assetName, Action<T> onLoaded) where T : Object
-		{
-#if UNITY_EDITOR
-			if (assetModeInEditor == AssetMode.AssetDataBase)
-			{
-				if (!assetName_assetFullName.TryGetValue(assetName, out var assetPath))
-				{
-					Debug.LogError($"无法找到资源:{assetName}");
-					return;
-				}
+			var assetBundle = AssetBundle.LoadFromFile(assetName_assetBundleName["AssetBundleManifest"]);
+			assetBundleManifest = assetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
 
-				T asset = AssetDatabase.LoadAssetAtPath<T>(assetPath);
-				if (asset == null)
-				{
-					Debug.LogError($"无法正确加载资源：assetPath = {assetPath}, type = {typeof(T).Name}");
-					return;
-				}
-
-				onLoaded(asset);
-			}
-			else
-			{
-				LoadAssetAsyncInAssetBundleMode(assetName, onLoaded);
-			}
-#else
-		LoadAssetAsyncInAssetBundleMode(assetName, onLoaded);
-#endif
-		}
-
-		public void UnLoadAssetBundle(string assetBundleName)
-		{
-			if (assetBundleName_loadedAssetBundle.TryGetValue(assetBundleName, out var assetBundle))
-			{
-				assetBundleName_loadedAssetBundle.Remove(assetBundleName);
-				assetBundle.Unload(true);
-			}
+			// LoadAssetAsync<AssetBundleManifest>("AssetBundleManifest", manifest =>
+			// {
+			// 	assetBundleManifest = manifest;
+			// 	isInited = true;
+			// 	onInit?.Invoke();
+			// });
 		}
 
 		#region private
@@ -162,7 +135,7 @@ namespace QTC
 					}
 				}
 			}
-			
+
 			var dirs = ASSETBUNDLE_DIR.Split('/');
 			var manifestAssetBundleName = dirs[dirs.Length - 1];
 			assetName_assetFullName["AssetBundleManifest"] = "AssetBundleManifest";
@@ -189,145 +162,94 @@ namespace QTC
 			}
 		}
 
+		private void LoadAssetBundleAsync(string assetBundleName, Action<AssetBundle> onLoaded)
+		{
+			if (!assetBundleName_assetBundleFullName.TryGetValue(assetBundleName, out var assetBundleFullName))
+			{
+				Debug.LogError($"Fail to find assetBundle, assetBundleName ={assetBundleName}");
+				return;
+			}
+
+			var wrap = new AssetBundleWrap(assetBundleName, assetBundleFullName, onLoaded);
+			assetBundlesToLoad.Enqueue(wrap);
+		}
+
 		private void Update()
 		{
-			List<string> keysToRemove = new List<string>();
-
-			// 先遍历正在加载中的 AssetBundle
-			foreach (var keyValuePair in assetBundleName_loadingAssetBundle.Where(keyValuePair => keyValuePair.Value.isDone))
+			// 从预加载队列中取出指定数量的AssetBundle进行加载
+			for (int i = 0; i < MAX_ASSETBUNDLE_LOAD_PER_FRAME; i++)
 			{
-				keysToRemove.Add(keyValuePair.Key);
-				keyValuePair.Value.onLoaded?.Invoke(keyValuePair.Value.request.assetBundle);
-				assetBundleName_loadedAssetBundle[keyValuePair.Key] = keyValuePair.Value.request.assetBundle;
+				AssetBundleWrap wrap = assetBundlesToLoad.Dequeue();
+				if (wrap == null)
+				{
+					return;
+				}
+
+				if (wrap.isDone)
+				{
+					wrap.onLoaded?.Invoke(wrap.request.assetBundle);
+					assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
+				}
+				else
+				{
+					wrap.Load();
+					if (wrap.isDone)
+					{
+						wrap.onLoaded?.Invoke(wrap.request.assetBundle);
+						assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
+					}
+					else
+					{
+						assetBundleName_loadingAssetBundle[wrap.assetBundleName] = wrap;
+					}
+				}
 			}
-			foreach (var key in keysToRemove)
+			
+			// 遍历正在加载的列表
+			List<string> keys = new List<string>();
+			foreach (var keyValuePair in assetBundleName_loadingAssetBundle)
+			{
+				var wrap = keyValuePair.Value;
+				if (wrap.isDone)
+				{
+					wrap.onLoaded?.Invoke(wrap.request.assetBundle);
+					assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
+					keys.Add(keyValuePair.Key);
+				}
+			}
+			foreach (var key in keys)
 			{
 				assetBundleName_loadingAssetBundle.Remove(key);
 			}
-
-			keysToRemove.Clear();
-
-			// 再遍历正在加载中的 Asset
-			foreach (var keyValuePair in assetName_loadingAsset.Where(keyValuePair => keyValuePair.Value.request.isDone))
-			{
-				keysToRemove.Add(keyValuePair.Key);
-				keyValuePair.Value?.onLoaded(keyValuePair.Value.request.asset);
-			}
-			foreach (var key in keysToRemove)
-			{
-				assetName_loadingAsset.Remove(key);
-			}
-
-			keysToRemove.Clear();
 		}
 
-		private void LoadAssetAsyncInAssetBundleMode<T>(string assetName, Action<T> onLoaded) where T : Object
+		public void UnloadAllUnusedAssetBundle()
 		{
-			if (!assetName_assetBundleName.TryGetValue(assetName, out var assetBundleName))
+			List<string> keys = new List<string>();
+			foreach (var keyValuePair in assetBundleName_loadedAssetBundle)
 			{
-				Debug.LogError($"Fail to find asset, assetName = {assetName}");
-				return;
-			}
-
-			if (assetBundleName_loadedAssetBundle.TryGetValue(assetBundleName, out var assetBundle))
-			{
-				LoadAssetFromAssetBundle(assetName, assetBundle, onLoaded);
-			}
-			else if(assetBundleName_loadingAssetBundle.TryGetValue(assetBundleName, out var createRequestWrap))
-			{
-				createRequestWrap.onLoaded += assetBundle2 =>
+				var wrap = keyValuePair.Value;
+				if (wrap.refCount == 0)
 				{
-					LoadAssetFromAssetBundle(assetName, assetBundle2, onLoaded);
-				};
-			}
-			else
-			{
-				LoadAssetBundleAsync(assetBundleName, assetBundle2 =>
-				{
-					LoadAssetFromAssetBundle(assetName, assetBundle2, onLoaded);
-				});
-			}
-		}
-
-		private void LoadAssetFromAssetBundle<T>(string assetName, AssetBundle assetBundle, Action<T> onLoaded) where T : Object
-		{
-			if (!assetName_assetFullName.TryGetValue(assetName, out var assetFullName))
-			{
-				Debug.LogError($"Fail to find asset, assetName = {assetName}");
-				return;
-			}
-
-			if (assetName_loadingAsset.TryGetValue(assetName, out var requestWrap))
-			{
-				requestWrap.onLoaded += asset =>
-				{
-					var obj = asset as T;
-					onLoaded?.Invoke(obj);
-				};
-				return;
-			}
-			
-			var request = assetBundle.LoadAssetAsync<T>(assetFullName);
-			if (request.isDone)
-			{
-				var obj = request.asset as T;
-				onLoaded?.Invoke(obj);
-			}
-			else
-			{
-				requestWrap = new AssetBundleRequestWrap(request);
-				requestWrap.onLoaded += asset =>
-				{
-					var obj = asset as T;
-					onLoaded?.Invoke(obj);
-				};
-				assetName_loadingAsset[assetName] = requestWrap;
-			}
-		}
-
-		private List<AssetBundleCreateRequestWrap> LoadAssetBundleAsync(string assetBundleName, Action<AssetBundle> onLoaded)
-		{
-			var assetBundleFullName = assetBundleName_assetBundleFullName[assetBundleName];
-			if (assetBundleName_loadedAssetBundle.TryGetValue(assetBundleFullName, out var assetBundle))
-			{
-				onLoaded?.Invoke(assetBundle);
-				return null;
-			}
-			
-			var request = AssetBundle.LoadFromFileAsync(assetBundleFullName);
-			if (request.isDone)
-			{
-				assetBundleName_loadedAssetBundle[assetBundleName] = request.assetBundle;
-				onLoaded?.Invoke(request.assetBundle);
-			}
-			else
-			{
-				var requestWrap = new AssetBundleCreateRequestWrap(request);
-				requestWrap.onLoaded += onLoaded;
-				assetBundleName_loadingAssetBundle[assetBundleName] = requestWrap;
-				
-				if (assetBundleManifest != null)
-				{
-					string[] assetBundleNames = assetBundleManifest.GetDirectDependencies(assetBundleName);
-					Debug.Log($"获取依赖：{assetBundleName} =>\n{JsonConvert.SerializeObject(assetBundleNames, Formatting.Indented)}");
-					List<AssetBundleCreateRequestWrap> unLoadedDeps = new List<AssetBundleCreateRequestWrap>();
-					foreach (var assetBundleName2 in assetBundleNames)
-					{
-						List<AssetBundleCreateRequestWrap> requestWraps = LoadAssetBundleAsync(assetBundleName2, null);
-						if (requestWraps != null)
-						{
-							unLoadedDeps.AddRange(requestWraps);
-						}
-					}
-					requestWrap.dependencies = unLoadedDeps;
-					return unLoadedDeps;
+					keys.Add(wrap.assetBundleName);
+					assetBundleName_assetBundleToRemove[wrap.assetBundleName] = wrap;
 				}
 			}
-
-			return null;
+			
+			foreach (var key in keys)
+			{
+				assetBundleName_loadedAssetBundle.Remove(key);
+			}
+			
+			// 总感觉以后要对ToRemoe做什么事情，现在就直接立即清空好了
+			foreach (var keyValuePair in assetBundleName_assetBundleToRemove)
+			{
+				keyValuePair.Value.UnLoad();
+			}
+			
+			assetBundleName_assetBundleToRemove.Clear();
 		}
-
-		#endregion
 		
+		#endregion
 	}
 }
