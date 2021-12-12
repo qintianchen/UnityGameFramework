@@ -6,6 +6,15 @@ using Object = UnityEngine.Object;
 
 namespace QTC
 {
+	// 仅仅是用来打印信息的
+	public struct AssetBundleWrapInfo
+	{
+		public string assetBundleName;
+		public List<string> deps;
+		public List<string> abRefs;
+		public List<string> objRefs;
+	}
+	
 	public class AssetBundleWrap
 	{
 		public string assetBundleName;
@@ -49,6 +58,8 @@ namespace QTC
 			this.onLoaded = onLoaded;
 
 			deps = new List<AssetBundleWrap>();
+			abRefs = new List<AssetBundleWrap>();
+			objRefs = new List<Object>();
 		}
 		
 		public void Load()
@@ -66,8 +77,6 @@ namespace QTC
 			request.assetBundle.Unload(true);
 		}
 	}
-	
-	
 	
 	public class AssetBundleCreateRequestWrap
 	{

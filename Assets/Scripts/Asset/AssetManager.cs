@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
 // 在这个管理器中，我们有以下命名约定：
@@ -20,6 +21,8 @@ using Object = UnityEngine.Object;
 
 namespace QTC
 {
+	
+	
 	public class AssetManager : SingleTon<AssetManager>
 	{
 		#region 属性
@@ -71,6 +74,7 @@ namespace QTC
 		public IEnumerator Init()
 		{
 			yield return InitAssetNameMap();
+			assetBundlesToLoad = new Queue<AssetBundleWrap>();
 			assetBundleName_loadingAssetBundle = new Dictionary<string, AssetBundleWrap>();
 			assetBundleName_loadedAssetBundle = new Dictionary<string, AssetBundleWrap>();
 			assetBundleName_assetBundleToRemove = new Dictionary<string, AssetBundleWrap>();
@@ -78,8 +82,14 @@ namespace QTC
 			// assetBundleName_loadedAssetBundle = new Dictionary<string, AssetBundle>();
 			AssetTicker.Instance.onUpdate += Update;
 
-			var assetBundle = AssetBundle.LoadFromFile(assetName_assetBundleName["AssetBundleManifest"]);
+			var assetBundle = AssetBundle.LoadFromFile(assetBundleName_assetBundleFullName[assetName_assetBundleName["AssetBundleManifest"]]);
 			assetBundleManifest = assetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+			
+			LoadAssetBundleAsync("content_environment_prefabs", bundle =>
+			{
+				Debug.Log($"加载完成: {bundle.name}");
+				Debug.Log($"info = {GetLoadedAssetBundlesInfo()}");
+			});
 
 			// LoadAssetAsync<AssetBundleManifest>("AssetBundleManifest", manifest =>
 			// {
@@ -162,16 +172,39 @@ namespace QTC
 			}
 		}
 
-		private void LoadAssetBundleAsync(string assetBundleName, Action<AssetBundle> onLoaded)
+		private AssetBundleWrap LoadAssetBundleAsync(string assetBundleName, Action<AssetBundle> onLoaded)
 		{
 			if (!assetBundleName_assetBundleFullName.TryGetValue(assetBundleName, out var assetBundleFullName))
 			{
 				Debug.LogError($"Fail to find assetBundle, assetBundleName ={assetBundleName}");
-				return;
+				return null;
 			}
 
+			if (assetBundleName_loadedAssetBundle.TryGetValue(assetBundleName, out var assetBundleWrap))
+			{
+				return assetBundleWrap;
+			}
+			
+			if (assetBundleName_loadingAssetBundle.TryGetValue(assetBundleName, out var assetBundleWrap2))
+			{
+				return assetBundleWrap2;
+			}
+			
+			// 生成AssetBundleWrap
 			var wrap = new AssetBundleWrap(assetBundleName, assetBundleFullName, onLoaded);
+			
+			// 先添加依赖到队列
+			string[] assetBundleNames = assetBundleManifest.GetDirectDependencies(wrap.assetBundleName);
+			foreach (var assetBundleName2 in assetBundleNames)
+			{
+				var wrap2 = LoadAssetBundleAsync(assetBundleName2, null);
+				wrap.deps.Add(wrap2);
+				wrap2.abRefs.Add(wrap);
+			}
+			
+			// 再把自己添加进队列
 			assetBundlesToLoad.Enqueue(wrap);
+			return wrap;
 		}
 
 		private void Update()
@@ -179,30 +212,11 @@ namespace QTC
 			// 从预加载队列中取出指定数量的AssetBundle进行加载
 			for (int i = 0; i < MAX_ASSETBUNDLE_LOAD_PER_FRAME; i++)
 			{
+				if (assetBundlesToLoad.Count == 0)
+					break;
+				
 				AssetBundleWrap wrap = assetBundlesToLoad.Dequeue();
-				if (wrap == null)
-				{
-					return;
-				}
-
-				if (wrap.isDone)
-				{
-					wrap.onLoaded?.Invoke(wrap.request.assetBundle);
-					assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
-				}
-				else
-				{
-					wrap.Load();
-					if (wrap.isDone)
-					{
-						wrap.onLoaded?.Invoke(wrap.request.assetBundle);
-						assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
-					}
-					else
-					{
-						assetBundleName_loadingAssetBundle[wrap.assetBundleName] = wrap;
-					}
-				}
+				StartLoadAssetBundleWrap(wrap);
 			}
 			
 			// 遍历正在加载的列表
@@ -212,14 +226,44 @@ namespace QTC
 				var wrap = keyValuePair.Value;
 				if (wrap.isDone)
 				{
-					wrap.onLoaded?.Invoke(wrap.request.assetBundle);
+					Debug.Log($"完成加载AB:{wrap.request.assetBundle.name}");
 					assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
 					keys.Add(keyValuePair.Key);
+					wrap.onLoaded?.Invoke(wrap.request.assetBundle);
 				}
 			}
 			foreach (var key in keys)
 			{
 				assetBundleName_loadingAssetBundle.Remove(key);
+			}
+		}
+
+		private void StartLoadAssetBundleWrap(AssetBundleWrap wrap)
+		{
+			if (wrap == null)
+			{
+				return;
+			}
+			
+			if (wrap.isDone)
+			{
+				Debug.Log($"完成加载AB:{wrap.request.assetBundle.name}");
+				wrap.onLoaded?.Invoke(wrap.request.assetBundle);
+				assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
+			}
+			else
+			{
+				wrap.Load();
+				if (wrap.isDone)
+				{
+					Debug.Log($"完成加载AB:{wrap.request.assetBundle.name}");
+					wrap.onLoaded?.Invoke(wrap.request.assetBundle);
+					assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
+				}
+				else
+				{
+					assetBundleName_loadingAssetBundle[wrap.assetBundleName] = wrap;
+				}
 			}
 		}
 
@@ -248,6 +292,39 @@ namespace QTC
 			}
 			
 			assetBundleName_assetBundleToRemove.Clear();
+		}
+
+		public string GetLoadedAssetBundlesInfo()
+		{
+			List<AssetBundleWrapInfo> infos = new List<AssetBundleWrapInfo>();
+			foreach (var keyValuePair in assetBundleName_loadedAssetBundle)
+			{
+				var wrap = keyValuePair.Value;
+				var info = new AssetBundleWrapInfo();
+				info.assetBundleName = wrap.assetBundleName;
+				info.deps = new List<string>();
+				info.abRefs = new List<string>();
+				info.objRefs = new List<string>();
+				
+				foreach (var dep in wrap.deps)
+				{
+					info.deps.Add(dep.assetBundleName);
+				}
+				
+				foreach (var abRef in wrap.abRefs)
+				{
+					info.abRefs.Add(abRef.assetBundleName);
+				}
+				
+				foreach (var objRef in wrap.objRefs)
+				{
+					info.objRefs.Add(objRef.name);
+				}
+				
+				infos.Add(info);
+			}
+
+			return JsonConvert.SerializeObject(infos, Formatting.Indented);
 		}
 		
 		#endregion
