@@ -2,12 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
 // 在这个管理器中，我们有以下命名约定：
@@ -19,10 +16,12 @@ using Object = UnityEngine.Object;
 // assetBundleName =	  "content_environment_prefabs"                                 AssetBundle名称，是经过转换的filePath
 // assetBundleFullName =  "Assets/StreamingAssets/content_environment_prefabs"          AssetBundle全路径名称
 
+// 打包策略里面，我们规定一个目录会被打成一个assetBundle，故目录下不能存在同名的资源（即使不同扩展名）
+// assetBundle的名字由目录的路径唯一确定
+// 上层只需要传文件名，即可加载出资源，由上层业务决定资源具体是什么类型。比如 icon.png 可以是 Sprite，也可以是 Texture2D
+
 namespace QTC
 {
-	
-	
 	public class AssetManager : SingleTon<AssetManager>
 	{
 		#region 属性
@@ -61,6 +60,8 @@ namespace QTC
 		private Dictionary<string, AssetBundleWrap> assetBundleName_loadingAssetBundle; // 正在加载的AssetBundle
 		private Dictionary<string, AssetBundleWrap> assetBundleName_loadedAssetBundle; // 加载完成的AssetBundle
 		private Dictionary<string, AssetBundleWrap> assetBundleName_assetBundleToRemove; // 准备卸载的AssetBundle
+		private Queue<AssetWrap> assetsToLoad; // 准备被加载的AssetBundle队列
+		private Dictionary<string, AssetWrap> assetName_loadingAsset; // 正在加载的Asset
 
 		private AssetBundleManifest assetBundleManifest; // 资源的依赖关系
 
@@ -73,30 +74,26 @@ namespace QTC
 
 		public IEnumerator Init()
 		{
+			// 初始化一系列名字的映射关系，这个映射关系体现了当前工程的打包策略
 			yield return InitAssetNameMap();
 			assetBundlesToLoad = new Queue<AssetBundleWrap>();
 			assetBundleName_loadingAssetBundle = new Dictionary<string, AssetBundleWrap>();
 			assetBundleName_loadedAssetBundle = new Dictionary<string, AssetBundleWrap>();
 			assetBundleName_assetBundleToRemove = new Dictionary<string, AssetBundleWrap>();
-			// assetBundleName_loadingAssetBundle = new Dictionary<string, AssetBundleCreateRequestWrap>();
-			// assetBundleName_loadedAssetBundle = new Dictionary<string, AssetBundle>();
+			assetsToLoad = new Queue<AssetWrap>();
+			assetName_loadingAsset = new Dictionary<string, AssetWrap>();
 			AssetTicker.Instance.onUpdate += Update;
 
 			var assetBundle = AssetBundle.LoadFromFile(assetBundleName_assetBundleFullName[assetName_assetBundleName["AssetBundleManifest"]]);
 			assetBundleManifest = assetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
-			
-			LoadAssetBundleAsync("content_environment_prefabs", bundle =>
-			{
-				Debug.Log($"加载完成: {bundle.name}");
-				Debug.Log($"info = {GetLoadedAssetBundlesInfo()}");
-			});
 
-			// LoadAssetAsync<AssetBundleManifest>("AssetBundleManifest", manifest =>
-			// {
-			// 	assetBundleManifest = manifest;
-			// 	isInited = true;
-			// 	onInit?.Invoke();
-			// });
+			isInited = true;
+			onInit?.Invoke();
+
+			LoadAssetAsync<GameObject>("prefab_cube", null, asset =>
+			{
+				Debug.Log($"加载出来了Cube: {asset.name}");
+			});
 		}
 
 		#region private
@@ -172,7 +169,61 @@ namespace QTC
 			}
 		}
 
-		private AssetBundleWrap LoadAssetBundleAsync(string assetBundleName, Action<AssetBundle> onLoaded)
+		public AssetWrap LoadAssetAsync<T>(string assetName, Object objRef, Action<T> onLoaded) where T: Object
+		{
+			if (!assetName_assetBundleName.TryGetValue(assetName, out var assetBundleName) || !assetName_assetFullName.TryGetValue(assetName, out var assetFullName))
+			{
+				Debug.LogError($"Failed to find asset, assetName = {assetName}");
+				return null;
+			}
+			
+			// 资源已经在加载中啦，别催啦
+			if (assetName_loadingAsset.TryGetValue(assetName, out var assetWrap))
+			{
+				assetWrap.onLoaded += obj =>
+				{
+					var asset = obj as T;
+					if (asset == null)
+					{
+						Debug.LogError($"Fail to convert asset({asset.name}) to type({typeof(T).Name})");
+						return;
+					}
+
+					onLoaded(asset);
+				};
+				return assetWrap;
+			}
+			
+			// 资源没有在加载中，但是资源所在AssetBundle加载出来了
+			if (assetBundleName_loadedAssetBundle.TryGetValue(assetBundleName, out var assetBundleWrap))
+			{
+				assetWrap = assetBundleWrap.LoadAssetAsync<T>(assetName, assetFullName, objRef, onLoaded);
+				assetName_loadingAsset[assetName] = assetWrap;
+				return assetWrap;
+			}
+		
+			// 资源没有在加载中，资源所在的AssetBundle也在加载中，别催啦
+			if (assetBundleName_loadingAssetBundle.TryGetValue(assetBundleName, out var assetBundleWrap2))
+			{
+				assetBundleWrap2.onLoaded += assetBundle =>
+				{
+					assetWrap = assetBundleWrap2.LoadAssetAsync<T>(assetName, assetFullName, objRef, onLoaded);
+					assetName_loadingAsset[assetName] = assetWrap;
+				};
+				return null;
+			}
+
+			// 资源没在加载，资源所在的AssetBundle也没在加载
+			LoadAssetBundleAsync(assetBundleName, assetBundleWrap =>
+			{
+				assetWrap = assetBundleWrap.LoadAssetAsync(assetName, assetFullName, objRef, onLoaded);
+				assetName_loadingAsset[assetName] = assetWrap;
+			});
+
+			return null;
+		}
+		
+		private AssetBundleWrap LoadAssetBundleAsync(string assetBundleName, Action<AssetBundleWrap> onLoaded)
 		{
 			if (!assetBundleName_assetBundleFullName.TryGetValue(assetBundleName, out var assetBundleFullName))
 			{
@@ -229,13 +280,29 @@ namespace QTC
 					Debug.Log($"完成加载AB:{wrap.request.assetBundle.name}");
 					assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
 					keys.Add(keyValuePair.Key);
-					wrap.onLoaded?.Invoke(wrap.request.assetBundle);
+					wrap.onLoaded?.Invoke(wrap);
 				}
 			}
 			foreach (var key in keys)
 			{
 				assetBundleName_loadingAssetBundle.Remove(key);
 			}
+			keys.Clear();
+			
+			foreach (var keyValuePair in assetName_loadingAsset)
+			{
+				var assetWrap = keyValuePair.Value;
+				if (assetWrap.isDone)
+				{
+					keys.Add(assetWrap.assetName);
+					assetWrap.onLoaded?.Invoke(assetWrap.request.asset);
+				}
+			}
+			foreach (var key in keys)
+			{
+				assetName_loadingAsset.Remove(key);
+			}
+			keys.Clear();
 		}
 
 		private void StartLoadAssetBundleWrap(AssetBundleWrap wrap)
@@ -248,7 +315,7 @@ namespace QTC
 			if (wrap.isDone)
 			{
 				Debug.Log($"完成加载AB:{wrap.request.assetBundle.name}");
-				wrap.onLoaded?.Invoke(wrap.request.assetBundle);
+				wrap.onLoaded?.Invoke(wrap);
 				assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
 			}
 			else
@@ -257,7 +324,7 @@ namespace QTC
 				if (wrap.isDone)
 				{
 					Debug.Log($"完成加载AB:{wrap.request.assetBundle.name}");
-					wrap.onLoaded?.Invoke(wrap.request.assetBundle);
+					wrap.onLoaded?.Invoke(wrap);
 					assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
 				}
 				else
