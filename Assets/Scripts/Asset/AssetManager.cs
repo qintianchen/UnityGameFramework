@@ -40,7 +40,6 @@ namespace QTC
 		};
 
 		private string m_ASSETBUNDLE_DIR;
-
 		public string ASSETBUNDLE_DIR // AssetBundle的生成目录
 		{
 			get
