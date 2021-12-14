@@ -89,10 +89,10 @@ namespace QTC
 			isInited = true;
 			onInit?.Invoke();
 
-			LoadAssetAsync<GameObject>("prefab_cube", null, asset =>
-			{
-				Debug.Log($"加载出来了Cube: {asset.name}");
-			});
+			// LoadAssetAsync<GameObject>("prefab_cube", null, asset =>
+			// {
+			// 	Debug.Log($"加载出来了Cube: {asset.name}");
+			// });
 		}
 
 		#region private
@@ -276,14 +276,14 @@ namespace QTC
 				var wrap = keyValuePair.Value;
 				if (wrap.isDone)
 				{
-					Debug.Log($"完成加载AB:{wrap.request.assetBundle.name}");
-					assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
 					keys.Add(keyValuePair.Key);
-					wrap.onLoaded?.Invoke(wrap);
 				}
 			}
 			foreach (var key in keys)
 			{
+				var wrap = assetBundleName_loadingAssetBundle[key];
+				assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;
+				wrap.onLoaded?.Invoke(wrap);
 				assetBundleName_loadingAssetBundle.Remove(key);
 			}
 			keys.Clear();
@@ -294,11 +294,12 @@ namespace QTC
 				if (assetWrap.isDone)
 				{
 					keys.Add(assetWrap.assetName);
-					assetWrap.onLoaded?.Invoke(assetWrap.request.asset);
 				}
 			}
 			foreach (var key in keys)
 			{
+				var assetWrap = assetName_loadingAsset[key];
+				assetWrap.onLoaded?.Invoke(assetWrap.request.asset);
 				assetName_loadingAsset.Remove(key);
 			}
 			keys.Clear();
@@ -333,6 +334,7 @@ namespace QTC
 			}
 		}
 
+		/// 卸载所有未被引用的AssetBundle
 		public void UnloadAllUnusedAssetBundle()
 		{
 			List<string> keys = new List<string>();
@@ -360,6 +362,7 @@ namespace QTC
 			assetBundleName_assetBundleToRemove.Clear();
 		}
 
+		// 调试用，输出已经加载了AssetBundle信息，Json形式
 		public string GetLoadedAssetBundlesInfo()
 		{
 			List<AssetBundleWrapInfo> infos = new List<AssetBundleWrapInfo>();

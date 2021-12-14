@@ -12,7 +12,7 @@ namespace QTC
 			get
 			{
 #if UNITY_EDITOR
-				return ".";
+				return "./GameLogs";
 #else
 				return Application.persistentDataPath + "/Logs";
 #endif
@@ -24,6 +24,11 @@ namespace QTC
 		
 		public void Init()
 		{
+			if (!Directory.Exists(logDir))
+			{
+				Directory.CreateDirectory(logDir);
+			}
+			
 			var dateStr = DateTime.Now.ToString().Replace("/", "_").Replace(":", "_").Replace(" ", "_");
 			curLogPath = logDir + $"/Log_{dateStr}.txt";
 			File.Create(curLogPath).Close();
