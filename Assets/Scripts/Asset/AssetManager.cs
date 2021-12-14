@@ -22,6 +22,7 @@ using Object = UnityEngine.Object;
 
 namespace QTC
 {
+	// 基于AssetBundle的资产管理
 	public class AssetManager : SingleTon<AssetManager>
 	{
 		#region 属性
@@ -59,7 +60,6 @@ namespace QTC
 		private Dictionary<string, AssetBundleWrap> assetBundleName_loadingAssetBundle; // 正在加载的AssetBundle
 		private Dictionary<string, AssetBundleWrap> assetBundleName_loadedAssetBundle; // 加载完成的AssetBundle
 		private Dictionary<string, AssetBundleWrap> assetBundleName_assetBundleToRemove; // 准备卸载的AssetBundle
-		private Queue<AssetWrap> assetsToLoad; // 准备被加载的AssetBundle队列
 		private Dictionary<string, AssetWrap> assetName_loadingAsset; // 正在加载的Asset
 
 		private AssetBundleManifest assetBundleManifest; // 资源的依赖关系
@@ -79,7 +79,6 @@ namespace QTC
 			assetBundleName_loadingAssetBundle = new Dictionary<string, AssetBundleWrap>();
 			assetBundleName_loadedAssetBundle = new Dictionary<string, AssetBundleWrap>();
 			assetBundleName_assetBundleToRemove = new Dictionary<string, AssetBundleWrap>();
-			assetsToLoad = new Queue<AssetWrap>();
 			assetName_loadingAsset = new Dictionary<string, AssetWrap>();
 			AssetTicker.Instance.onUpdate += Update;
 
@@ -88,11 +87,6 @@ namespace QTC
 
 			isInited = true;
 			onInit?.Invoke();
-
-			// LoadAssetAsync<GameObject>("prefab_cube", null, asset =>
-			// {
-			// 	Debug.Log($"加载出来了Cube: {asset.name}");
-			// });
 		}
 
 		#region private
