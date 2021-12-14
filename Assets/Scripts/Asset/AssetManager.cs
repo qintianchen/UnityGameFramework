@@ -33,11 +33,16 @@ namespace QTC
 			AssetDataBase
 		}
 
-		public List<string> assetDirs = new List<string> // 定义哪些是合法的资源加载目录
+		public List<string> assetDirs = new List<string> // 定义哪些目录的资产将会被打成AssetBundle作为合法的资产加载目录
 		{
 			"Assets/Content/Environment",
 			"Assets/Content/Scenes",
 			"Assets/Content/Shaders",
+		};
+
+		public List<string> residentAssetDirs = new List<string> // 定义哪些目录下的资产将会常驻内存，不会被卸载掉
+		{
+		
 		};
 
 		private string m_ASSETBUNDLE_DIR;
@@ -55,6 +60,7 @@ namespace QTC
 		public Dictionary<string, string> assetName_assetFullName;
 		public Dictionary<string, string> assetName_assetBundleName;
 		public Dictionary<string, string> assetBundleName_assetBundleFullName;
+		public Dictionary<string, bool> assetBundleName_resident;
 
 		private Queue<AssetBundleWrap> assetBundlesToLoad; // 准备被加载的AssetBundle队列
 		private Dictionary<string, AssetBundleWrap> assetBundleName_loadingAssetBundle; // 正在加载的AssetBundle
@@ -96,6 +102,7 @@ namespace QTC
 			assetName_assetFullName = new Dictionary<string, string>();
 			assetName_assetBundleName = new Dictionary<string, string>();
 			assetBundleName_assetBundleFullName = new Dictionary<string, string>();
+			assetBundleName_resident = new Dictionary<string, bool>();
 #if UNITY_EDITOR
 			if (assetModeInEditor == AssetMode.AssetBundle)
 			{
@@ -159,6 +166,12 @@ namespace QTC
 
 					assetName_assetFullName[fileNameWithoutExtension] = file.Replace("\\", "/");
 				}
+			}
+
+			foreach (var assetDir in residentAssetDirs)
+			{
+				var assetBundleName = AssetHelper.DirectoryPathToAssetBundleName(assetDir);
+				assetBundleName_resident[assetBundleName] = true;
 			}
 		}
 
@@ -328,14 +341,14 @@ namespace QTC
 			}
 		}
 
-		/// 卸载所有未被引用的AssetBundle
+		/// 卸载所有未被引用的AssetBundle，会绕过 Resident 列表
 		public void UnloadAllUnusedAssetBundle()
 		{
 			List<string> keys = new List<string>();
 			foreach (var keyValuePair in assetBundleName_loadedAssetBundle)
 			{
 				var wrap = keyValuePair.Value;
-				if (wrap.refCount == 0)
+				if (!assetBundleName_resident.ContainsKey(wrap.assetBundleName) && wrap.refCount == 0)
 				{
 					keys.Add(wrap.assetBundleName);
 					assetBundleName_assetBundleToRemove[wrap.assetBundleName] = wrap;
