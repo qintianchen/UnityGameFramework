@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace QTC
 {
-	public class Logger: SingleTon<Logger>
+	public class GameLogger: SingleTon<GameLogger>
 	{
 		private string logDir
 		{
@@ -72,6 +72,12 @@ namespace QTC
 			{
 				Debug.LogError(e);
 			}
+		}
+
+		public static void Info(string msg)
+		{
+			msg = "[" + Time.frameCount + "] " + msg;
+			Debug.Log(msg);
 		}
 	}
 }

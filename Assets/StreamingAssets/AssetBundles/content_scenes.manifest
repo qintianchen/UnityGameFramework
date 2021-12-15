@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2742204313
+CRC: 3523467547
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 528719e7e130e7876d21fe35c6fca6ce
+    Hash: 080b8d85be6770719caef47c00ee9bb5
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 23a33121041915e83ef2d8427037ee26
+    Hash: 8565da4bcab67b1f33b7cefd7f6c48f4
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -28,7 +28,13 @@ ClassTypes:
 - Class: 104
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 11500000, guid: 00735e93c4b6e42489acf88bfa5c4f7d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d772923240687c749a90e0e3ae3ef996, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: b5272f3a1fc5f814780c54a8aade4b2f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6ad362b10a2e449cab84da9c536d58f7, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 157
@@ -37,5 +43,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Content/Scenes/scene_test_assetmanager.unity
+- Assets/Content/Scenes/scene_test_timer.unity
 - Assets/Content/Scenes/scene_test.unity
 Dependencies: []
