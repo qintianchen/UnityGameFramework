@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using TrueSync;
 using UnityEngine;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
@@ -11,10 +12,36 @@ public class GameMain_TrueSync : MonoBehaviour
 {
     public GameObject go1;
     public GameObject go2;
+    public Text text;
 
     private void Start()
     {
-        TestMultiplePerformance();
+        Application.targetFrameRate = 30;
+
+        // long a = 0b0111111111111111111111111111111111111000000000000000000000000000;
+        // Debug.Log($"{Convert.ToString(a, 2)}");
+        // Debug.Log($"{Convert.ToString((int)a, 2)}");
+
+
+        // long factor = 1L << 32;
+        // int a = 2147483647;
+        // long b = a * factor;
+        // double c = b;
+        // float d = (float) (c / factor);
+        // Debug.Log($"factor={factor}\na = {a}\nb={b}\nc={c:F}\nd={d:F}");
+        // Debug.Log($"double表示：factor={Convert.ToString(factor, 2)}\na = {Convert.ToString(a, 2)}\nb={Convert.ToString(b, 2)}\nc={Convert.ToString((long)c, 2)}\nd={Convert.ToString((int)d, 2)}");
+
+        // Debug.Log($"{FP.MaxValue}");
+        int a2 = 00;
+        float a3 = 2147483647;
+        Debug.Log($"{a3:F}");
+        
+        FP a = 2147483647;
+        text.text = $"a = {a}"; // 无论是在32bit和64bit的机器上（分别打32bit包和64bit的包），结果都是2147484000和-2147484000
+        
+        // a = 2147483646; //4294967296;
+        // b = 2147483649; //4294967296;
+        // text.text = $"a = {a}, b = {b}"; // 无论是在32bit和64bit的机器上（分别打32bit包和64bit的包），结果都是2147484000和-2147484000
     }
     
     private void TestMultiplePerformance()
