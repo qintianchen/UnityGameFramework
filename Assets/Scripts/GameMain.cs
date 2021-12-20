@@ -6,17 +6,19 @@ using UnityEngine;
 
 public class GameMain : MonoBehaviour
 {
-	private Action ac;
+	private Rect rect;
 
-	private IEnumerator Start()
+	private void Start()
 	{
-		// 设置帧率
 		Application.targetFrameRate = 30;
-		
-		// 日志模块初始化
-		GameLogger.Instance.Init();
-		
-		// 资源管理器初始化
-		yield return AssetManager.Instance.Init();
+	}
+
+	private void Update()
+	{
+		Debug.Log($"{rect}");
+
+		rect.width = 30;
+
+		Debug.Log($"after {rect}");
 	}
 }

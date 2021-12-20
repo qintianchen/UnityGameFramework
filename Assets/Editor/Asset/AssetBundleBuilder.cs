@@ -5,90 +5,93 @@ using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
-namespace QTC
+namespace QTC.Editor
 {
-	public class AssetBundleBuilder : Editor
-	{
-		[MenuItem("Build/Build AssetBundles")]
-		private static void BuildAssetBundles()
-		{
-			// 构造 <目录，目录下所有的文件> 映射，<文件名, 目录名> 映射。前者用于打包，后者用于运行时查询。
-			Dictionary<string, List<string>> filePath_fileFullName = new Dictionary<string, List<string>>();
-			Dictionary<string, string> fileName_filePath = new Dictionary<string, string>();
-			foreach (var assetDir in AssetManager.Instance.assetDirs)
-			{
-				AddFiles(assetDir, ref filePath_fileFullName, ref fileName_filePath);
-			}
+    public class AssetBundleBuilder : UnityEditor.Editor
+    {
+        [MenuItem("Build/Build AssetBundles")]
+        private static void BuildAssetBundles()
+        {
+            // 构造 <目录，目录下所有的文件> 映射，<文件名, 目录名> 映射。前者用于打包，后者用于运行时查询。
+            Dictionary<string, List<string>> filePath_fileFullName = new Dictionary<string, List<string>>();
+            Dictionary<string, string> fileName_filePath = new Dictionary<string, string>();
+            foreach (var assetDir in AssetManager.Instance.assetDirs)
+            {
+                AddFiles(assetDir, ref filePath_fileFullName, ref fileName_filePath);
+            }
 
-			Debug.Log($"filePath_fileFullName = {JsonConvert.SerializeObject(filePath_fileFullName, Formatting.Indented)}");
+            Debug.Log(
+                $"filePath_fileFullName = {JsonConvert.SerializeObject(filePath_fileFullName, Formatting.Indented)}");
 
-			// 通过上面映射构造 AssetBundleBuild 列表，其中每个目录对应一个AB，AB 里面包含目录下的所有文件
-			List<AssetBundleBuild> builds = new List<AssetBundleBuild>();
-			foreach (var keyValuePair in filePath_fileFullName)
-			{
-				if (keyValuePair.Value.Count == 0)
-					continue;
-				
-				AssetBundleBuild build = new AssetBundleBuild();
-				var assetBundleNames = new List<string>();
-				foreach (var s in keyValuePair.Value)
-				{
-					assetBundleNames.Add(s);
-				}
+            // 通过上面映射构造 AssetBundleBuild 列表，其中每个目录对应一个AB，AB 里面包含目录下的所有文件
+            List<AssetBundleBuild> builds = new List<AssetBundleBuild>();
+            foreach (var keyValuePair in filePath_fileFullName)
+            {
+                if (keyValuePair.Value.Count == 0)
+                    continue;
 
-				build.assetNames = assetBundleNames.ToArray();
-				string assetBundleName = AssetHelper.DirectoryPathToAssetBundleName(keyValuePair.Key);
-				build.assetBundleName = assetBundleName;
+                AssetBundleBuild build = new AssetBundleBuild();
+                var assetBundleNames = new List<string>();
+                foreach (var s in keyValuePair.Value)
+                {
+                    assetBundleNames.Add(s);
+                }
 
-				builds.Add(build);
-			}
+                build.assetNames = assetBundleNames.ToArray();
+                string assetBundleName = AssetHelper.DirectoryPathToAssetBundleName(keyValuePair.Key);
+                build.assetBundleName = assetBundleName;
 
-			// 开始构建 AB
-			if (Directory.Exists(AssetManager.Instance.ASSETBUNDLE_DIR))
-			{
-				Directory.Delete(AssetManager.Instance.ASSETBUNDLE_DIR, true);
-			}
+                builds.Add(build);
+            }
 
-			Directory.CreateDirectory(AssetManager.Instance.ASSETBUNDLE_DIR);
+            // 开始构建 AB
+            if (Directory.Exists(AssetManager.Instance.ASSETBUNDLE_DIR))
+            {
+                Directory.Delete(AssetManager.Instance.ASSETBUNDLE_DIR, true);
+            }
 
-			BuildPipeline.BuildAssetBundles(AssetManager.Instance.ASSETBUNDLE_DIR, builds.ToArray(), BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.Android);
+            Directory.CreateDirectory(AssetManager.Instance.ASSETBUNDLE_DIR);
 
-			StringBuilder sb = new StringBuilder();
-			foreach (var keyValuePair in fileName_filePath)
-			{
-				sb.Append(keyValuePair.Key).Append(",").Append(keyValuePair.Value).Append("\n");
-			}
+            BuildPipeline.BuildAssetBundles(AssetManager.Instance.ASSETBUNDLE_DIR, builds.ToArray(),
+                BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.Android);
 
-			File.WriteAllText(AssetManager.Instance.ASSETBUNDLE_DIR + "/fileName_dirName.csv", sb.ToString());
+            StringBuilder sb = new StringBuilder();
+            foreach (var keyValuePair in fileName_filePath)
+            {
+                sb.Append(keyValuePair.Key).Append(",").Append(keyValuePair.Value).Append("\n");
+            }
 
-			AssetDatabase.Refresh();
-		}
+            File.WriteAllText(AssetManager.Instance.ASSETBUNDLE_DIR + "/fileName_dirName.csv", sb.ToString());
 
-		private static void AddFiles(string dir, ref Dictionary<string, List<string>> filePath_fileFullName, ref Dictionary<string, string> fileName_filePath)
-		{
-			var files = Directory.GetFiles(dir);
-			var validFiles = new List<string>();
-			foreach (var file in files)
-			{
-				var ext = Path.GetExtension(file);
-				var fileName = Path.GetFileName(file);
-				if (ext.Equals(".meta"))
-				{
-					continue;
-				}
+            AssetDatabase.Refresh();
+        }
 
-				validFiles.Add(file.Replace("\\", "/"));
-				fileName_filePath[fileName] = Path.GetDirectoryName(file).Replace("\\", "/").TrimStart('/');
-			}
-			
-			if(validFiles.Count > 0)
-				filePath_fileFullName[dir] = validFiles;
+        private static void AddFiles(string dir, ref Dictionary<string, List<string>> filePath_fileFullName,
+            ref Dictionary<string, string> fileName_filePath)
+        {
+            var files = Directory.GetFiles(dir);
+            var validFiles = new List<string>();
+            foreach (var file in files)
+            {
+                var ext = Path.GetExtension(file);
+                var fileName = Path.GetFileName(file);
+                if (ext.Equals(".meta"))
+                {
+                    continue;
+                }
 
-			var dirs = Directory.GetDirectories(dir);
-			foreach (var s in dirs)
-			{
-				AddFiles(s, ref filePath_fileFullName, ref fileName_filePath);
-			}
-		}
-	}
+                validFiles.Add(file.Replace("\\", "/"));
+                fileName_filePath[fileName] = Path.GetDirectoryName(file).Replace("\\", "/").TrimStart('/');
+            }
+
+            if (validFiles.Count > 0)
+                filePath_fileFullName[dir] = validFiles;
+
+            var dirs = Directory.GetDirectories(dir);
+            foreach (var s in dirs)
+            {
+                AddFiles(s, ref filePath_fileFullName, ref fileName_filePath);
+            }
+        }
+    }
 }
