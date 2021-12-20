@@ -43,10 +43,10 @@ namespace QTC.Timer
             this.useTimeScale = useTimeScale;
             this.mono = mono;
 
-            this.isCompleted = false;
-            this.isPause = false;
-            this.isCancelled = false;
-            this.isBoundToMono = this.mono != null;
+            isCompleted = false;
+            isPause = false;
+            isCancelled = false;
+            isBoundToMono = this.mono != null;
         }
         
         public void Start()
