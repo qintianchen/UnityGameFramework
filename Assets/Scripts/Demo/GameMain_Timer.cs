@@ -13,9 +13,6 @@ public class GameMain_Timer : MonoBehaviour
 		
         // 日志模块初始化
         GameLogger.Instance.Init();
-		
-        // 资源管理器初始化
-        yield return AssetManager.Instance.Init();
 
         yield return new WaitForSeconds(3);
 		
