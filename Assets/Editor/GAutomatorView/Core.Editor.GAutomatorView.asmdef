@@ -1,8 +1,8 @@
 {
-    "name": "TheThirdParty.ToLua.Editor",
+    "name": "Core.Editor.GAutomatorView",
     "rootNamespace": "",
     "references": [
-        "GUID:0edef751d42ed1f4ca8f984fa00f2e01"
+        "GUID:c373cb304d1aa4b4cbfc4d4fdd96dd4a"
     ],
     "includePlatforms": [
         "Editor"

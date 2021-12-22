@@ -11,7 +11,7 @@ namespace QTC.Editor
         private readonly Stack<int> splitStack = new Stack<int>();
         private readonly List<SplitContext> contexts = new List<SplitContext>();
 
-        protected void BeginHorizontalSplit()
+        protected void BeginHorizontalSplit(float defaultSize = 200, bool canResize = true)
         {
             splitCount++;
             splitStack.Push(splitCount);
@@ -19,6 +19,7 @@ namespace QTC.Editor
             if (contexts.Count < splitCount)
             {
                 context = new SplitContext();
+                context.canResize = canResize;
                 context.splitType = SplitContext.SplitType.H;
                 contexts.Add(context);
             }
@@ -33,14 +34,14 @@ namespace QTC.Editor
                 context.rect = editorRect;
                 if (context.firstSize < 0)
                 {
-                    context.firstSize = 200;
+                    context.firstSize = defaultSize;
                 }
             }
 
-            context.scrollPos_1 = EditorGUILayout.BeginScrollView(context.scrollPos_1, GUILayout.Width(context.firstSize), GUILayout.ExpandHeight(true));
+            context.scrollPos_1 = EditorGUILayout.BeginScrollView(context.scrollPos_1, GUILayout.Width(context.firstSize), GUILayout.ExpandHeight(true)); 
         }
 
-        protected void BeginVerticalSplit()
+        protected void BeginVerticalSplit(float defaultSize = 200, bool canResize = true)
         {
             splitCount++;
             splitStack.Push(splitCount);
@@ -48,6 +49,7 @@ namespace QTC.Editor
             if (contexts.Count < splitCount)
             {
                 context = new SplitContext();
+                context.canResize = canResize;
                 context.splitType = SplitContext.SplitType.V;
                 contexts.Add(context);
             }
@@ -62,7 +64,7 @@ namespace QTC.Editor
                 context.rect = editorRect;
                 if (context.firstSize < 0)
                 {
-                    context.firstSize = 200;
+                    context.firstSize = defaultSize;
                 }
             }
 
@@ -82,6 +84,23 @@ namespace QTC.Editor
             var context = contexts[count - 1];
             EditorGUILayout.EndScrollView();
 
+            if (context.canResize)
+            {
+                ProcessMouseEvent(context);
+            }
+
+            if (context.splitType == SplitContext.SplitType.H)
+            {
+                EditorGUILayout.EndHorizontal();
+            }
+            else
+            {
+                EditorGUILayout.EndVertical();
+            }
+        }
+
+        private void ProcessMouseEvent(SplitContext context)
+        {
             var rect = new Rect();
             if (context.splitType == SplitContext.SplitType.H)
             {
@@ -99,7 +118,7 @@ namespace QTC.Editor
             }
 
             // GUI.Box(rect, "");
-
+            
             EditorGUIUtility.AddCursorRect(rect, context.splitType == SplitContext.SplitType.H ? MouseCursor.ResizeHorizontal : MouseCursor.ResizeVertical);
 
             if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
@@ -126,15 +145,6 @@ namespace QTC.Editor
                 
                 Repaint();
             }
-
-            if (context.splitType == SplitContext.SplitType.H)
-            {
-                EditorGUILayout.EndHorizontal();
-            }
-            else
-            {
-                EditorGUILayout.EndVertical();
-            }
         }
 
         protected void InitSplitEnvironment()
@@ -150,6 +160,7 @@ namespace QTC.Editor
         public Vector2 scrollPos_2;
         public float firstSize;
         public bool isResizing;
+        public bool canResize;
         public SplitType splitType = SplitType.H;
 
         public enum SplitType
