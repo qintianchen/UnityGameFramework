@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 using Object = UnityEngine.Object;
@@ -23,7 +24,7 @@ using Object = UnityEngine.Object;
 namespace QTC
 {
     // 基于AssetBundle的资产管理
-    public class AssetManager : SingleTon<AssetManager>
+    public partial class AssetManager : SingleTon<AssetManager>
     {
         #region 属性
 
@@ -38,6 +39,11 @@ namespace QTC
             "Assets/Content/Environment",
             "Assets/Content/Scenes",
             "Assets/Content/Shaders",
+        };
+
+        public List<string> singleAssetDirs = new List<string> // 这里定义的目录下的所有文件，都会相应地单独打成一个包
+        {
+            "Assets/Lua",
         };
 
         public List<string> residentAssetDirs = new List<string> // 定义哪些目录下的资产将会常驻内存，不会被卸载掉
@@ -56,12 +62,17 @@ namespace QTC
             }
         }
 
-        private AssetMode assetModeInEditor = AssetMode.AssetBundle; // 指示编辑器使用AssetBundleMode，否则默认走AssetDataBase机制
+        private AssetMode assetModeInEditor = AssetMode.AssetDataBase; // 指示编辑器使用AssetBundleMode，否则默认走AssetDataBase机制
+        
+        // 这里开始会建立一些名称的映射关系，其中，assetName是上层代码用来索引资源的标识符，因为我们规定了打进包的资源是不能重名的
+        // assetFullName 用来从AssetBundle中加载资源
+        // assetBundleName 是AssetBundle的标识符，由于我们AB的命名规则是按照目录全路径取名的，所以不会发生冲突
+        // assetBundleFullName 用来从文件系统中加载AssetBundle
         public Dictionary<string, string> assetName_assetFullName;
         public Dictionary<string, string> assetName_assetBundleName;
         public Dictionary<string, string> assetBundleName_assetBundleFullName;
-        public Dictionary<string, bool> assetBundleName_resident;
-
+        public Dictionary<string, bool> assetBundleName_resident; // 标识哪些AssetBundle是常驻内存的
+        
         private Queue<AssetBundleWrap> assetBundlesToLoad; // 准备被加载的AssetBundle队列
         private Dictionary<string, AssetBundleWrap> assetBundleName_loadingAssetBundle; // 正在加载的AssetBundle
         private Dictionary<string, AssetBundleWrap> assetBundleName_loadedAssetBundle; // 加载完成的AssetBundle
@@ -88,17 +99,67 @@ namespace QTC
             assetName_loadingAsset = new Dictionary<string, AssetWrap>();
             AssetTicker.Instance.onUpdate += Update;
 
+#if !UNITY_EDITOR
             var assetBundle = AssetBundle.LoadFromFile(assetBundleName_assetBundleFullName[assetName_assetBundleName["AssetBundleManifest"]]);
             assetBundleManifest = assetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
-
+#else
+            if (assetModeInEditor == AssetMode.AssetBundle)
+            {
+                var assetBundle = AssetBundle.LoadFromFile(assetBundleName_assetBundleFullName[assetName_assetBundleName["AssetBundleManifest"]]);
+                assetBundleManifest = assetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+            }
+#endif
             isInited = true;
             onInit?.Invoke();
         }
 
         #region public
 
+        public T LoadAsset<T>(string assetName, Object objRef) where T : Object
+        {
+#if UNITY_EDITOR
+            if (assetModeInEditor == AssetMode.AssetDataBase)
+            {
+                return AssetDatabase.LoadAssetAtPath<T>(assetName_assetFullName[assetName]);
+            }
+#endif
+            
+            if (!assetName_assetBundleName.TryGetValue(assetName, out var assetBundleName) || !assetName_assetFullName.TryGetValue(assetName, out var assetFullName))
+            {
+                GameLogger.Error($"Failed to find asset, assetName = {assetName}");
+                return null;
+            }
+
+            // 不能同步加载一个正在异步加载的资源
+            if (assetName_loadingAsset.TryGetValue(assetName, out var assetWrap))
+            {
+                GameLogger.Error($"You are trying to load an asset synchronously while it has been loaded in asynchronous way");
+                return null;
+            }
+            
+            // 资源没有加载出来，但是资源所在的AssetBundle已经加载出来了
+            if (assetBundleName_loadedAssetBundle.TryGetValue(assetBundleName, out var assetBundleWrap))
+            {
+                return assetBundleWrap.LoadAsset<T>(assetName, assetFullName, objRef);
+            }
+            
+            // 资源和AssetBundle都没有加载出来
+            assetBundleWrap = LoadAssetBundle(assetBundleName);
+            var assetBundle = assetBundleWrap.syncAB;
+            
+            return assetBundle.LoadAsset<T>(assetFullName);
+        }
+        
         public AssetWrap LoadAssetAsync<T>(string assetName, Object objRef, Action<T> onLoaded) where T : Object
         {
+#if UNITY_EDITOR
+            if (assetModeInEditor == AssetMode.AssetDataBase)
+            {
+                onLoaded(LoadAsset<T>(assetName, objRef));
+                return null;
+            }
+#endif
+            
             if (!assetName_assetBundleName.TryGetValue(assetName, out var assetBundleName) || !assetName_assetFullName.TryGetValue(assetName, out var assetFullName))
             {
                 Debug.LogError($"Failed to find asset, assetName = {assetName}");
@@ -150,7 +211,7 @@ namespace QTC
 
             return null;
         }
-        
+
         /// 卸载所有未被引用的AssetBundle，会绕过 Resident 列表
         public void UnloadAllUnusedAssetBundle()
         {
@@ -242,7 +303,7 @@ namespace QTC
 
         private IEnumerator InitAssetNameMapInAssetBundleMode()
         {
-            using var request = UnityWebRequest.Get(Path.Combine(ASSETBUNDLE_DIR, "fileName_dirName.csv"));
+            using var request = UnityWebRequest.Get(Path.Combine(ASSETBUNDLE_DIR, "fileName_dirName_assetBundleName.csv"));
             yield return request.SendWebRequest();
             if (request.result == UnityWebRequest.Result.Success)
             {
@@ -252,10 +313,13 @@ namespace QTC
                 {
                     var newLine = line.Trim();
                     var cells = newLine.Split(',');
-                    if (cells.Length == 2 && !string.IsNullOrEmpty(cells[0]) && !string.IsNullOrEmpty(cells[1]))
+                    if (cells.Length == 3 && !string.IsNullOrEmpty(cells[0]) && !string.IsNullOrEmpty(cells[1]) && !string.IsNullOrEmpty(cells[2]))
                     {
+                        var fileName = cells[0];
+                        var filePath = cells[1];
+                        var assetBundleName = cells[2];
                         var assetName = Path.GetFileNameWithoutExtension(cells[0]);
-                        var assetBundleName = AssetHelper.DirectoryPathToAssetBundleName(cells[1]);
+                        // var assetBundleName = AssetHelper.DirectoryPathToAssetBundleName(cells[1]);
                         assetName_assetFullName[assetName] = Path.Combine(cells[1], cells[0]).Replace("\\", "/");
                         assetName_assetBundleName[assetName] = assetBundleName;
                         assetBundleName_assetBundleFullName[assetBundleName] = Path.Combine(ASSETBUNDLE_DIR, assetBundleName).Replace("\\", "/");
@@ -274,18 +338,12 @@ namespace QTC
         {
             foreach (var assetDir in assetDirs)
             {
-                var files = Directory.GetFiles(assetDir);
-                foreach (var file in files)
-                {
-                    var ext = Path.GetExtension(file);
-                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                    if (ext.Equals(".meta"))
-                    {
-                        continue;
-                    }
-
-                    assetName_assetFullName[fileNameWithoutExtension] = file.Replace("\\", "/");
-                }
+                AddFiles(assetDir);
+            }
+            
+            foreach (var assetDir in singleAssetDirs)
+            {
+                AddFiles(assetDir);
             }
 
             foreach (var assetDir in residentAssetDirs)
@@ -295,6 +353,66 @@ namespace QTC
             }
         }
 
+        private void AddFiles(string dir)
+        {
+            var files = Directory.GetFiles(dir);
+            foreach (var file in files)
+            {
+                var ext = Path.GetExtension(file);
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                if (ext.Equals(".meta"))
+                {
+                    continue;
+                }
+
+                assetName_assetFullName[fileNameWithoutExtension] = file.Replace("\\", "/");
+            }
+
+            var dirs = Directory.GetDirectories(dir);
+            foreach (var dir2 in dirs)
+            {
+                AddFiles(dir2);
+            }
+        }
+        
+        private AssetBundleWrap LoadAssetBundle(string assetBundleName)
+        {
+            if (!assetBundleName_assetBundleFullName.TryGetValue(assetBundleName, out var assetBundleFullName))
+            {
+                Debug.LogError($"Fail to find assetBundle, assetBundleName ={assetBundleName}");
+                return null;
+            }
+
+            if (assetBundleName_loadedAssetBundle.TryGetValue(assetBundleName, out var assetBundleWrap))
+            {
+                return assetBundleWrap;
+            }
+
+            if (assetBundleName_loadingAssetBundle.TryGetValue(assetBundleName, out var assetBundleWrap2))
+            {
+                GameLogger.Error("Never try to load an asset synchronously while its assetbundle is loading asynchronously");
+                return null;
+            }
+
+            var assetBundle = AssetBundle.LoadFromFile(assetBundleFullName);
+            
+            // 生成AssetBundleWrap
+            var wrap = new AssetBundleWrap(assetBundleName, assetBundleFullName, null) {syncAB = assetBundle};
+
+            // 先添加依赖到队列
+            string[] assetBundleNames = assetBundleManifest.GetDirectDependencies(wrap.assetBundleName);
+            foreach (var assetBundleName2 in assetBundleNames)
+            {
+                var wrap2 = LoadAssetBundle(assetBundleName2);
+                wrap.deps.Add(wrap2);
+                wrap2.abRefs.Add(wrap);
+                assetBundleName_loadedAssetBundle.Add(assetBundleName2, wrap2);
+            }
+            
+            assetBundleName_loadedAssetBundle.Add(assetBundleName, wrap);
+            return wrap;
+        }
+        
         private AssetBundleWrap LoadAssetBundleAsync(string assetBundleName, Action<AssetBundleWrap> onLoaded)
         {
             if (!assetBundleName_assetBundleFullName.TryGetValue(assetBundleName, out var assetBundleFullName))

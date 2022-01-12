@@ -20,15 +20,9 @@ namespace QTC
 		public string assetFullName;
 		public Action<Object> onLoaded;
 		public AssetBundleRequest request;
-
-		public bool isDone
-		{
-			get
-			{
-				return request != null && request.isDone;
-			}
-		}
 		
+		public bool isDone => request != null && request.isDone;
+
 		public AssetWrap(string assetName, string assetFullName, Action<Object> onLoaded)
 		{
 			this.assetName = assetName;

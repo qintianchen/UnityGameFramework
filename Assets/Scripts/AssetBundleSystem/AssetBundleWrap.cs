@@ -16,12 +16,15 @@ namespace QTC
 		public List<AssetBundleWrap> abRefs; // 被该列表的AB依赖，与 deps 意思相反，在卸载时，这个列表要为空
 		public List<Object> objRefs; // 被该列表的Object依赖，在卸载时，这个列表要为空
 
-		public AssetBundleCreateRequest request;
+		public AssetBundleCreateRequest request; // 存放异步加载的产物
+
+		public AssetBundle syncAB; // 存放同步加载的产物
+		
 		public bool isDone 
 		{
 			get
 			{
-				if (request == null || !request.isDone)
+				if (syncAB == null && (request == null || !request.isDone))
 				{
 					return false;
 				}
@@ -67,6 +70,17 @@ namespace QTC
 			request.assetBundle.Unload(true);
 		}
 
+		public T LoadAsset<T>(string assetName, string assetFullName, Object objRef) where T : Object
+		{
+			if (syncAB == null)
+			{
+				Debug.LogError("Synchronously load a asset while assetbundle is not prepared!");
+				return null;
+			}
+
+			return syncAB.LoadAsset<T>(assetFullName);
+		}
+		
 		public AssetWrap LoadAssetAsync<T>(string assetName, string assetFullName, Object objRef, Action<T> onLoaded2) where T: Object
 		{
 			if (request == null || request.assetBundle == null)

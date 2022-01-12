@@ -1,9 +1,0 @@
-mat_common_green.mat,Assets/Content/Environment/Materials
-mat_common_red.mat,Assets/Content/Environment/Materials
-prefab_cube.prefab,Assets/Content/Environment/Prefabs
-prefab_sphere.prefab,Assets/Content/Environment/Prefabs
-scene_test.unity,Assets/Content/Scenes
-scene_test_assetmanager.unity,Assets/Content/Scenes
-scene_test_timer.unity,Assets/Content/Scenes
-shader_common_green.shader,Assets/Content/Shaders
-shader_common_red.shader,Assets/Content/Shaders

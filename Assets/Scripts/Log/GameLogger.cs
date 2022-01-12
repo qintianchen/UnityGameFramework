@@ -79,5 +79,17 @@ namespace QTC
 			msg = "[" + Time.frameCount + "] " + msg;
 			Debug.Log(msg);
 		}
+		
+		public static void Warning(string msg)
+		{
+			msg = "[" + Time.frameCount + "] " + msg;
+			Debug.LogWarning(msg);
+		}
+		
+		public static void Error(string msg)
+		{
+			msg = "[" + Time.frameCount + "] " + msg;
+			Debug.LogError(msg);
+		}
 	}
 }

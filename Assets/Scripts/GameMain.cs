@@ -1,16 +1,16 @@
-using DG.Tweening;
+using System.Collections;
+using QTC;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameMain : MonoBehaviour
 {
-	private Rect rect;
-	public Text text;
-
-	private void Start()
+	private IEnumerator Start()
 	{
 		Application.targetFrameRate = 30;
 
-		text.DOText("1111111111111", 2);
+		GameLogger.Instance.Init();
+		yield return AssetManager.Instance.Init();
+		
+		LuaMain.Instance.Init(this);
 	}
 }
