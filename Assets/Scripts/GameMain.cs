@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
 using DG.Tweening;
-using Newtonsoft.Json;
-using QTC;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +11,6 @@ public class GameMain : MonoBehaviour
 	{
 		Application.targetFrameRate = 30;
 
-		text.DOText("123456789sdfghjklzxcvbnmqwertyuiop", 2);
+		text.DOText("1111111111111", 2);
 	}
 }
