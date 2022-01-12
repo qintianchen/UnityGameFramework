@@ -1,0 +1,12 @@
+---@class Timer:System.Object
+---@field isDone boolean
+---@field Start fun()
+---@field Update fun()
+---@field Pause fun()
+---@field Resume fun()
+---@field Cancel fun()
+---@field Equals fun(obj:System.Object):boolean
+---@field GetHashCode fun():number
+---@field GetType fun():System.Type
+---@field ToString fun():string
+Timer = {}

@@ -2,24 +2,21 @@
 using RenderHeads.Media.AVProVideo;
 using UnityEngine;
 
-namespace QTC
+public class AVTicker : MonoBehaviour
 {
-    public class AVTicker : MonoBehaviour
+    private MediaPlayer mediaPlayer;
+    public Action<double> onTimeInMilliSecondUpdate;
+
+    public void Init(MediaPlayer mediaPlayer)
     {
-        private MediaPlayer mediaPlayer;
-        public Action<double> onTimeInMilliSecondUpdate;
+        this.mediaPlayer = mediaPlayer;
+    }
 
-        public void Init(MediaPlayer mediaPlayer)
+    private void Update()
+    {
+        if (onTimeInMilliSecondUpdate != null && mediaPlayer != null)
         {
-            this.mediaPlayer = mediaPlayer;
-        }
-
-        private void Update()
-        {
-            if (onTimeInMilliSecondUpdate != null && mediaPlayer != null)
-            {
-                onTimeInMilliSecondUpdate.Invoke(mediaPlayer.Control.GetCurrentTime());
-            }
+            onTimeInMilliSecondUpdate.Invoke(mediaPlayer.Control.GetCurrentTime());
         }
     }
 }

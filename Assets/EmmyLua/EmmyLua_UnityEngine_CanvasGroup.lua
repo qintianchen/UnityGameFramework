@@ -1,0 +1,66 @@
+---@class UnityEngine.CanvasGroup:UnityEngine.Behaviour
+---@field alpha number
+---@field interactable boolean
+---@field blocksRaycasts boolean
+---@field ignoreParentGroups boolean
+---@field enabled boolean
+---@field isActiveAndEnabled boolean
+---@field transform UnityEngine.Transform
+---@field gameObject UnityEngine.GameObject
+---@field tag string
+---@field rigidbody UnityEngine.Component
+---@field rigidbody2D UnityEngine.Component
+---@field camera UnityEngine.Component
+---@field light UnityEngine.Component
+---@field animation UnityEngine.Component
+---@field constantForce UnityEngine.Component
+---@field renderer UnityEngine.Component
+---@field audio UnityEngine.Component
+---@field networkView UnityEngine.Component
+---@field collider UnityEngine.Component
+---@field collider2D UnityEngine.Component
+---@field hingeJoint UnityEngine.Component
+---@field particleSystem UnityEngine.Component
+---@field name string
+---@field hideFlags UnityEngine.HideFlags
+---@field IsRaycastLocationValid fun(sp:UnityEngine.Vector2, eventCamera:UnityEngine.Camera):boolean
+---@field GetComponent fun(type:System.Type):UnityEngine.Component
+---@field GetComponent fun():nil
+---@field TryGetComponent fun(type:System.Type, component:UnityEngine.Component&):boolean
+---@field TryGetComponent fun(component:nil):boolean
+---@field GetComponent fun(type:string):UnityEngine.Component
+---@field GetComponentInChildren fun(t:System.Type, includeInactive:boolean):UnityEngine.Component
+---@field GetComponentInChildren fun(t:System.Type):UnityEngine.Component
+---@field GetComponentInChildren fun(includeInactive:boolean):nil
+---@field GetComponentInChildren fun():nil
+---@field GetComponentsInChildren fun(t:System.Type, includeInactive:boolean):UnityEngine.Component[]
+---@field GetComponentsInChildren fun(t:System.Type):UnityEngine.Component[]
+---@field GetComponentsInChildren fun(includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun():T[]
+---@field GetComponentInParent fun(t:System.Type):UnityEngine.Component
+---@field GetComponentInParent fun():nil
+---@field GetComponentsInParent fun(t:System.Type, includeInactive:boolean):UnityEngine.Component[]
+---@field GetComponentsInParent fun(t:System.Type):UnityEngine.Component[]
+---@field GetComponentsInParent fun(includeInactive:boolean):T[]
+---@field GetComponentsInParent fun():T[]
+---@field GetComponents fun(type:System.Type):UnityEngine.Component[]
+---@field GetComponents fun():T[]
+---@field CompareTag fun(tag:string):boolean
+---@field SendMessageUpwards fun(methodName:string, value:System.Object, options:UnityEngine.SendMessageOptions)
+---@field SendMessageUpwards fun(methodName:string, value:System.Object)
+---@field SendMessageUpwards fun(methodName:string)
+---@field SendMessageUpwards fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field SendMessage fun(methodName:string, value:System.Object)
+---@field SendMessage fun(methodName:string)
+---@field SendMessage fun(methodName:string, value:System.Object, options:UnityEngine.SendMessageOptions)
+---@field SendMessage fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field BroadcastMessage fun(methodName:string, parameter:System.Object, options:UnityEngine.SendMessageOptions)
+---@field BroadcastMessage fun(methodName:string, parameter:System.Object)
+---@field BroadcastMessage fun(methodName:string)
+---@field BroadcastMessage fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field GetInstanceID fun():number
+---@field GetHashCode fun():number
+---@field Equals fun(other:System.Object):boolean
+---@field ToString fun():string
+---@field GetType fun():System.Type
+UnityEngine.CanvasGroup = {}

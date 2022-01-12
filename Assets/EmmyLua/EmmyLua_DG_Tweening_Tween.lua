@@ -1,0 +1,12 @@
+---@class DG.Tweening.Tween:DG.Tweening.Core.ABSSequentiable
+---@field isRelative boolean
+---@field active boolean
+---@field fullPosition number
+---@field hasLoops boolean
+---@field playedOnce boolean
+---@field position number
+---@field Equals fun(obj:System.Object):boolean
+---@field GetHashCode fun():number
+---@field GetType fun():System.Type
+---@field ToString fun():string
+DG.Tweening.Tween = {}

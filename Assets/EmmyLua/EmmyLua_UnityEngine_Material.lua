@@ -1,0 +1,97 @@
+---@class UnityEngine.Material:UnityEngine.Object
+---@field shader UnityEngine.Shader
+---@field color UnityEngine.Color
+---@field mainTexture UnityEngine.Texture
+---@field mainTextureOffset UnityEngine.Vector2
+---@field mainTextureScale UnityEngine.Vector2
+---@field renderQueue number
+---@field globalIlluminationFlags UnityEngine.MaterialGlobalIlluminationFlags
+---@field doubleSidedGI boolean
+---@field enableInstancing boolean
+---@field passCount number
+---@field shaderKeywords System.String[]
+---@field name string
+---@field hideFlags UnityEngine.HideFlags
+---@field Create fun(scriptContents:string):UnityEngine.Material
+---@field HasProperty fun(nameID:number):boolean
+---@field HasProperty fun(name:string):boolean
+---@field EnableKeyword fun(keyword:string)
+---@field DisableKeyword fun(keyword:string)
+---@field IsKeywordEnabled fun(keyword:string):boolean
+---@field SetShaderPassEnabled fun(passName:string, enabled:boolean)
+---@field GetShaderPassEnabled fun(passName:string):boolean
+---@field GetPassName fun(pass:number):string
+---@field FindPass fun(passName:string):number
+---@field SetOverrideTag fun(tag:string, val:string)
+---@field GetTag fun(tag:string, searchFallbacks:boolean, defaultValue:string):string
+---@field GetTag fun(tag:string, searchFallbacks:boolean):string
+---@field Lerp fun(start:UnityEngine.Material, end:UnityEngine.Material, t:number)
+---@field SetPass fun(pass:number):boolean
+---@field CopyPropertiesFromMaterial fun(mat:UnityEngine.Material)
+---@field ComputeCRC fun():number
+---@field GetTexturePropertyNames fun():System.String[]
+---@field GetTexturePropertyNameIDs fun():System.Int32[]
+---@field SetFloat fun(name:string, value:number)
+---@field SetFloat fun(nameID:number, value:number)
+---@field SetInt fun(name:string, value:number)
+---@field SetInt fun(nameID:number, value:number)
+---@field SetColor fun(name:string, value:UnityEngine.Color)
+---@field SetColor fun(nameID:number, value:UnityEngine.Color)
+---@field SetVector fun(name:string, value:UnityEngine.Vector4)
+---@field SetVector fun(nameID:number, value:UnityEngine.Vector4)
+---@field SetMatrix fun(name:string, value:UnityEngine.Matrix4x4)
+---@field SetMatrix fun(nameID:number, value:UnityEngine.Matrix4x4)
+---@field SetTexture fun(name:string, value:UnityEngine.Texture)
+---@field SetTexture fun(nameID:number, value:UnityEngine.Texture)
+---@field SetTexture fun(name:string, value:UnityEngine.RenderTexture, element:UnityEngine.Rendering.RenderTextureSubElement)
+---@field SetTexture fun(nameID:number, value:UnityEngine.RenderTexture, element:UnityEngine.Rendering.RenderTextureSubElement)
+---@field SetBuffer fun(name:string, value:UnityEngine.ComputeBuffer)
+---@field SetBuffer fun(nameID:number, value:UnityEngine.ComputeBuffer)
+---@field SetBuffer fun(name:string, value:UnityEngine.GraphicsBuffer)
+---@field SetBuffer fun(nameID:number, value:UnityEngine.GraphicsBuffer)
+---@field SetConstantBuffer fun(name:string, value:UnityEngine.ComputeBuffer, offset:number, size:number)
+---@field SetConstantBuffer fun(nameID:number, value:UnityEngine.ComputeBuffer, offset:number, size:number)
+---@field SetConstantBuffer fun(name:string, value:UnityEngine.GraphicsBuffer, offset:number, size:number)
+---@field SetConstantBuffer fun(nameID:number, value:UnityEngine.GraphicsBuffer, offset:number, size:number)
+---@field SetFloatArray fun(name:string, values:System.Single[])
+---@field SetFloatArray fun(nameID:number, values:System.Single[])
+---@field SetColorArray fun(name:string, values:UnityEngine.Color[])
+---@field SetColorArray fun(nameID:number, values:UnityEngine.Color[])
+---@field SetVectorArray fun(name:string, values:UnityEngine.Vector4[])
+---@field SetVectorArray fun(nameID:number, values:UnityEngine.Vector4[])
+---@field SetMatrixArray fun(name:string, values:UnityEngine.Matrix4x4[])
+---@field SetMatrixArray fun(nameID:number, values:UnityEngine.Matrix4x4[])
+---@field GetFloat fun(name:string):number
+---@field GetFloat fun(nameID:number):number
+---@field GetInt fun(name:string):number
+---@field GetInt fun(nameID:number):number
+---@field GetColor fun(name:string):UnityEngine.Color
+---@field GetColor fun(nameID:number):UnityEngine.Color
+---@field GetVector fun(name:string):UnityEngine.Vector4
+---@field GetVector fun(nameID:number):UnityEngine.Vector4
+---@field GetMatrix fun(name:string):UnityEngine.Matrix4x4
+---@field GetMatrix fun(nameID:number):UnityEngine.Matrix4x4
+---@field GetTexture fun(name:string):UnityEngine.Texture
+---@field GetTexture fun(nameID:number):UnityEngine.Texture
+---@field GetFloatArray fun(name:string):System.Single[]
+---@field GetFloatArray fun(nameID:number):System.Single[]
+---@field GetColorArray fun(name:string):UnityEngine.Color[]
+---@field GetColorArray fun(nameID:number):UnityEngine.Color[]
+---@field GetVectorArray fun(name:string):UnityEngine.Vector4[]
+---@field GetVectorArray fun(nameID:number):UnityEngine.Vector4[]
+---@field GetMatrixArray fun(name:string):UnityEngine.Matrix4x4[]
+---@field GetMatrixArray fun(nameID:number):UnityEngine.Matrix4x4[]
+---@field SetTextureOffset fun(name:string, value:UnityEngine.Vector2)
+---@field SetTextureOffset fun(nameID:number, value:UnityEngine.Vector2)
+---@field SetTextureScale fun(name:string, value:UnityEngine.Vector2)
+---@field SetTextureScale fun(nameID:number, value:UnityEngine.Vector2)
+---@field GetTextureOffset fun(name:string):UnityEngine.Vector2
+---@field GetTextureOffset fun(nameID:number):UnityEngine.Vector2
+---@field GetTextureScale fun(name:string):UnityEngine.Vector2
+---@field GetTextureScale fun(nameID:number):UnityEngine.Vector2
+---@field GetInstanceID fun():number
+---@field GetHashCode fun():number
+---@field Equals fun(other:System.Object):boolean
+---@field ToString fun():string
+---@field GetType fun():System.Type
+UnityEngine.Material = {}

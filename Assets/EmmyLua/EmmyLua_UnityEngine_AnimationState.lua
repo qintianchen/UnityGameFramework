@@ -1,0 +1,21 @@
+---@class UnityEngine.AnimationState:UnityEngine.TrackedReference
+---@field enabled boolean
+---@field weight number
+---@field wrapMode UnityEngine.WrapMode
+---@field time number
+---@field normalizedTime number
+---@field speed number
+---@field normalizedSpeed number
+---@field length number
+---@field layer number
+---@field clip UnityEngine.AnimationClip
+---@field name string
+---@field blendMode UnityEngine.AnimationBlendMode
+---@field AddMixingTransform fun(mix:UnityEngine.Transform)
+---@field AddMixingTransform fun(mix:UnityEngine.Transform, recursive:boolean)
+---@field RemoveMixingTransform fun(mix:UnityEngine.Transform)
+---@field Equals fun(o:System.Object):boolean
+---@field GetHashCode fun():number
+---@field GetType fun():System.Type
+---@field ToString fun():string
+UnityEngine.AnimationState = {}

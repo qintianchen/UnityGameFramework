@@ -1,0 +1,88 @@
+---@class UnityEngine.Texture2D:UnityEngine.Texture
+---@field format UnityEngine.TextureFormat
+---@field whiteTexture UnityEngine.Texture2D
+---@field blackTexture UnityEngine.Texture2D
+---@field redTexture UnityEngine.Texture2D
+---@field grayTexture UnityEngine.Texture2D
+---@field linearGrayTexture UnityEngine.Texture2D
+---@field normalTexture UnityEngine.Texture2D
+---@field isReadable boolean
+---@field vtOnly boolean
+---@field streamingMipmaps boolean
+---@field streamingMipmapsPriority number
+---@field requestedMipmapLevel number
+---@field minimumMipmapLevel number
+---@field calculatedMipmapLevel number
+---@field desiredMipmapLevel number
+---@field loadingMipmapLevel number
+---@field loadedMipmapLevel number
+---@field alphaIsTransparency boolean
+---@field mipmapCount number
+---@field graphicsFormat UnityEngine.Experimental.Rendering.GraphicsFormat
+---@field width number
+---@field height number
+---@field dimension UnityEngine.Rendering.TextureDimension
+---@field wrapMode UnityEngine.TextureWrapMode
+---@field wrapModeU UnityEngine.TextureWrapMode
+---@field wrapModeV UnityEngine.TextureWrapMode
+---@field wrapModeW UnityEngine.TextureWrapMode
+---@field filterMode UnityEngine.FilterMode
+---@field anisoLevel number
+---@field mipMapBias number
+---@field texelSize UnityEngine.Vector2
+---@field updateCount System.UInt32
+---@field imageContentsHash UnityEngine.Hash128
+---@field name string
+---@field hideFlags UnityEngine.HideFlags
+---@field Compress fun(highQuality:boolean)
+---@field ClearRequestedMipmapLevel fun()
+---@field IsRequestedMipmapLevelLoaded fun():boolean
+---@field ClearMinimumMipmapLevel fun()
+---@field UpdateExternalTexture fun(nativeTex:System.IntPtr)
+---@field GetRawTextureData fun():System.Byte[]
+---@field GetPixels fun(x:number, y:number, blockWidth:number, blockHeight:number, miplevel:number):UnityEngine.Color[]
+---@field GetPixels fun(x:number, y:number, blockWidth:number, blockHeight:number):UnityEngine.Color[]
+---@field GetPixels32 fun(miplevel:number):UnityEngine.Color32[]
+---@field GetPixels32 fun():UnityEngine.Color32[]
+---@field PackTextures fun(textures:UnityEngine.Texture2D[], padding:number, maximumAtlasSize:number, makeNoLongerReadable:boolean):UnityEngine.Rect[]
+---@field PackTextures fun(textures:UnityEngine.Texture2D[], padding:number, maximumAtlasSize:number):UnityEngine.Rect[]
+---@field PackTextures fun(textures:UnityEngine.Texture2D[], padding:number):UnityEngine.Rect[]
+---@field CreateExternalTexture fun(width:number, height:number, format:UnityEngine.TextureFormat, mipChain:boolean, linear:boolean, nativeTex:System.IntPtr):UnityEngine.Texture2D
+---@field SetPixel fun(x:number, y:number, color:UnityEngine.Color)
+---@field SetPixel fun(x:number, y:number, color:UnityEngine.Color, mipLevel:number)
+---@field SetPixels fun(x:number, y:number, blockWidth:number, blockHeight:number, colors:UnityEngine.Color[], miplevel:number)
+---@field SetPixels fun(x:number, y:number, blockWidth:number, blockHeight:number, colors:UnityEngine.Color[])
+---@field SetPixels fun(colors:UnityEngine.Color[], miplevel:number)
+---@field SetPixels fun(colors:UnityEngine.Color[])
+---@field GetPixel fun(x:number, y:number):UnityEngine.Color
+---@field GetPixel fun(x:number, y:number, mipLevel:number):UnityEngine.Color
+---@field GetPixelBilinear fun(u:number, v:number):UnityEngine.Color
+---@field GetPixelBilinear fun(u:number, v:number, mipLevel:number):UnityEngine.Color
+---@field LoadRawTextureData fun(data:System.IntPtr, size:number)
+---@field LoadRawTextureData fun(data:System.Byte[])
+---@field SetPixelData fun(data:T[], mipLevel:number, sourceDataStartIndex:number)
+---@field GetPixelData fun(mipLevel:number):any
+---@field GetRawTextureData fun():any
+---@field Apply fun(updateMipmaps:boolean, makeNoLongerReadable:boolean)
+---@field Apply fun(updateMipmaps:boolean)
+---@field Apply fun()
+---@field Resize fun(width:number, height:number):boolean
+---@field Resize fun(width:number, height:number, format:UnityEngine.TextureFormat, hasMipMap:boolean):boolean
+---@field Resize fun(width:number, height:number, format:UnityEngine.Experimental.Rendering.GraphicsFormat, hasMipMap:boolean):boolean
+---@field ReadPixels fun(source:UnityEngine.Rect, destX:number, destY:number, recalculateMipMaps:boolean)
+---@field ReadPixels fun(source:UnityEngine.Rect, destX:number, destY:number)
+---@field SetPixels32 fun(colors:UnityEngine.Color32[], miplevel:number)
+---@field SetPixels32 fun(colors:UnityEngine.Color32[])
+---@field SetPixels32 fun(x:number, y:number, blockWidth:number, blockHeight:number, colors:UnityEngine.Color32[], miplevel:number)
+---@field SetPixels32 fun(x:number, y:number, blockWidth:number, blockHeight:number, colors:UnityEngine.Color32[])
+---@field GetPixels fun(miplevel:number):UnityEngine.Color[]
+---@field GetPixels fun():UnityEngine.Color[]
+---@field GetNativeTexturePtr fun():System.IntPtr
+---@field GetNativeTextureID fun():number
+---@field IncrementUpdateCount fun()
+---@field GetInstanceID fun():number
+---@field GetHashCode fun():number
+---@field Equals fun(other:System.Object):boolean
+---@field ToString fun():string
+---@field GetType fun():System.Type
+UnityEngine.Texture2D = {}

@@ -4,112 +4,109 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace QTC
+public class AssetBundleWrap
 {
-    public class AssetBundleWrap
-	{
-		public string assetBundleName;
-		public string assetBundleFullName;
-		public Action<AssetBundleWrap> onLoaded;
+    public string assetBundleName;
+    public string assetBundleFullName;
+    public Action<AssetBundleWrap> onLoaded;
 
-		public List<AssetBundleWrap> deps; // 依赖的AB列表，加载时，这个列表需要都被先加载完成
-		public List<AssetBundleWrap> abRefs; // 被该列表的AB依赖，与 deps 意思相反，在卸载时，这个列表要为空
-		public List<Object> objRefs; // 被该列表的Object依赖，在卸载时，这个列表要为空
+    public List<AssetBundleWrap> deps; // 依赖的AB列表，加载时，这个列表需要都被先加载完成
+    public List<AssetBundleWrap> abRefs; // 被该列表的AB依赖，与 deps 意思相反，在卸载时，这个列表要为空
+    public List<Object> objRefs; // 被该列表的Object依赖，在卸载时，这个列表要为空
 
-		public AssetBundleCreateRequest request; // 存放异步加载的产物
+    public AssetBundleCreateRequest request; // 存放异步加载的产物
 
-		public AssetBundle syncAB; // 存放同步加载的产物
-		
-		public bool isDone 
-		{
-			get
-			{
-				if (syncAB == null && (request == null || !request.isDone))
-				{
-					return false;
-				}
+    public AssetBundle syncAB; // 存放同步加载的产物
 
-				return deps.All(dep => dep.isDone);
-			}	
-		}
+    public bool isDone
+    {
+        get
+        {
+            if (syncAB == null && (request == null || !request.isDone))
+            {
+                return false;
+            }
 
-		public int refCount
-		{
-			get
-			{
-				abRefs.RemoveAll(abRef => abRef.refCount == 0);
-				objRefs.RemoveAll(obj => obj == null);
+            return deps.All(dep => dep.isDone);
+        }
+    }
 
-				return abRefs.Count + objRefs.Count;
-			}
-		}
+    public int refCount
+    {
+        get
+        {
+            abRefs.RemoveAll(abRef => abRef.refCount == 0);
+            objRefs.RemoveAll(obj => obj == null);
 
-		public AssetBundleWrap(string assetBundleName, string assetBundleFullName, Action<AssetBundleWrap> onLoaded)
-		{
-			this.assetBundleName = assetBundleName;
-			this.assetBundleFullName = assetBundleFullName;
-			this.onLoaded = onLoaded;
+            return abRefs.Count + objRefs.Count;
+        }
+    }
 
-			deps = new List<AssetBundleWrap>();
-			abRefs = new List<AssetBundleWrap>();
-			objRefs = new List<Object>();
-		}
-		
-		public void Load()
-		{
-			if (request != null)
-			{
-				return;
-			}
+    public AssetBundleWrap(string assetBundleName, string assetBundleFullName, Action<AssetBundleWrap> onLoaded)
+    {
+        this.assetBundleName = assetBundleName;
+        this.assetBundleFullName = assetBundleFullName;
+        this.onLoaded = onLoaded;
 
-			request = AssetBundle.LoadFromFileAsync(assetBundleFullName);
-		}
+        deps = new List<AssetBundleWrap>();
+        abRefs = new List<AssetBundleWrap>();
+        objRefs = new List<Object>();
+    }
 
-		public void UnLoad()
-		{
-			request.assetBundle.Unload(true);
-		}
+    public void Load()
+    {
+        if (request != null)
+        {
+            return;
+        }
 
-		public T LoadAsset<T>(string assetName, string assetFullName, Object objRef) where T : Object
-		{
-			if (syncAB == null)
-			{
-				Debug.LogError("Synchronously load a asset while assetbundle is not prepared!");
-				return null;
-			}
+        request = AssetBundle.LoadFromFileAsync(assetBundleFullName);
+    }
 
-			return syncAB.LoadAsset<T>(assetFullName);
-		}
-		
-		public AssetWrap LoadAssetAsync<T>(string assetName, string assetFullName, Object objRef, Action<T> onLoaded2) where T: Object
-		{
-			if (request == null || request.assetBundle == null)
-			{
-				Debug.LogError("AssetBundleWrap.LoadAssetAsync while assetBundleCreateRequest is null or not completed!");
-				return null;
-			}
-			
-			AssetBundleRequest assetRequest = request.assetBundle.LoadAssetAsync<T>(assetFullName);
-			var assetWrap = new AssetWrap(assetName, assetFullName, obj =>
-			{
-				var asset = obj as T;
-				if (asset == null)
-				{
-					Debug.LogError($"Asset({obj.name}) fail to be converted to type {typeof(T).Name}");
-					return;
-				}
+    public void UnLoad()
+    {
+        request.assetBundle.Unload(true);
+    }
 
-				onLoaded2(asset);
-				
-				if (objRef != null)
-				{
-					objRefs.Add(objRef);
-				}
-			});
-			
-			assetWrap.request = assetRequest;
+    public T LoadAsset<T>(string assetName, string assetFullName, Object objRef) where T : Object
+    {
+        if (syncAB == null)
+        {
+            Debug.LogError("Synchronously load a asset while assetbundle is not prepared!");
+            return null;
+        }
 
-			return assetWrap;
-		}
-	}
+        return syncAB.LoadAsset<T>(assetFullName);
+    }
+
+    public AssetWrap LoadAssetAsync<T>(string assetName, string assetFullName, Object objRef, Action<T> onLoaded2) where T : Object
+    {
+        if (request == null || request.assetBundle == null)
+        {
+            Debug.LogError("AssetBundleWrap.LoadAssetAsync while assetBundleCreateRequest is null or not completed!");
+            return null;
+        }
+
+        AssetBundleRequest assetRequest = request.assetBundle.LoadAssetAsync<T>(assetFullName);
+        var assetWrap = new AssetWrap(assetName, assetFullName, obj =>
+        {
+            var asset = obj as T;
+            if (asset == null)
+            {
+                Debug.LogError($"Asset({obj.name}) fail to be converted to type {typeof(T).Name}");
+                return;
+            }
+
+            onLoaded2(asset);
+
+            if (objRef != null)
+            {
+                objRefs.Add(objRef);
+            }
+        });
+
+        assetWrap.request = assetRequest;
+
+        return assetWrap;
+    }
 }

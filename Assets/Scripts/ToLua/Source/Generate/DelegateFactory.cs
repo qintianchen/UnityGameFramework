@@ -61,7 +61,11 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.Video.VideoPlayer.FrameReadyEventHandler), factory.UnityEngine_Video_VideoPlayer_FrameReadyEventHandler);
 		dict.Add(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		dict.Add(typeof(UnityEngine.Canvas.WillRenderCanvases), factory.UnityEngine_Canvas_WillRenderCanvases);
+		dict.Add(typeof(System.Action<UnityEngine.UIElements.MeshGenerationContext>), factory.System_Action_UnityEngine_UIElements_MeshGenerationContext);
+		dict.Add(typeof(System.Comparison<UnityEngine.UIElements.VisualElement>), factory.System_Comparison_UnityEngine_UIElements_VisualElement);
 		dict.Add(typeof(System.Action<UnityEngine.Object>), factory.System_Action_UnityEngine_Object);
+		dict.Add(typeof(System.Action<float>), factory.System_Action_float);
+		dict.Add(typeof(System.Action<UnityEngine.EventSystems.PointerEventData>), factory.System_Action_UnityEngine_EventSystems_PointerEventData);
 
 		DelegateTraits<System.Action>.Init(factory.System_Action);
 		DelegateTraits<UnityEngine.Events.UnityAction>.Init(factory.UnityEngine_Events_UnityAction);
@@ -107,7 +111,11 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.Video.VideoPlayer.FrameReadyEventHandler>.Init(factory.UnityEngine_Video_VideoPlayer_FrameReadyEventHandler);
 		DelegateTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Init(factory.UnityEngine_Canvas_WillRenderCanvases);
+		DelegateTraits<System.Action<UnityEngine.UIElements.MeshGenerationContext>>.Init(factory.System_Action_UnityEngine_UIElements_MeshGenerationContext);
+		DelegateTraits<System.Comparison<UnityEngine.UIElements.VisualElement>>.Init(factory.System_Comparison_UnityEngine_UIElements_VisualElement);
 		DelegateTraits<System.Action<UnityEngine.Object>>.Init(factory.System_Action_UnityEngine_Object);
+		DelegateTraits<System.Action<float>>.Init(factory.System_Action_float);
+		DelegateTraits<System.Action<UnityEngine.EventSystems.PointerEventData>>.Init(factory.System_Action_UnityEngine_EventSystems_PointerEventData);
 
 		TypeTraits<System.Action>.Init(factory.Check_System_Action);
 		TypeTraits<UnityEngine.Events.UnityAction>.Init(factory.Check_UnityEngine_Events_UnityAction);
@@ -153,7 +161,11 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.Video.VideoPlayer.FrameReadyEventHandler>.Init(factory.Check_UnityEngine_Video_VideoPlayer_FrameReadyEventHandler);
 		TypeTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.Check_UnityEngine_RectTransform_ReapplyDrivenProperties);
 		TypeTraits<UnityEngine.Canvas.WillRenderCanvases>.Init(factory.Check_UnityEngine_Canvas_WillRenderCanvases);
+		TypeTraits<System.Action<UnityEngine.UIElements.MeshGenerationContext>>.Init(factory.Check_System_Action_UnityEngine_UIElements_MeshGenerationContext);
+		TypeTraits<System.Comparison<UnityEngine.UIElements.VisualElement>>.Init(factory.Check_System_Comparison_UnityEngine_UIElements_VisualElement);
 		TypeTraits<System.Action<UnityEngine.Object>>.Init(factory.Check_System_Action_UnityEngine_Object);
+		TypeTraits<System.Action<float>>.Init(factory.Check_System_Action_float);
+		TypeTraits<System.Action<UnityEngine.EventSystems.PointerEventData>>.Init(factory.Check_System_Action_UnityEngine_EventSystems_PointerEventData);
 
 		StackTraits<System.Action>.Push = factory.Push_System_Action;
 		StackTraits<UnityEngine.Events.UnityAction>.Push = factory.Push_UnityEngine_Events_UnityAction;
@@ -199,7 +211,11 @@ public class DelegateFactory
 		StackTraits<UnityEngine.Video.VideoPlayer.FrameReadyEventHandler>.Push = factory.Push_UnityEngine_Video_VideoPlayer_FrameReadyEventHandler;
 		StackTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Push = factory.Push_UnityEngine_RectTransform_ReapplyDrivenProperties;
 		StackTraits<UnityEngine.Canvas.WillRenderCanvases>.Push = factory.Push_UnityEngine_Canvas_WillRenderCanvases;
+		StackTraits<System.Action<UnityEngine.UIElements.MeshGenerationContext>>.Push = factory.Push_System_Action_UnityEngine_UIElements_MeshGenerationContext;
+		StackTraits<System.Comparison<UnityEngine.UIElements.VisualElement>>.Push = factory.Push_System_Comparison_UnityEngine_UIElements_VisualElement;
 		StackTraits<System.Action<UnityEngine.Object>>.Push = factory.Push_System_Action_UnityEngine_Object;
+		StackTraits<System.Action<float>>.Push = factory.Push_System_Action_float;
+		StackTraits<System.Action<UnityEngine.EventSystems.PointerEventData>>.Push = factory.Push_System_Action_UnityEngine_EventSystems_PointerEventData;
 	}
     
     public static Delegate CreateDelegate(Type t, LuaFunction func = null)
@@ -2857,6 +2873,126 @@ public class DelegateFactory
 		ToLua.Push(L, o);
 	}
 
+	class System_Action_UnityEngine_UIElements_MeshGenerationContext_Event : LuaDelegate
+	{
+		public System_Action_UnityEngine_UIElements_MeshGenerationContext_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_UIElements_MeshGenerationContext_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.UIElements.MeshGenerationContext param0)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.UIElements.MeshGenerationContext param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<UnityEngine.UIElements.MeshGenerationContext> System_Action_UnityEngine_UIElements_MeshGenerationContext(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<UnityEngine.UIElements.MeshGenerationContext> fn = delegate(UnityEngine.UIElements.MeshGenerationContext param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_UnityEngine_UIElements_MeshGenerationContext_Event target = new System_Action_UnityEngine_UIElements_MeshGenerationContext_Event(func);
+			System.Action<UnityEngine.UIElements.MeshGenerationContext> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_UnityEngine_UIElements_MeshGenerationContext_Event target = new System_Action_UnityEngine_UIElements_MeshGenerationContext_Event(func, self);
+			System.Action<UnityEngine.UIElements.MeshGenerationContext> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_UnityEngine_UIElements_MeshGenerationContext(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.UIElements.MeshGenerationContext>), L, pos);
+	}
+
+	void Push_System_Action_UnityEngine_UIElements_MeshGenerationContext(IntPtr L, System.Action<UnityEngine.UIElements.MeshGenerationContext> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Comparison_UnityEngine_UIElements_VisualElement_Event : LuaDelegate
+	{
+		public System_Comparison_UnityEngine_UIElements_VisualElement_Event(LuaFunction func) : base(func) { }
+		public System_Comparison_UnityEngine_UIElements_VisualElement_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public int Call(UnityEngine.UIElements.VisualElement param0, UnityEngine.UIElements.VisualElement param1)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PushObject(param1);
+			func.PCall();
+			int ret = (int)func.CheckNumber();
+			func.EndPCall();
+			return ret;
+		}
+
+		public int CallWithSelf(UnityEngine.UIElements.VisualElement param0, UnityEngine.UIElements.VisualElement param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PushObject(param1);
+			func.PCall();
+			int ret = (int)func.CheckNumber();
+			func.EndPCall();
+			return ret;
+		}
+	}
+
+	public System.Comparison<UnityEngine.UIElements.VisualElement> System_Comparison_UnityEngine_UIElements_VisualElement(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Comparison<UnityEngine.UIElements.VisualElement> fn = delegate(UnityEngine.UIElements.VisualElement param0, UnityEngine.UIElements.VisualElement param1) { return 0; };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Comparison_UnityEngine_UIElements_VisualElement_Event target = new System_Comparison_UnityEngine_UIElements_VisualElement_Event(func);
+			System.Comparison<UnityEngine.UIElements.VisualElement> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Comparison_UnityEngine_UIElements_VisualElement_Event target = new System_Comparison_UnityEngine_UIElements_VisualElement_Event(func, self);
+			System.Comparison<UnityEngine.UIElements.VisualElement> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Comparison_UnityEngine_UIElements_VisualElement(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Comparison<UnityEngine.UIElements.VisualElement>), L, pos);
+	}
+
+	void Push_System_Comparison_UnityEngine_UIElements_VisualElement(IntPtr L, System.Comparison<UnityEngine.UIElements.VisualElement> o)
+	{
+		ToLua.Push(L, o);
+	}
+
 	class System_Action_UnityEngine_Object_Event : LuaDelegate
 	{
 		public System_Action_UnityEngine_Object_Event(LuaFunction func) : base(func) { }
@@ -2910,6 +3046,120 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_UnityEngine_Object(IntPtr L, System.Action<UnityEngine.Object> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_float_Event : LuaDelegate
+	{
+		public System_Action_float_Event(LuaFunction func) : base(func) { }
+		public System_Action_float_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(float param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(float param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<float> System_Action_float(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<float> fn = delegate(float param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_float_Event target = new System_Action_float_Event(func);
+			System.Action<float> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_float_Event target = new System_Action_float_Event(func, self);
+			System.Action<float> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_float(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<float>), L, pos);
+	}
+
+	void Push_System_Action_float(IntPtr L, System.Action<float> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_UnityEngine_EventSystems_PointerEventData_Event : LuaDelegate
+	{
+		public System_Action_UnityEngine_EventSystems_PointerEventData_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_EventSystems_PointerEventData_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.EventSystems.PointerEventData param0)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.EventSystems.PointerEventData param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<UnityEngine.EventSystems.PointerEventData> System_Action_UnityEngine_EventSystems_PointerEventData(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<UnityEngine.EventSystems.PointerEventData> fn = delegate(UnityEngine.EventSystems.PointerEventData param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_UnityEngine_EventSystems_PointerEventData_Event target = new System_Action_UnityEngine_EventSystems_PointerEventData_Event(func);
+			System.Action<UnityEngine.EventSystems.PointerEventData> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_UnityEngine_EventSystems_PointerEventData_Event target = new System_Action_UnityEngine_EventSystems_PointerEventData_Event(func, self);
+			System.Action<UnityEngine.EventSystems.PointerEventData> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_UnityEngine_EventSystems_PointerEventData(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.EventSystems.PointerEventData>), L, pos);
+	}
+
+	void Push_System_Action_UnityEngine_EventSystems_PointerEventData(IntPtr L, System.Action<UnityEngine.EventSystems.PointerEventData> o)
 	{
 		ToLua.Push(L, o);
 	}

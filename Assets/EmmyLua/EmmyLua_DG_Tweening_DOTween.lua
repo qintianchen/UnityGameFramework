@@ -1,0 +1,48 @@
+---@class DG.Tweening.DOTween:System.Object
+---@field logBehaviour DG.Tweening.LogBehaviour
+---@field debugStoreTargetId boolean
+---@field SetTweensCapacity fun(tweenersCapacity:number, sequencesCapacity:number)
+---@field Clear fun(destroy:boolean)
+---@field ClearCachedTweens fun()
+---@field Validate fun():number
+---@field ManualUpdate fun(deltaTime:number, unscaledDeltaTime:number)
+---@field Sequence fun():DG.Tweening.Sequence
+---@field Sequence fun(target:System.Object):DG.Tweening.Sequence
+---@field CompleteAll fun(withCallbacks:boolean):number
+---@field Complete fun(targetOrId:System.Object, withCallbacks:boolean):number
+---@field FlipAll fun():number
+---@field Flip fun(targetOrId:System.Object):number
+---@field GotoAll fun(to:number, andPlay:boolean):number
+---@field Goto fun(targetOrId:System.Object, to:number, andPlay:boolean):number
+---@field KillAll fun(complete:boolean):number
+---@field KillAll fun(complete:boolean, idsOrTargetsToExclude:System.Object[]):number
+---@field Kill fun(targetOrId:System.Object, complete:boolean):number
+---@field Kill fun(target:System.Object, id:System.Object, complete:boolean):number
+---@field PauseAll fun():number
+---@field Pause fun(targetOrId:System.Object):number
+---@field PlayAll fun():number
+---@field Play fun(targetOrId:System.Object):number
+---@field Play fun(target:System.Object, id:System.Object):number
+---@field PlayBackwardsAll fun():number
+---@field PlayBackwards fun(targetOrId:System.Object):number
+---@field PlayBackwards fun(target:System.Object, id:System.Object):number
+---@field PlayForwardAll fun():number
+---@field PlayForward fun(targetOrId:System.Object):number
+---@field PlayForward fun(target:System.Object, id:System.Object):number
+---@field RestartAll fun(includeDelay:boolean):number
+---@field Restart fun(targetOrId:System.Object, includeDelay:boolean, changeDelayTo:number):number
+---@field Restart fun(target:System.Object, id:System.Object, includeDelay:boolean, changeDelayTo:number):number
+---@field RewindAll fun(includeDelay:boolean):number
+---@field Rewind fun(targetOrId:System.Object, includeDelay:boolean):number
+---@field SmoothRewindAll fun():number
+---@field SmoothRewind fun(targetOrId:System.Object):number
+---@field TogglePauseAll fun():number
+---@field TogglePause fun(targetOrId:System.Object):number
+---@field IsTweening fun(targetOrId:System.Object, alsoCheckIfIsPlaying:boolean):boolean
+---@field TotalActiveTweens fun():number
+---@field TotalPlayingTweens fun():number
+---@field Equals fun(obj:System.Object):boolean
+---@field GetHashCode fun():number
+---@field GetType fun():System.Type
+---@field ToString fun():string
+DG.Tweening.DOTween = {}

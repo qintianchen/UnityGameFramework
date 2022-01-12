@@ -1,0 +1,16 @@
+---@class DG.Tweening.Tweener:DG.Tweening.Tween
+---@field isRelative boolean
+---@field active boolean
+---@field fullPosition number
+---@field hasLoops boolean
+---@field playedOnce boolean
+---@field position number
+---@field ChangeStartValue fun(newStartValue:System.Object, newDuration:number):DG.Tweening.Tweener
+---@field ChangeEndValue fun(newEndValue:System.Object, newDuration:number, snapStartValue:boolean):DG.Tweening.Tweener
+---@field ChangeEndValue fun(newEndValue:System.Object, snapStartValue:boolean):DG.Tweening.Tweener
+---@field ChangeValues fun(newStartValue:System.Object, newEndValue:System.Object, newDuration:number):DG.Tweening.Tweener
+---@field Equals fun(obj:System.Object):boolean
+---@field GetHashCode fun():number
+---@field GetType fun():System.Type
+---@field ToString fun():string
+DG.Tweening.Tweener = {}

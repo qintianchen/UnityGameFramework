@@ -1,5 +1,7 @@
-﻿QTC.GameLogger.Info("加载成功")
+﻿inspect = require("inspect")
 
-inspect = require("inspect")
-
-print(inspect(_G))
+local count = 0
+for k, v in pairs(_G) do
+    count = count + 1
+end
+GameLogger.Info(("_G 共有 %s 个项目"):format(count))

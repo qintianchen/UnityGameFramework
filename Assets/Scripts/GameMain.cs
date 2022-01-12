@@ -1,5 +1,4 @@
 using System.Collections;
-using QTC;
 using UnityEngine;
 
 public class GameMain : MonoBehaviour

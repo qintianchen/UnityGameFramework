@@ -1,0 +1,117 @@
+---@class UnityEngine.AudioSource:UnityEngine.AudioBehaviour
+---@field panLevel number
+---@field pan number
+---@field volume number
+---@field pitch number
+---@field time number
+---@field timeSamples number
+---@field clip UnityEngine.AudioClip
+---@field outputAudioMixerGroup UnityEngine.Audio.AudioMixerGroup
+---@field isPlaying boolean
+---@field isVirtual boolean
+---@field loop boolean
+---@field ignoreListenerVolume boolean
+---@field playOnAwake boolean
+---@field ignoreListenerPause boolean
+---@field velocityUpdateMode UnityEngine.AudioVelocityUpdateMode
+---@field panStereo number
+---@field spatialBlend number
+---@field spatialize boolean
+---@field spatializePostEffects boolean
+---@field reverbZoneMix number
+---@field bypassEffects boolean
+---@field bypassListenerEffects boolean
+---@field bypassReverbZones boolean
+---@field dopplerLevel number
+---@field spread number
+---@field priority number
+---@field mute boolean
+---@field minDistance number
+---@field maxDistance number
+---@field rolloffMode UnityEngine.AudioRolloffMode
+---@field minVolume number
+---@field maxVolume number
+---@field rolloffFactor number
+---@field enabled boolean
+---@field isActiveAndEnabled boolean
+---@field transform UnityEngine.Transform
+---@field gameObject UnityEngine.GameObject
+---@field tag string
+---@field rigidbody UnityEngine.Component
+---@field rigidbody2D UnityEngine.Component
+---@field camera UnityEngine.Component
+---@field light UnityEngine.Component
+---@field animation UnityEngine.Component
+---@field constantForce UnityEngine.Component
+---@field renderer UnityEngine.Component
+---@field audio UnityEngine.Component
+---@field networkView UnityEngine.Component
+---@field collider UnityEngine.Component
+---@field collider2D UnityEngine.Component
+---@field hingeJoint UnityEngine.Component
+---@field particleSystem UnityEngine.Component
+---@field name string
+---@field hideFlags UnityEngine.HideFlags
+---@field Play fun()
+---@field Play fun(delay:number)
+---@field PlayDelayed fun(delay:number)
+---@field PlayScheduled fun(time:System.Double)
+---@field PlayOneShot fun(clip:UnityEngine.AudioClip)
+---@field PlayOneShot fun(clip:UnityEngine.AudioClip, volumeScale:number)
+---@field SetScheduledStartTime fun(time:System.Double)
+---@field SetScheduledEndTime fun(time:System.Double)
+---@field Stop fun()
+---@field Pause fun()
+---@field UnPause fun()
+---@field PlayClipAtPoint fun(clip:UnityEngine.AudioClip, position:UnityEngine.Vector3)
+---@field PlayClipAtPoint fun(clip:UnityEngine.AudioClip, position:UnityEngine.Vector3, volume:number)
+---@field SetCustomCurve fun(type:UnityEngine.AudioSourceCurveType, curve:UnityEngine.AnimationCurve)
+---@field GetCustomCurve fun(type:UnityEngine.AudioSourceCurveType):UnityEngine.AnimationCurve
+---@field GetOutputData fun(numSamples:number, channel:number):System.Single[]
+---@field GetOutputData fun(samples:System.Single[], channel:number)
+---@field GetSpectrumData fun(numSamples:number, channel:number, window:UnityEngine.FFTWindow):System.Single[]
+---@field GetSpectrumData fun(samples:System.Single[], channel:number, window:UnityEngine.FFTWindow)
+---@field SetSpatializerFloat fun(index:number, value:number):boolean
+---@field GetSpatializerFloat fun(index:number, value:System.Single&):boolean
+---@field GetAmbisonicDecoderFloat fun(index:number, value:System.Single&):boolean
+---@field SetAmbisonicDecoderFloat fun(index:number, value:number):boolean
+---@field GetComponent fun(type:System.Type):UnityEngine.Component
+---@field GetComponent fun():nil
+---@field TryGetComponent fun(type:System.Type, component:UnityEngine.Component&):boolean
+---@field TryGetComponent fun(component:nil):boolean
+---@field GetComponent fun(type:string):UnityEngine.Component
+---@field GetComponentInChildren fun(t:System.Type, includeInactive:boolean):UnityEngine.Component
+---@field GetComponentInChildren fun(t:System.Type):UnityEngine.Component
+---@field GetComponentInChildren fun(includeInactive:boolean):nil
+---@field GetComponentInChildren fun():nil
+---@field GetComponentsInChildren fun(t:System.Type, includeInactive:boolean):UnityEngine.Component[]
+---@field GetComponentsInChildren fun(t:System.Type):UnityEngine.Component[]
+---@field GetComponentsInChildren fun(includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun():T[]
+---@field GetComponentInParent fun(t:System.Type):UnityEngine.Component
+---@field GetComponentInParent fun():nil
+---@field GetComponentsInParent fun(t:System.Type, includeInactive:boolean):UnityEngine.Component[]
+---@field GetComponentsInParent fun(t:System.Type):UnityEngine.Component[]
+---@field GetComponentsInParent fun(includeInactive:boolean):T[]
+---@field GetComponentsInParent fun():T[]
+---@field GetComponents fun(type:System.Type):UnityEngine.Component[]
+---@field GetComponents fun():T[]
+---@field CompareTag fun(tag:string):boolean
+---@field SendMessageUpwards fun(methodName:string, value:System.Object, options:UnityEngine.SendMessageOptions)
+---@field SendMessageUpwards fun(methodName:string, value:System.Object)
+---@field SendMessageUpwards fun(methodName:string)
+---@field SendMessageUpwards fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field SendMessage fun(methodName:string, value:System.Object)
+---@field SendMessage fun(methodName:string)
+---@field SendMessage fun(methodName:string, value:System.Object, options:UnityEngine.SendMessageOptions)
+---@field SendMessage fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field BroadcastMessage fun(methodName:string, parameter:System.Object, options:UnityEngine.SendMessageOptions)
+---@field BroadcastMessage fun(methodName:string, parameter:System.Object)
+---@field BroadcastMessage fun(methodName:string)
+---@field BroadcastMessage fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field GetInstanceID fun():number
+---@field GetHashCode fun():number
+---@field Equals fun(other:System.Object):boolean
+---@field ToString fun():string
+---@field GetType fun():System.Type
+UnityEngine.AudioSource = {}

@@ -9,6 +9,7 @@ local setmetatable = setmetatable
 local type = type
 local Mathf = Mathf
 
+---@class UnityEngine.Color
 local Color = {}
 local get = tolua.initget(Color)
 

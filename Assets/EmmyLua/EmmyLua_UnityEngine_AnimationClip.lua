@@ -1,0 +1,34 @@
+---@class UnityEngine.AnimationClip:UnityEngine.Motion
+---@field length number
+---@field frameRate number
+---@field wrapMode UnityEngine.WrapMode
+---@field localBounds UnityEngine.Bounds
+---@field legacy boolean
+---@field humanMotion boolean
+---@field empty boolean
+---@field hasGenericRootTransform boolean
+---@field hasMotionFloatCurves boolean
+---@field hasMotionCurves boolean
+---@field hasRootCurves boolean
+---@field events UnityEngine.AnimationEvent[]
+---@field averageDuration number
+---@field averageAngularSpeed number
+---@field averageSpeed UnityEngine.Vector3
+---@field apparentSpeed number
+---@field isLooping boolean
+---@field isHumanMotion boolean
+---@field isAnimatorMotion boolean
+---@field name string
+---@field hideFlags UnityEngine.HideFlags
+---@field SampleAnimation fun(go:UnityEngine.GameObject, time:number)
+---@field SetCurve fun(relativePath:string, type:System.Type, propertyName:string, curve:UnityEngine.AnimationCurve)
+---@field EnsureQuaternionContinuity fun()
+---@field ClearCurves fun()
+---@field AddEvent fun(evt:UnityEngine.AnimationEvent)
+---@field ValidateIfRetargetable fun(val:boolean):boolean
+---@field GetInstanceID fun():number
+---@field GetHashCode fun():number
+---@field Equals fun(other:System.Object):boolean
+---@field ToString fun():string
+---@field GetType fun():System.Type
+UnityEngine.AnimationClip = {}

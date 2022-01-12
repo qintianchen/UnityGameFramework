@@ -1,4 +1,3 @@
-using QTC;
 using UnityEngine;
 
 public class GameMain_Video : MonoBehaviour

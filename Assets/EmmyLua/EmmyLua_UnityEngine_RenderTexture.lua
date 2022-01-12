@@ -1,0 +1,80 @@
+---@class UnityEngine.RenderTexture:UnityEngine.Texture
+---@field width number
+---@field height number
+---@field dimension UnityEngine.Rendering.TextureDimension
+---@field graphicsFormat UnityEngine.Experimental.Rendering.GraphicsFormat
+---@field useMipMap boolean
+---@field sRGB boolean
+---@field vrUsage UnityEngine.VRTextureUsage
+---@field memorylessMode UnityEngine.RenderTextureMemoryless
+---@field format UnityEngine.RenderTextureFormat
+---@field stencilFormat UnityEngine.Experimental.Rendering.GraphicsFormat
+---@field autoGenerateMips boolean
+---@field volumeDepth number
+---@field antiAliasing number
+---@field bindTextureMS boolean
+---@field enableRandomWrite boolean
+---@field useDynamicScale boolean
+---@field isPowerOfTwo boolean
+---@field active UnityEngine.RenderTexture
+---@field colorBuffer UnityEngine.RenderBuffer
+---@field depthBuffer UnityEngine.RenderBuffer
+---@field depth number
+---@field descriptor UnityEngine.RenderTextureDescriptor
+---@field generateMips boolean
+---@field isCubemap boolean
+---@field isVolume boolean
+---@field enabled boolean
+---@field mipmapCount number
+---@field isReadable boolean
+---@field wrapMode UnityEngine.TextureWrapMode
+---@field wrapModeU UnityEngine.TextureWrapMode
+---@field wrapModeV UnityEngine.TextureWrapMode
+---@field wrapModeW UnityEngine.TextureWrapMode
+---@field filterMode UnityEngine.FilterMode
+---@field anisoLevel number
+---@field mipMapBias number
+---@field texelSize UnityEngine.Vector2
+---@field updateCount System.UInt32
+---@field imageContentsHash UnityEngine.Hash128
+---@field name string
+---@field hideFlags UnityEngine.HideFlags
+---@field GetNativeDepthBufferPtr fun():System.IntPtr
+---@field DiscardContents fun(discardColor:boolean, discardDepth:boolean)
+---@field MarkRestoreExpected fun()
+---@field DiscardContents fun()
+---@field ResolveAntiAliasedSurface fun()
+---@field ResolveAntiAliasedSurface fun(target:UnityEngine.RenderTexture)
+---@field SetGlobalShaderProperty fun(propertyName:string)
+---@field Create fun():boolean
+---@field Release fun()
+---@field IsCreated fun():boolean
+---@field GenerateMips fun()
+---@field ConvertToEquirect fun(equirect:UnityEngine.RenderTexture, eye:UnityEngine.Camera.MonoOrStereoscopicEye)
+---@field SupportsStencil fun(rt:UnityEngine.RenderTexture):boolean
+---@field ReleaseTemporary fun(temp:UnityEngine.RenderTexture)
+---@field GetTemporary fun(desc:UnityEngine.RenderTextureDescriptor):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.Experimental.Rendering.GraphicsFormat, antiAliasing:number, memorylessMode:UnityEngine.RenderTextureMemoryless, vrUsage:UnityEngine.VRTextureUsage, useDynamicScale:boolean):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.Experimental.Rendering.GraphicsFormat, antiAliasing:number, memorylessMode:UnityEngine.RenderTextureMemoryless, vrUsage:UnityEngine.VRTextureUsage):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.Experimental.Rendering.GraphicsFormat, antiAliasing:number, memorylessMode:UnityEngine.RenderTextureMemoryless):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.Experimental.Rendering.GraphicsFormat, antiAliasing:number):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.Experimental.Rendering.GraphicsFormat):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.RenderTextureFormat, readWrite:UnityEngine.RenderTextureReadWrite, antiAliasing:number, memorylessMode:UnityEngine.RenderTextureMemoryless, vrUsage:UnityEngine.VRTextureUsage, useDynamicScale:boolean):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.RenderTextureFormat, readWrite:UnityEngine.RenderTextureReadWrite, antiAliasing:number, memorylessMode:UnityEngine.RenderTextureMemoryless, vrUsage:UnityEngine.VRTextureUsage):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.RenderTextureFormat, readWrite:UnityEngine.RenderTextureReadWrite, antiAliasing:number, memorylessMode:UnityEngine.RenderTextureMemoryless):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.RenderTextureFormat, readWrite:UnityEngine.RenderTextureReadWrite, antiAliasing:number):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.RenderTextureFormat, readWrite:UnityEngine.RenderTextureReadWrite):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:UnityEngine.RenderTextureFormat):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number):UnityEngine.RenderTexture
+---@field GetTemporary fun(width:number, height:number):UnityEngine.RenderTexture
+---@field SetBorderColor fun(color:UnityEngine.Color)
+---@field GetTexelOffset fun():UnityEngine.Vector2
+---@field GetNativeTexturePtr fun():System.IntPtr
+---@field GetNativeTextureID fun():number
+---@field IncrementUpdateCount fun()
+---@field GetInstanceID fun():number
+---@field GetHashCode fun():number
+---@field Equals fun(other:System.Object):boolean
+---@field ToString fun():string
+---@field GetType fun():System.Type
+UnityEngine.RenderTexture = {}

@@ -1,0 +1,197 @@
+---@class UnityEngine.Camera:UnityEngine.Behaviour
+---@field nearClipPlane number
+---@field farClipPlane number
+---@field fieldOfView number
+---@field renderingPath UnityEngine.RenderingPath
+---@field actualRenderingPath UnityEngine.RenderingPath
+---@field allowHDR boolean
+---@field allowMSAA boolean
+---@field allowDynamicResolution boolean
+---@field forceIntoRenderTexture boolean
+---@field orthographicSize number
+---@field orthographic boolean
+---@field opaqueSortMode UnityEngine.Rendering.OpaqueSortMode
+---@field transparencySortMode UnityEngine.TransparencySortMode
+---@field transparencySortAxis UnityEngine.Vector3
+---@field depth number
+---@field aspect number
+---@field velocity UnityEngine.Vector3
+---@field cullingMask number
+---@field eventMask number
+---@field layerCullSpherical boolean
+---@field cameraType UnityEngine.CameraType
+---@field overrideSceneCullingMask number
+---@field layerCullDistances System.Single[]
+---@field useOcclusionCulling boolean
+---@field cullingMatrix UnityEngine.Matrix4x4
+---@field backgroundColor UnityEngine.Color
+---@field clearFlags UnityEngine.CameraClearFlags
+---@field depthTextureMode UnityEngine.DepthTextureMode
+---@field clearStencilAfterLightingPass boolean
+---@field usePhysicalProperties boolean
+---@field sensorSize UnityEngine.Vector2
+---@field lensShift UnityEngine.Vector2
+---@field focalLength number
+---@field gateFit UnityEngine.Camera.GateFitMode
+---@field rect UnityEngine.Rect
+---@field pixelRect UnityEngine.Rect
+---@field pixelWidth number
+---@field pixelHeight number
+---@field scaledPixelWidth number
+---@field scaledPixelHeight number
+---@field targetTexture UnityEngine.RenderTexture
+---@field activeTexture UnityEngine.RenderTexture
+---@field targetDisplay number
+---@field cameraToWorldMatrix UnityEngine.Matrix4x4
+---@field worldToCameraMatrix UnityEngine.Matrix4x4
+---@field projectionMatrix UnityEngine.Matrix4x4
+---@field nonJitteredProjectionMatrix UnityEngine.Matrix4x4
+---@field useJitteredProjectionMatrixForTransparentRendering boolean
+---@field previousViewProjectionMatrix UnityEngine.Matrix4x4
+---@field main UnityEngine.Camera
+---@field current UnityEngine.Camera
+---@field scene UnityEngine.SceneManagement.Scene
+---@field stereoEnabled boolean
+---@field stereoSeparation number
+---@field stereoConvergence number
+---@field areVRStereoViewMatricesWithinSingleCullTolerance boolean
+---@field stereoTargetEye UnityEngine.StereoTargetEyeMask
+---@field stereoActiveEye UnityEngine.Camera.MonoOrStereoscopicEye
+---@field allCamerasCount number
+---@field allCameras UnityEngine.Camera[]
+---@field commandBufferCount number
+---@field isOrthoGraphic boolean
+---@field mainCamera UnityEngine.Camera
+---@field near number
+---@field far number
+---@field fov number
+---@field hdr boolean
+---@field stereoMirrorMode boolean
+---@field enabled boolean
+---@field isActiveAndEnabled boolean
+---@field transform UnityEngine.Transform
+---@field gameObject UnityEngine.GameObject
+---@field tag string
+---@field rigidbody UnityEngine.Component
+---@field rigidbody2D UnityEngine.Component
+---@field camera UnityEngine.Component
+---@field light UnityEngine.Component
+---@field animation UnityEngine.Component
+---@field constantForce UnityEngine.Component
+---@field renderer UnityEngine.Component
+---@field audio UnityEngine.Component
+---@field networkView UnityEngine.Component
+---@field collider UnityEngine.Component
+---@field collider2D UnityEngine.Component
+---@field hingeJoint UnityEngine.Component
+---@field particleSystem UnityEngine.Component
+---@field name string
+---@field hideFlags UnityEngine.HideFlags
+---@field Reset fun()
+---@field ResetTransparencySortSettings fun()
+---@field ResetAspect fun()
+---@field ResetCullingMatrix fun()
+---@field SetReplacementShader fun(shader:UnityEngine.Shader, replacementTag:string)
+---@field ResetReplacementShader fun()
+---@field GetGateFittedFieldOfView fun():number
+---@field GetGateFittedLensShift fun():UnityEngine.Vector2
+---@field SetTargetBuffers fun(colorBuffer:UnityEngine.RenderBuffer, depthBuffer:UnityEngine.RenderBuffer)
+---@field SetTargetBuffers fun(colorBuffer:UnityEngine.RenderBuffer[], depthBuffer:UnityEngine.RenderBuffer)
+---@field ResetWorldToCameraMatrix fun()
+---@field ResetProjectionMatrix fun()
+---@field CalculateObliqueMatrix fun(clipPlane:UnityEngine.Vector4):UnityEngine.Matrix4x4
+---@field WorldToScreenPoint fun(position:UnityEngine.Vector3, eye:UnityEngine.Camera.MonoOrStereoscopicEye):UnityEngine.Vector3
+---@field WorldToViewportPoint fun(position:UnityEngine.Vector3, eye:UnityEngine.Camera.MonoOrStereoscopicEye):UnityEngine.Vector3
+---@field ViewportToWorldPoint fun(position:UnityEngine.Vector3, eye:UnityEngine.Camera.MonoOrStereoscopicEye):UnityEngine.Vector3
+---@field ScreenToWorldPoint fun(position:UnityEngine.Vector3, eye:UnityEngine.Camera.MonoOrStereoscopicEye):UnityEngine.Vector3
+---@field WorldToScreenPoint fun(position:UnityEngine.Vector3):UnityEngine.Vector3
+---@field WorldToViewportPoint fun(position:UnityEngine.Vector3):UnityEngine.Vector3
+---@field ViewportToWorldPoint fun(position:UnityEngine.Vector3):UnityEngine.Vector3
+---@field ScreenToWorldPoint fun(position:UnityEngine.Vector3):UnityEngine.Vector3
+---@field ScreenToViewportPoint fun(position:UnityEngine.Vector3):UnityEngine.Vector3
+---@field ViewportToScreenPoint fun(position:UnityEngine.Vector3):UnityEngine.Vector3
+---@field ViewportPointToRay fun(pos:UnityEngine.Vector3, eye:UnityEngine.Camera.MonoOrStereoscopicEye):UnityEngine.Ray
+---@field ViewportPointToRay fun(pos:UnityEngine.Vector3):UnityEngine.Ray
+---@field ScreenPointToRay fun(pos:UnityEngine.Vector3, eye:UnityEngine.Camera.MonoOrStereoscopicEye):UnityEngine.Ray
+---@field ScreenPointToRay fun(pos:UnityEngine.Vector3):UnityEngine.Ray
+---@field CalculateFrustumCorners fun(viewport:UnityEngine.Rect, z:number, eye:UnityEngine.Camera.MonoOrStereoscopicEye, outCorners:UnityEngine.Vector3[])
+---@field CalculateProjectionMatrixFromPhysicalProperties fun(output:UnityEngine.Matrix4x4&, focalLength:number, sensorSize:UnityEngine.Vector2, lensShift:UnityEngine.Vector2, nearClip:number, farClip:number, gateFitParameters:UnityEngine.Camera.GateFitParameters)
+---@field FocalLengthToFieldOfView fun(focalLength:number, sensorSize:number):number
+---@field FieldOfViewToFocalLength fun(fieldOfView:number, sensorSize:number):number
+---@field HorizontalToVerticalFieldOfView fun(horizontalFieldOfView:number, aspectRatio:number):number
+---@field VerticalToHorizontalFieldOfView fun(verticalFieldOfView:number, aspectRatio:number):number
+---@field GetStereoNonJitteredProjectionMatrix fun(eye:UnityEngine.Camera.StereoscopicEye):UnityEngine.Matrix4x4
+---@field GetStereoViewMatrix fun(eye:UnityEngine.Camera.StereoscopicEye):UnityEngine.Matrix4x4
+---@field CopyStereoDeviceProjectionMatrixToNonJittered fun(eye:UnityEngine.Camera.StereoscopicEye)
+---@field GetStereoProjectionMatrix fun(eye:UnityEngine.Camera.StereoscopicEye):UnityEngine.Matrix4x4
+---@field SetStereoProjectionMatrix fun(eye:UnityEngine.Camera.StereoscopicEye, matrix:UnityEngine.Matrix4x4)
+---@field ResetStereoProjectionMatrices fun()
+---@field SetStereoViewMatrix fun(eye:UnityEngine.Camera.StereoscopicEye, matrix:UnityEngine.Matrix4x4)
+---@field ResetStereoViewMatrices fun()
+---@field GetAllCameras fun(cameras:UnityEngine.Camera[]):number
+---@field RenderToCubemap fun(cubemap:UnityEngine.Cubemap, faceMask:number):boolean
+---@field RenderToCubemap fun(cubemap:UnityEngine.Cubemap):boolean
+---@field RenderToCubemap fun(cubemap:UnityEngine.RenderTexture, faceMask:number):boolean
+---@field RenderToCubemap fun(cubemap:UnityEngine.RenderTexture):boolean
+---@field RenderToCubemap fun(cubemap:UnityEngine.RenderTexture, faceMask:number, stereoEye:UnityEngine.Camera.MonoOrStereoscopicEye):boolean
+---@field Render fun()
+---@field RenderWithShader fun(shader:UnityEngine.Shader, replacementTag:string)
+---@field RenderDontRestore fun()
+---@field SetupCurrent fun(cur:UnityEngine.Camera)
+---@field CopyFrom fun(other:UnityEngine.Camera)
+---@field RemoveCommandBuffers fun(evt:UnityEngine.Rendering.CameraEvent)
+---@field RemoveAllCommandBuffers fun()
+---@field AddCommandBuffer fun(evt:UnityEngine.Rendering.CameraEvent, buffer:UnityEngine.Rendering.CommandBuffer)
+---@field AddCommandBufferAsync fun(evt:UnityEngine.Rendering.CameraEvent, buffer:UnityEngine.Rendering.CommandBuffer, queueType:UnityEngine.Rendering.ComputeQueueType)
+---@field RemoveCommandBuffer fun(evt:UnityEngine.Rendering.CameraEvent, buffer:UnityEngine.Rendering.CommandBuffer)
+---@field GetCommandBuffers fun(evt:UnityEngine.Rendering.CameraEvent):UnityEngine.Rendering.CommandBuffer[]
+---@field TryGetCullingParameters fun(cullingParameters:UnityEngine.Rendering.ScriptableCullingParameters&):boolean
+---@field TryGetCullingParameters fun(stereoAware:boolean, cullingParameters:UnityEngine.Rendering.ScriptableCullingParameters&):boolean
+---@field GetScreenWidth fun():number
+---@field GetScreenHeight fun():number
+---@field DoClear fun()
+---@field ResetFieldOfView fun()
+---@field SetStereoViewMatrices fun(leftMatrix:UnityEngine.Matrix4x4, rightMatrix:UnityEngine.Matrix4x4)
+---@field SetStereoProjectionMatrices fun(leftMatrix:UnityEngine.Matrix4x4, rightMatrix:UnityEngine.Matrix4x4)
+---@field GetStereoViewMatrices fun():UnityEngine.Matrix4x4[]
+---@field GetStereoProjectionMatrices fun():UnityEngine.Matrix4x4[]
+---@field GetComponent fun(type:System.Type):UnityEngine.Component
+---@field GetComponent fun():nil
+---@field TryGetComponent fun(type:System.Type, component:UnityEngine.Component&):boolean
+---@field TryGetComponent fun(component:nil):boolean
+---@field GetComponent fun(type:string):UnityEngine.Component
+---@field GetComponentInChildren fun(t:System.Type, includeInactive:boolean):UnityEngine.Component
+---@field GetComponentInChildren fun(t:System.Type):UnityEngine.Component
+---@field GetComponentInChildren fun(includeInactive:boolean):nil
+---@field GetComponentInChildren fun():nil
+---@field GetComponentsInChildren fun(t:System.Type, includeInactive:boolean):UnityEngine.Component[]
+---@field GetComponentsInChildren fun(t:System.Type):UnityEngine.Component[]
+---@field GetComponentsInChildren fun(includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun():T[]
+---@field GetComponentInParent fun(t:System.Type):UnityEngine.Component
+---@field GetComponentInParent fun():nil
+---@field GetComponentsInParent fun(t:System.Type, includeInactive:boolean):UnityEngine.Component[]
+---@field GetComponentsInParent fun(t:System.Type):UnityEngine.Component[]
+---@field GetComponentsInParent fun(includeInactive:boolean):T[]
+---@field GetComponentsInParent fun():T[]
+---@field GetComponents fun(type:System.Type):UnityEngine.Component[]
+---@field GetComponents fun():T[]
+---@field CompareTag fun(tag:string):boolean
+---@field SendMessageUpwards fun(methodName:string, value:System.Object, options:UnityEngine.SendMessageOptions)
+---@field SendMessageUpwards fun(methodName:string, value:System.Object)
+---@field SendMessageUpwards fun(methodName:string)
+---@field SendMessageUpwards fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field SendMessage fun(methodName:string, value:System.Object)
+---@field SendMessage fun(methodName:string)
+---@field SendMessage fun(methodName:string, value:System.Object, options:UnityEngine.SendMessageOptions)
+---@field SendMessage fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field BroadcastMessage fun(methodName:string, parameter:System.Object, options:UnityEngine.SendMessageOptions)
+---@field BroadcastMessage fun(methodName:string, parameter:System.Object)
+---@field BroadcastMessage fun(methodName:string)
+---@field BroadcastMessage fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field GetInstanceID fun():number
+---@field GetHashCode fun():number
+---@field Equals fun(other:System.Object):boolean
+---@field ToString fun():string
+---@field GetType fun():System.Type
+UnityEngine.Camera = {}

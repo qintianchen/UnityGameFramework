@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using LuaInterface;
 using UnityEditor;
-
 using BindType = ToLuaMenu.BindType;
-using System.Reflection;
-using QTC;
-using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using UnityEngine.Video;
+using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
+using Slider = UnityEngine.UI.Slider;
+using Toggle = UnityEngine.UI.Toggle;
 
 public static class CustomSettings
 {
@@ -73,16 +74,33 @@ public static class CustomSettings
         _GT(typeof(TrailRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Material)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Camera)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        _GT(typeof(Color)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Rigidbody)),
         _GT(typeof(AudioSource)),
+        _GT(typeof(Texture)),
+        _GT(typeof(Texture2D)),
+        _GT(typeof(Texture3D)),
+        _GT(typeof(TextureFormat)),
         _GT(typeof(RenderTexture)),
+        _GT(typeof(RenderTextureFormat)),
+        _GT(typeof(Sprite)),
         _GT(typeof(VideoPlayer)),
         _GT(typeof(VideoClip)),
         _GT(typeof(TextAsset)),
-        
+        _GT(typeof(Rect)),
+        _GT(typeof(Matrix4x4)),
+        _GT(typeof(Animator)),
+        _GT(typeof(Animation)),
+        _GT(typeof(AnimationClip)),
+        _GT(typeof(AnimationEvent)),
+        _GT(typeof(AnimationCurve)),
+        _GT(typeof(AnimationState)),
+        _GT(typeof(AnimatorStateInfo)),
+        _GT(typeof(RuntimeAnimatorController)),
+        _GT(typeof(Time)),
+
         // UnityEngine.UI
         _GT(typeof(RectTransform)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
+        _GT(typeof(RectTransformUtility)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Canvas)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(CanvasScaler)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Image)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
@@ -92,12 +110,19 @@ public static class CustomSettings
         _GT(typeof(Slider)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(RawImage)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(CanvasGroup)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
+        _GT(typeof(Shadow)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
+        _GT(typeof(Outline)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
+        _GT(typeof(ScrollView)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
+        _GT(typeof(Scrollbar)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         
         // Core.Script
         _GT(typeof(GameLogger)),
         _GT(typeof(VideoManager)),
         _GT(typeof(AssetManager)),
         _GT(typeof(AssetManager.AssetType)),
+        _GT(typeof(Timer)),
+        _GT(typeof(Empty4Raycast)),
+        _GT(typeof(UIEventListener)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

@@ -1,0 +1,81 @@
+---@class UnityEngine.GameObject:UnityEngine.Object
+---@field transform UnityEngine.Transform
+---@field layer number
+---@field active boolean
+---@field activeSelf boolean
+---@field activeInHierarchy boolean
+---@field isStatic boolean
+---@field tag string
+---@field scene UnityEngine.SceneManagement.Scene
+---@field sceneCullingMask number
+---@field gameObject UnityEngine.GameObject
+---@field rigidbody UnityEngine.Component
+---@field rigidbody2D UnityEngine.Component
+---@field camera UnityEngine.Component
+---@field light UnityEngine.Component
+---@field animation UnityEngine.Component
+---@field constantForce UnityEngine.Component
+---@field renderer UnityEngine.Component
+---@field audio UnityEngine.Component
+---@field networkView UnityEngine.Component
+---@field collider UnityEngine.Component
+---@field collider2D UnityEngine.Component
+---@field hingeJoint UnityEngine.Component
+---@field particleSystem UnityEngine.Component
+---@field name string
+---@field hideFlags UnityEngine.HideFlags
+---@field CreatePrimitive fun(type:UnityEngine.PrimitiveType):UnityEngine.GameObject
+---@field GetComponent fun():nil
+---@field GetComponent fun(type:System.Type):UnityEngine.Component
+---@field GetComponent fun(type:string):UnityEngine.Component
+---@field GetComponentInChildren fun(type:System.Type, includeInactive:boolean):UnityEngine.Component
+---@field GetComponentInChildren fun(type:System.Type):UnityEngine.Component
+---@field GetComponentInChildren fun():nil
+---@field GetComponentInChildren fun(includeInactive:boolean):nil
+---@field GetComponentInParent fun(type:System.Type, includeInactive:boolean):UnityEngine.Component
+---@field GetComponentInParent fun(type:System.Type):UnityEngine.Component
+---@field GetComponentInParent fun():nil
+---@field GetComponentInParent fun(includeInactive:boolean):nil
+---@field GetComponents fun(type:System.Type):UnityEngine.Component[]
+---@field GetComponents fun():T[]
+---@field GetComponentsInChildren fun(type:System.Type):UnityEngine.Component[]
+---@field GetComponentsInChildren fun(type:System.Type, includeInactive:boolean):UnityEngine.Component[]
+---@field GetComponentsInChildren fun(includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun():T[]
+---@field GetComponentsInParent fun(type:System.Type):UnityEngine.Component[]
+---@field GetComponentsInParent fun(type:System.Type, includeInactive:boolean):UnityEngine.Component[]
+---@field GetComponentsInParent fun(includeInactive:boolean):T[]
+---@field GetComponentsInParent fun():T[]
+---@field TryGetComponent fun(component:nil):boolean
+---@field TryGetComponent fun(type:System.Type, component:UnityEngine.Component&):boolean
+---@field FindWithTag fun(tag:string):UnityEngine.GameObject
+---@field SendMessageUpwards fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field SendMessage fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field BroadcastMessage fun(methodName:string, options:UnityEngine.SendMessageOptions)
+---@field AddComponent fun(componentType:System.Type):UnityEngine.Component
+---@field AddComponent fun():nil
+---@field SetActive fun(value:boolean)
+---@field SetActiveRecursively fun(state:boolean)
+---@field CompareTag fun(tag:string):boolean
+---@field FindGameObjectWithTag fun(tag:string):UnityEngine.GameObject
+---@field FindGameObjectsWithTag fun(tag:string):UnityEngine.GameObject[]
+---@field SendMessageUpwards fun(methodName:string, value:System.Object, options:UnityEngine.SendMessageOptions)
+---@field SendMessageUpwards fun(methodName:string, value:System.Object)
+---@field SendMessageUpwards fun(methodName:string)
+---@field SendMessage fun(methodName:string, value:System.Object, options:UnityEngine.SendMessageOptions)
+---@field SendMessage fun(methodName:string, value:System.Object)
+---@field SendMessage fun(methodName:string)
+---@field BroadcastMessage fun(methodName:string, parameter:System.Object, options:UnityEngine.SendMessageOptions)
+---@field BroadcastMessage fun(methodName:string, parameter:System.Object)
+---@field BroadcastMessage fun(methodName:string)
+---@field Find fun(name:string):UnityEngine.GameObject
+---@field SampleAnimation fun(clip:UnityEngine.Object, time:number)
+---@field AddComponent fun(className:string):UnityEngine.Component
+---@field PlayAnimation fun(animation:UnityEngine.Object)
+---@field StopAnimation fun()
+---@field GetInstanceID fun():number
+---@field GetHashCode fun():number
+---@field Equals fun(other:System.Object):boolean
+---@field ToString fun():string
+---@field GetType fun():System.Type
+UnityEngine.GameObject = {}

@@ -1,0 +1,19 @@
+---@class UnityEngine.AnimationEvent:System.Object
+---@field data string
+---@field stringParameter string
+---@field floatParameter number
+---@field intParameter number
+---@field objectReferenceParameter UnityEngine.Object
+---@field functionName string
+---@field time number
+---@field messageOptions UnityEngine.SendMessageOptions
+---@field isFiredByLegacy boolean
+---@field isFiredByAnimator boolean
+---@field animationState UnityEngine.AnimationState
+---@field animatorStateInfo UnityEngine.AnimatorStateInfo
+---@field animatorClipInfo UnityEngine.AnimatorClipInfo
+---@field Equals fun(obj:System.Object):boolean
+---@field GetHashCode fun():number
+---@field GetType fun():System.Type
+---@field ToString fun():string
+UnityEngine.AnimationEvent = {}

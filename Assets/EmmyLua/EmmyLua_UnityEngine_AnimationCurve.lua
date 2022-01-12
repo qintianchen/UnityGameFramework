@@ -1,0 +1,21 @@
+---@class UnityEngine.AnimationCurve:System.Object
+---@field keys UnityEngine.Keyframe[]
+---@field Item UnityEngine.Keyframe
+---@field length number
+---@field preWrapMode UnityEngine.WrapMode
+---@field postWrapMode UnityEngine.WrapMode
+---@field Evaluate fun(time:number):number
+---@field AddKey fun(time:number, value:number):number
+---@field AddKey fun(key:UnityEngine.Keyframe):number
+---@field MoveKey fun(index:number, key:UnityEngine.Keyframe):number
+---@field RemoveKey fun(index:number)
+---@field SmoothTangents fun(index:number, weight:number)
+---@field Constant fun(timeStart:number, timeEnd:number, value:number):UnityEngine.AnimationCurve
+---@field Linear fun(timeStart:number, valueStart:number, timeEnd:number, valueEnd:number):UnityEngine.AnimationCurve
+---@field EaseInOut fun(timeStart:number, valueStart:number, timeEnd:number, valueEnd:number):UnityEngine.AnimationCurve
+---@field Equals fun(o:System.Object):boolean
+---@field Equals fun(other:UnityEngine.AnimationCurve):boolean
+---@field GetHashCode fun():number
+---@field GetType fun():System.Type
+---@field ToString fun():string
+UnityEngine.AnimationCurve = {}

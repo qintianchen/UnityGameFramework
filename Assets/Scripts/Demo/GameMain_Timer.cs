@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using QTC;
-using QTC.Timer;
+﻿using System.Collections;
 using UnityEngine;
 
 public class GameMain_Timer : MonoBehaviour
