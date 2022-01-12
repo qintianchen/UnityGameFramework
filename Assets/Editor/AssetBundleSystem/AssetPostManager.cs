@@ -32,6 +32,11 @@ namespace QTC
 
 		static void OnAssetNewToFolder(string assetPath)
 		{
+			if (Directory.Exists(assetPath))
+			{
+				return;
+			}
+			
 			var fileName = Path.GetFileName(assetPath);
 			if (assetPath.Contains("Assets/Content") && !string.Equals(fileName, fileName.ToLower()))
 			{
