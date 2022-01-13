@@ -1,0 +1,90 @@
+---@class UIElements.ScrollView:UIElements.VisualElement
+---@field showHorizontal boolean
+---@field showVertical boolean
+---@field scrollOffset Vector2
+---@field horizontalPageSize number
+---@field verticalPageSize number
+---@field scrollDecelerationRate number
+---@field elasticity number
+---@field touchScrollBehavior UIElements.ScrollView.TouchScrollBehavior
+---@field contentViewport UIElements.VisualElement
+---@field horizontalScroller UIElements.Scroller
+---@field verticalScroller UIElements.Scroller
+---@field contentContainer UIElements.VisualElement
+---@field viewDataKey string
+---@field userData System.Object
+---@field canGrabFocus boolean
+---@field focusController UIElements.FocusController
+---@field usageHints UIElements.UsageHints
+---@field transform UIElements.ITransform
+---@field layout Rect
+---@field contentRect Rect
+---@field worldBound Rect
+---@field localBound Rect
+---@field worldTransform Matrix4x4
+---@field pickingMode UIElements.PickingMode
+---@field name string
+---@field enabledInHierarchy boolean
+---@field enabledSelf boolean
+---@field visible boolean
+---@field generateVisualContent System.Action`1[[UIElements.MeshGenerationContext, UIElementsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
+---@field experimental UIElements.IExperimentalFeatures
+---@field hierarchy UIElements.VisualElement.Hierarchy
+---@field cacheAsBitmap boolean
+---@field parent UIElements.VisualElement
+---@field panel UIElements.IPanel
+---@field Item UIElements.VisualElement
+---@field childCount number
+---@field schedule UIElements.IVisualElementScheduler
+---@field style UIElements.IStyle
+---@field customStyle UIElements.ICustomStyle
+---@field styleSheets UIElements.VisualElementStyleSheetSet
+---@field tooltip string
+---@field resolvedStyle UIElements.IResolvedStyle
+---@field focusable boolean
+---@field tabIndex number
+---@field delegatesFocus boolean
+---@field ScrollTo fun(self:UIElements.ScrollView, child:UIElements.VisualElement)
+---@field Focus fun(self:UIElements.VisualElement)
+---@field SendEvent fun(self:UIElements.VisualElement, e:UIElements.EventBase)
+---@field SetEnabled fun(self:UIElements.VisualElement, value:boolean)
+---@field MarkDirtyRepaint fun(self:UIElements.VisualElement)
+---@field ContainsPoint fun(self:UIElements.VisualElement, localPoint:Vector2):boolean
+---@field Overlaps fun(self:UIElements.VisualElement, rectangle:Rect):boolean
+---@field ToString fun(self:UIElements.VisualElement):string
+---@field ClearClassList fun(self:UIElements.VisualElement)
+---@field AddToClassList fun(self:UIElements.VisualElement, className:string)
+---@field RemoveFromClassList fun(self:UIElements.VisualElement, className:string)
+---@field ToggleInClassList fun(self:UIElements.VisualElement, className:string)
+---@field EnableInClassList fun(self:UIElements.VisualElement, className:string, enable:boolean)
+---@field ClassListContains fun(self:UIElements.VisualElement, cls:string):boolean
+---@field FindAncestorUserData fun(self:UIElements.VisualElement):System.Object
+---@field Add fun(self:UIElements.VisualElement, child:UIElements.VisualElement)
+---@field Insert fun(self:UIElements.VisualElement, index:number, element:UIElements.VisualElement)
+---@field Remove fun(self:UIElements.VisualElement, element:UIElements.VisualElement)
+---@field RemoveAt fun(self:UIElements.VisualElement, index:number)
+---@field Clear fun(self:UIElements.VisualElement)
+---@field ElementAt fun(self:UIElements.VisualElement, index:number):UIElements.VisualElement
+---@field IndexOf fun(self:UIElements.VisualElement, element:UIElements.VisualElement):number
+---@field Sort fun(self:UIElements.VisualElement, comp:System.Comparison`1[[UIElements.VisualElement, UIElementsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
+---@field BringToFront fun(self:UIElements.VisualElement)
+---@field SendToBack fun(self:UIElements.VisualElement)
+---@field PlaceBehind fun(self:UIElements.VisualElement, sibling:UIElements.VisualElement)
+---@field PlaceInFront fun(self:UIElements.VisualElement, sibling:UIElements.VisualElement)
+---@field RemoveFromHierarchy fun(self:UIElements.VisualElement)
+---@field GetFirstOfType fun(self:UIElements.VisualElement):nil
+---@field GetFirstAncestorOfType fun(self:UIElements.VisualElement):nil
+---@field Contains fun(self:UIElements.VisualElement, child:UIElements.VisualElement):boolean
+---@field FindCommonAncestor fun(self:UIElements.VisualElement, other:UIElements.VisualElement):UIElements.VisualElement
+---@field Blur fun(self:UIElements.Focusable)
+---@field RegisterCallback fun(self:UIElements.CallbackEventHandler, callback:nil, useTrickleDown:UIElements.TrickleDown)
+---@field RegisterCallback fun(self:UIElements.CallbackEventHandler, callback:nil, userArgs:nil, useTrickleDown:UIElements.TrickleDown)
+---@field UnregisterCallback fun(self:UIElements.CallbackEventHandler, callback:nil, useTrickleDown:UIElements.TrickleDown)
+---@field UnregisterCallback fun(self:UIElements.CallbackEventHandler, callback:nil, useTrickleDown:UIElements.TrickleDown)
+---@field HandleEvent fun(self:UIElements.CallbackEventHandler, evt:UIElements.EventBase)
+---@field HasTrickleDownHandlers fun(self:UIElements.CallbackEventHandler):boolean
+---@field HasBubbleUpHandlers fun(self:UIElements.CallbackEventHandler):boolean
+---@field Equals fun(self:System.Object, obj:System.Object):boolean
+---@field GetHashCode fun(self:System.Object):number
+---@field GetType fun(self:System.Object):System.Type
+UIElements.ScrollView = {}

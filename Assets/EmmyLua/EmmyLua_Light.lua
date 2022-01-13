@@ -1,0 +1,127 @@
+---@class Light:Behaviour
+---@field type LightType
+---@field shape LightShape
+---@field spotAngle number
+---@field innerSpotAngle number
+---@field color Color
+---@field colorTemperature number
+---@field useColorTemperature boolean
+---@field intensity number
+---@field bounceIntensity number
+---@field useBoundingSphereOverride boolean
+---@field boundingSphereOverride Vector4
+---@field useViewFrustumForShadowCasterCull boolean
+---@field shadowCustomResolution number
+---@field shadowBias number
+---@field shadowNormalBias number
+---@field shadowNearPlane number
+---@field useShadowMatrixOverride boolean
+---@field shadowMatrixOverride Matrix4x4
+---@field range number
+---@field flare Flare
+---@field bakingOutput LightBakingOutput
+---@field cullingMask number
+---@field renderingLayerMask number
+---@field lightShadowCasterMode LightShadowCasterMode
+---@field shadowRadius number
+---@field shadowAngle number
+---@field shadows LightShadows
+---@field shadowStrength number
+---@field shadowResolution Rendering.LightShadowResolution
+---@field shadowSoftness number
+---@field shadowSoftnessFade number
+---@field layerShadowCullDistances System.Single[]
+---@field cookieSize number
+---@field cookie Texture
+---@field renderMode LightRenderMode
+---@field bakedIndex number
+---@field areaSize Vector2
+---@field lightmapBakeType LightmapBakeType
+---@field commandBufferCount number
+---@field pixelLightCount number
+---@field shadowConstantBias number
+---@field shadowObjectSizeBias number
+---@field attenuate boolean
+---@field lightmappingMode LightmappingMode
+---@field isBaked boolean
+---@field alreadyLightmapped boolean
+---@field enabled boolean
+---@field isActiveAndEnabled boolean
+---@field transform Transform
+---@field gameObject GameObject
+---@field tag string
+---@field rigidbody Component
+---@field rigidbody2D Component
+---@field camera Component
+---@field light Component
+---@field animation Component
+---@field constantForce Component
+---@field renderer Component
+---@field audio Component
+---@field networkView Component
+---@field collider Component
+---@field collider2D Component
+---@field hingeJoint Component
+---@field particleSystem Component
+---@field name string
+---@field hideFlags HideFlags
+---@field Reset fun(self:Light)
+---@field SetLightDirty fun(self:Light)
+---@field AddCommandBuffer fun(self:Light, evt:Rendering.LightEvent, buffer:Rendering.CommandBuffer)
+---@field AddCommandBuffer fun(self:Light, evt:Rendering.LightEvent, buffer:Rendering.CommandBuffer, shadowPassMask:Rendering.ShadowMapPass)
+---@field AddCommandBufferAsync fun(self:Light, evt:Rendering.LightEvent, buffer:Rendering.CommandBuffer, queueType:Rendering.ComputeQueueType)
+---@field AddCommandBufferAsync fun(self:Light, evt:Rendering.LightEvent, buffer:Rendering.CommandBuffer, shadowPassMask:Rendering.ShadowMapPass, queueType:Rendering.ComputeQueueType)
+---@field RemoveCommandBuffer fun(self:Light, evt:Rendering.LightEvent, buffer:Rendering.CommandBuffer)
+---@field RemoveCommandBuffers fun(self:Light, evt:Rendering.LightEvent)
+---@field RemoveAllCommandBuffers fun(self:Light)
+---@field GetCommandBuffers fun(self:Light, evt:Rendering.LightEvent):Rendering.CommandBuffer[]
+---@field GetLights fun(type:LightType, layer:number):Light[]
+---@field GetComponent fun(self:Component, type:System.Type):Component
+---@field GetComponent fun(self:Component):nil
+---@field TryGetComponent fun(self:Component, type:System.Type, component:Component&):boolean
+---@field TryGetComponent fun(self:Component, component:nil):boolean
+---@field GetComponent fun(self:Component, type:string):Component
+---@field GetComponentInChildren fun(self:Component, t:System.Type, includeInactive:boolean):Component
+---@field GetComponentInChildren fun(self:Component, t:System.Type):Component
+---@field GetComponentInChildren fun(self:Component, includeInactive:boolean):nil
+---@field GetComponentInChildren fun(self:Component):nil
+---@field GetComponentsInChildren fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
+---@field GetComponentsInChildren fun(self:Component, t:System.Type):Component[]
+---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean, result:nil)
+---@field GetComponentsInChildren fun(self:Component):T[]
+---@field GetComponentsInChildren fun(self:Component, results:nil)
+---@field GetComponentInParent fun(self:Component, t:System.Type):Component
+---@field GetComponentInParent fun(self:Component):nil
+---@field GetComponentsInParent fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
+---@field GetComponentsInParent fun(self:Component, t:System.Type):Component[]
+---@field GetComponentsInParent fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInParent fun(self:Component, includeInactive:boolean, results:nil)
+---@field GetComponentsInParent fun(self:Component):T[]
+---@field GetComponents fun(self:Component, type:System.Type):Component[]
+---@field GetComponents fun(self:Component, type:System.Type, results:System.Collections.Generic.List`1[[Component, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
+---@field GetComponents fun(self:Component, results:nil)
+---@field GetComponents fun(self:Component):T[]
+---@field CompareTag fun(self:Component, tag:string):boolean
+---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object, options:SendMessageOptions)
+---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object)
+---@field SendMessageUpwards fun(self:Component, methodName:string)
+---@field SendMessageUpwards fun(self:Component, methodName:string, options:SendMessageOptions)
+---@field SendMessage fun(self:Component, methodName:string, value:System.Object)
+---@field SendMessage fun(self:Component, methodName:string)
+---@field SendMessage fun(self:Component, methodName:string, value:System.Object, options:SendMessageOptions)
+---@field SendMessage fun(self:Component, methodName:string, options:SendMessageOptions)
+---@field BroadcastMessage fun(self:Component, methodName:string, parameter:System.Object, options:SendMessageOptions)
+---@field BroadcastMessage fun(self:Component, methodName:string, parameter:System.Object)
+---@field BroadcastMessage fun(self:Component, methodName:string)
+---@field BroadcastMessage fun(self:Component, methodName:string, options:SendMessageOptions)
+---@field GetInstanceID fun(self:Object):number
+---@field GetHashCode fun(self:Object):number
+---@field Equals fun(self:Object, other:System.Object):boolean
+---@field ToString fun(self:Object):string
+---@field GetType fun(self:System.Object):System.Type
+---@field DOColor fun(target:Light, endValue:Color, duration:number):DG.Tweening.Core.TweenerCore`3[[Color, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null],[Color, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null],[DG.Tweening.Plugins.Options.ColorOptions, DOTween, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+---@field DOIntensity fun(target:Light, endValue:number, duration:number):DG.Tweening.Core.TweenerCore`3[[System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[DG.Tweening.Plugins.Options.FloatOptions, DOTween, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+---@field DOShadowStrength fun(target:Light, endValue:number, duration:number):DG.Tweening.Core.TweenerCore`3[[System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[DG.Tweening.Plugins.Options.FloatOptions, DOTween, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+---@field DOBlendableColor fun(target:Light, endValue:Color, duration:number):DG.Tweening.Tweener
+Light = {}

@@ -1,0 +1,22 @@
+---@class Video.VideoClip:Object
+---@field originalPath string
+---@field frameCount number
+---@field frameRate System.Double
+---@field length System.Double
+---@field width System.UInt32
+---@field height System.UInt32
+---@field pixelAspectRatioNumerator System.UInt32
+---@field pixelAspectRatioDenominator System.UInt32
+---@field sRGB boolean
+---@field audioTrackCount System.UInt16
+---@field name string
+---@field hideFlags HideFlags
+---@field GetAudioChannelCount fun(self:Video.VideoClip, audioTrackIdx:System.UInt16):System.UInt16
+---@field GetAudioSampleRate fun(self:Video.VideoClip, audioTrackIdx:System.UInt16):System.UInt32
+---@field GetAudioLanguage fun(self:Video.VideoClip, audioTrackIdx:System.UInt16):string
+---@field GetInstanceID fun(self:Object):number
+---@field GetHashCode fun(self:Object):number
+---@field Equals fun(self:Object, other:System.Object):boolean
+---@field ToString fun(self:Object):string
+---@field GetType fun(self:System.Object):System.Type
+Video.VideoClip = {}

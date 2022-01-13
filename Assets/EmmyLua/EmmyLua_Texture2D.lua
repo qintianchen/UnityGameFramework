@@ -1,0 +1,91 @@
+---@class Texture2D:Texture
+---@field format TextureFormat
+---@field whiteTexture Texture2D
+---@field blackTexture Texture2D
+---@field redTexture Texture2D
+---@field grayTexture Texture2D
+---@field linearGrayTexture Texture2D
+---@field normalTexture Texture2D
+---@field isReadable boolean
+---@field vtOnly boolean
+---@field streamingMipmaps boolean
+---@field streamingMipmapsPriority number
+---@field requestedMipmapLevel number
+---@field minimumMipmapLevel number
+---@field calculatedMipmapLevel number
+---@field desiredMipmapLevel number
+---@field loadingMipmapLevel number
+---@field loadedMipmapLevel number
+---@field alphaIsTransparency boolean
+---@field mipmapCount number
+---@field graphicsFormat Experimental.Rendering.GraphicsFormat
+---@field width number
+---@field height number
+---@field dimension Rendering.TextureDimension
+---@field wrapMode TextureWrapMode
+---@field wrapModeU TextureWrapMode
+---@field wrapModeV TextureWrapMode
+---@field wrapModeW TextureWrapMode
+---@field filterMode FilterMode
+---@field anisoLevel number
+---@field mipMapBias number
+---@field texelSize Vector2
+---@field updateCount System.UInt32
+---@field imageContentsHash Hash128
+---@field name string
+---@field hideFlags HideFlags
+---@field Compress fun(self:Texture2D, highQuality:boolean)
+---@field ClearRequestedMipmapLevel fun(self:Texture2D)
+---@field IsRequestedMipmapLevelLoaded fun(self:Texture2D):boolean
+---@field ClearMinimumMipmapLevel fun(self:Texture2D)
+---@field UpdateExternalTexture fun(self:Texture2D, nativeTex:System.IntPtr)
+---@field GetRawTextureData fun(self:Texture2D):System.Byte[]
+---@field GetPixels fun(self:Texture2D, x:number, y:number, blockWidth:number, blockHeight:number, miplevel:number):Color[]
+---@field GetPixels fun(self:Texture2D, x:number, y:number, blockWidth:number, blockHeight:number):Color[]
+---@field GetPixels32 fun(self:Texture2D, miplevel:number):Color32[]
+---@field GetPixels32 fun(self:Texture2D):Color32[]
+---@field PackTextures fun(self:Texture2D, textures:Texture2D[], padding:number, maximumAtlasSize:number, makeNoLongerReadable:boolean):Rect[]
+---@field PackTextures fun(self:Texture2D, textures:Texture2D[], padding:number, maximumAtlasSize:number):Rect[]
+---@field PackTextures fun(self:Texture2D, textures:Texture2D[], padding:number):Rect[]
+---@field CreateExternalTexture fun(width:number, height:number, format:TextureFormat, mipChain:boolean, linear:boolean, nativeTex:System.IntPtr):Texture2D
+---@field SetPixel fun(self:Texture2D, x:number, y:number, color:Color)
+---@field SetPixel fun(self:Texture2D, x:number, y:number, color:Color, mipLevel:number)
+---@field SetPixels fun(self:Texture2D, x:number, y:number, blockWidth:number, blockHeight:number, colors:Color[], miplevel:number)
+---@field SetPixels fun(self:Texture2D, x:number, y:number, blockWidth:number, blockHeight:number, colors:Color[])
+---@field SetPixels fun(self:Texture2D, colors:Color[], miplevel:number)
+---@field SetPixels fun(self:Texture2D, colors:Color[])
+---@field GetPixel fun(self:Texture2D, x:number, y:number):Color
+---@field GetPixel fun(self:Texture2D, x:number, y:number, mipLevel:number):Color
+---@field GetPixelBilinear fun(self:Texture2D, u:number, v:number):Color
+---@field GetPixelBilinear fun(self:Texture2D, u:number, v:number, mipLevel:number):Color
+---@field LoadRawTextureData fun(self:Texture2D, data:System.IntPtr, size:number)
+---@field LoadRawTextureData fun(self:Texture2D, data:System.Byte[])
+---@field LoadRawTextureData fun(self:Texture2D, data:nil)
+---@field SetPixelData fun(self:Texture2D, data:T[], mipLevel:number, sourceDataStartIndex:number)
+---@field SetPixelData fun(self:Texture2D, data:nil, mipLevel:number, sourceDataStartIndex:number)
+---@field GetPixelData fun(self:Texture2D, mipLevel:number):nil
+---@field GetRawTextureData fun(self:Texture2D):nil
+---@field Apply fun(self:Texture2D, updateMipmaps:boolean, makeNoLongerReadable:boolean)
+---@field Apply fun(self:Texture2D, updateMipmaps:boolean)
+---@field Apply fun(self:Texture2D)
+---@field Resize fun(self:Texture2D, width:number, height:number):boolean
+---@field Resize fun(self:Texture2D, width:number, height:number, format:TextureFormat, hasMipMap:boolean):boolean
+---@field Resize fun(self:Texture2D, width:number, height:number, format:Experimental.Rendering.GraphicsFormat, hasMipMap:boolean):boolean
+---@field ReadPixels fun(self:Texture2D, source:Rect, destX:number, destY:number, recalculateMipMaps:boolean)
+---@field ReadPixels fun(self:Texture2D, source:Rect, destX:number, destY:number)
+---@field GenerateAtlas fun(sizes:Vector2[], padding:number, atlasSize:number, results:System.Collections.Generic.List`1[[Rect, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]):boolean
+---@field SetPixels32 fun(self:Texture2D, colors:Color32[], miplevel:number)
+---@field SetPixels32 fun(self:Texture2D, colors:Color32[])
+---@field SetPixels32 fun(self:Texture2D, x:number, y:number, blockWidth:number, blockHeight:number, colors:Color32[], miplevel:number)
+---@field SetPixels32 fun(self:Texture2D, x:number, y:number, blockWidth:number, blockHeight:number, colors:Color32[])
+---@field GetPixels fun(self:Texture2D, miplevel:number):Color[]
+---@field GetPixels fun(self:Texture2D):Color[]
+---@field GetNativeTexturePtr fun(self:Texture):System.IntPtr
+---@field GetNativeTextureID fun(self:Texture):number
+---@field IncrementUpdateCount fun(self:Texture)
+---@field GetInstanceID fun(self:Object):number
+---@field GetHashCode fun(self:Object):number
+---@field Equals fun(self:Object, other:System.Object):boolean
+---@field ToString fun(self:Object):string
+---@field GetType fun(self:System.Object):System.Type
+Texture2D = {}

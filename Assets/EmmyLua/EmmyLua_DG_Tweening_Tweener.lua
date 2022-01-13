@@ -5,12 +5,12 @@
 ---@field hasLoops boolean
 ---@field playedOnce boolean
 ---@field position number
----@field ChangeStartValue fun(newStartValue:System.Object, newDuration:number):DG.Tweening.Tweener
----@field ChangeEndValue fun(newEndValue:System.Object, newDuration:number, snapStartValue:boolean):DG.Tweening.Tweener
----@field ChangeEndValue fun(newEndValue:System.Object, snapStartValue:boolean):DG.Tweening.Tweener
----@field ChangeValues fun(newStartValue:System.Object, newEndValue:System.Object, newDuration:number):DG.Tweening.Tweener
----@field Equals fun(obj:System.Object):boolean
----@field GetHashCode fun():number
----@field GetType fun():System.Type
----@field ToString fun():string
+---@field ChangeStartValue fun(self:DG.Tweening.Tweener, newStartValue:System.Object, newDuration:number):DG.Tweening.Tweener
+---@field ChangeEndValue fun(self:DG.Tweening.Tweener, newEndValue:System.Object, newDuration:number, snapStartValue:boolean):DG.Tweening.Tweener
+---@field ChangeEndValue fun(self:DG.Tweening.Tweener, newEndValue:System.Object, snapStartValue:boolean):DG.Tweening.Tweener
+---@field ChangeValues fun(self:DG.Tweening.Tweener, newStartValue:System.Object, newEndValue:System.Object, newDuration:number):DG.Tweening.Tweener
+---@field Equals fun(self:System.Object, obj:System.Object):boolean
+---@field GetHashCode fun(self:System.Object):number
+---@field GetType fun(self:System.Object):System.Type
+---@field ToString fun(self:System.Object):string
 DG.Tweening.Tweener = {}

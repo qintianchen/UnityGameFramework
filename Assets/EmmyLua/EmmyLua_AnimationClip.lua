@@ -1,0 +1,34 @@
+---@class AnimationClip:Motion
+---@field length number
+---@field frameRate number
+---@field wrapMode WrapMode
+---@field localBounds Bounds
+---@field legacy boolean
+---@field humanMotion boolean
+---@field empty boolean
+---@field hasGenericRootTransform boolean
+---@field hasMotionFloatCurves boolean
+---@field hasMotionCurves boolean
+---@field hasRootCurves boolean
+---@field events AnimationEvent[]
+---@field averageDuration number
+---@field averageAngularSpeed number
+---@field averageSpeed Vector3
+---@field apparentSpeed number
+---@field isLooping boolean
+---@field isHumanMotion boolean
+---@field isAnimatorMotion boolean
+---@field name string
+---@field hideFlags HideFlags
+---@field SampleAnimation fun(self:AnimationClip, go:GameObject, time:number)
+---@field SetCurve fun(self:AnimationClip, relativePath:string, type:System.Type, propertyName:string, curve:AnimationCurve)
+---@field EnsureQuaternionContinuity fun(self:AnimationClip)
+---@field ClearCurves fun(self:AnimationClip)
+---@field AddEvent fun(self:AnimationClip, evt:AnimationEvent)
+---@field ValidateIfRetargetable fun(self:Motion, val:boolean):boolean
+---@field GetInstanceID fun(self:Object):number
+---@field GetHashCode fun(self:Object):number
+---@field Equals fun(self:Object, other:System.Object):boolean
+---@field ToString fun(self:Object):string
+---@field GetType fun(self:System.Object):System.Type
+AnimationClip = {}

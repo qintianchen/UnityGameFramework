@@ -1,0 +1,21 @@
+---@class AnimationCurve:System.Object
+---@field keys Keyframe[]
+---@field Item Keyframe
+---@field length number
+---@field preWrapMode WrapMode
+---@field postWrapMode WrapMode
+---@field Evaluate fun(self:AnimationCurve, time:number):number
+---@field AddKey fun(self:AnimationCurve, time:number, value:number):number
+---@field AddKey fun(self:AnimationCurve, key:Keyframe):number
+---@field MoveKey fun(self:AnimationCurve, index:number, key:Keyframe):number
+---@field RemoveKey fun(self:AnimationCurve, index:number)
+---@field SmoothTangents fun(self:AnimationCurve, index:number, weight:number)
+---@field Constant fun(timeStart:number, timeEnd:number, value:number):AnimationCurve
+---@field Linear fun(timeStart:number, valueStart:number, timeEnd:number, valueEnd:number):AnimationCurve
+---@field EaseInOut fun(timeStart:number, valueStart:number, timeEnd:number, valueEnd:number):AnimationCurve
+---@field Equals fun(self:AnimationCurve, o:System.Object):boolean
+---@field Equals fun(self:AnimationCurve, other:AnimationCurve):boolean
+---@field GetHashCode fun(self:AnimationCurve):number
+---@field GetType fun(self:System.Object):System.Type
+---@field ToString fun(self:System.Object):string
+AnimationCurve = {}

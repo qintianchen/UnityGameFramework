@@ -1,0 +1,21 @@
+---@class AnimationState:TrackedReference
+---@field enabled boolean
+---@field weight number
+---@field wrapMode WrapMode
+---@field time number
+---@field normalizedTime number
+---@field speed number
+---@field normalizedSpeed number
+---@field length number
+---@field layer number
+---@field clip AnimationClip
+---@field name string
+---@field blendMode AnimationBlendMode
+---@field AddMixingTransform fun(self:AnimationState, mix:Transform)
+---@field AddMixingTransform fun(self:AnimationState, mix:Transform, recursive:boolean)
+---@field RemoveMixingTransform fun(self:AnimationState, mix:Transform)
+---@field Equals fun(self:TrackedReference, o:System.Object):boolean
+---@field GetHashCode fun(self:TrackedReference):number
+---@field GetType fun(self:System.Object):System.Type
+---@field ToString fun(self:System.Object):string
+AnimationState = {}

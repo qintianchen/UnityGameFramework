@@ -1,0 +1,87 @@
+---@class GameObject:Object
+---@field transform Transform
+---@field layer number
+---@field active boolean
+---@field activeSelf boolean
+---@field activeInHierarchy boolean
+---@field isStatic boolean
+---@field tag string
+---@field scene SceneManagement.Scene
+---@field sceneCullingMask number
+---@field gameObject GameObject
+---@field rigidbody Component
+---@field rigidbody2D Component
+---@field camera Component
+---@field light Component
+---@field animation Component
+---@field constantForce Component
+---@field renderer Component
+---@field audio Component
+---@field networkView Component
+---@field collider Component
+---@field collider2D Component
+---@field hingeJoint Component
+---@field particleSystem Component
+---@field name string
+---@field hideFlags HideFlags
+---@field CreatePrimitive fun(type:PrimitiveType):GameObject
+---@field GetComponent fun(self:GameObject):nil
+---@field GetComponent fun(self:GameObject, type:System.Type):Component
+---@field GetComponent fun(self:GameObject, type:string):Component
+---@field GetComponentInChildren fun(self:GameObject, type:System.Type, includeInactive:boolean):Component
+---@field GetComponentInChildren fun(self:GameObject, type:System.Type):Component
+---@field GetComponentInChildren fun(self:GameObject):nil
+---@field GetComponentInChildren fun(self:GameObject, includeInactive:boolean):nil
+---@field GetComponentInParent fun(self:GameObject, type:System.Type, includeInactive:boolean):Component
+---@field GetComponentInParent fun(self:GameObject, type:System.Type):Component
+---@field GetComponentInParent fun(self:GameObject):nil
+---@field GetComponentInParent fun(self:GameObject, includeInactive:boolean):nil
+---@field GetComponents fun(self:GameObject, type:System.Type):Component[]
+---@field GetComponents fun(self:GameObject):T[]
+---@field GetComponents fun(self:GameObject, type:System.Type, results:System.Collections.Generic.List`1[[Component, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
+---@field GetComponents fun(self:GameObject, results:nil)
+---@field GetComponentsInChildren fun(self:GameObject, type:System.Type):Component[]
+---@field GetComponentsInChildren fun(self:GameObject, type:System.Type, includeInactive:boolean):Component[]
+---@field GetComponentsInChildren fun(self:GameObject, includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun(self:GameObject, includeInactive:boolean, results:nil)
+---@field GetComponentsInChildren fun(self:GameObject):T[]
+---@field GetComponentsInChildren fun(self:GameObject, results:nil)
+---@field GetComponentsInParent fun(self:GameObject, type:System.Type):Component[]
+---@field GetComponentsInParent fun(self:GameObject, type:System.Type, includeInactive:boolean):Component[]
+---@field GetComponentsInParent fun(self:GameObject, includeInactive:boolean, results:nil)
+---@field GetComponentsInParent fun(self:GameObject, includeInactive:boolean):T[]
+---@field GetComponentsInParent fun(self:GameObject):T[]
+---@field TryGetComponent fun(self:GameObject, component:nil):boolean
+---@field TryGetComponent fun(self:GameObject, type:System.Type, component:Component&):boolean
+---@field FindWithTag fun(tag:string):GameObject
+---@field SendMessageUpwards fun(self:GameObject, methodName:string, options:SendMessageOptions)
+---@field SendMessage fun(self:GameObject, methodName:string, options:SendMessageOptions)
+---@field BroadcastMessage fun(self:GameObject, methodName:string, options:SendMessageOptions)
+---@field AddComponent fun(self:GameObject, componentType:System.Type):Component
+---@field AddComponent fun(self:GameObject):nil
+---@field SetActive fun(self:GameObject, value:boolean)
+---@field SetActiveRecursively fun(self:GameObject, state:boolean)
+---@field CompareTag fun(self:GameObject, tag:string):boolean
+---@field FindGameObjectWithTag fun(tag:string):GameObject
+---@field FindGameObjectsWithTag fun(tag:string):GameObject[]
+---@field SendMessageUpwards fun(self:GameObject, methodName:string, value:System.Object, options:SendMessageOptions)
+---@field SendMessageUpwards fun(self:GameObject, methodName:string, value:System.Object)
+---@field SendMessageUpwards fun(self:GameObject, methodName:string)
+---@field SendMessage fun(self:GameObject, methodName:string, value:System.Object, options:SendMessageOptions)
+---@field SendMessage fun(self:GameObject, methodName:string, value:System.Object)
+---@field SendMessage fun(self:GameObject, methodName:string)
+---@field BroadcastMessage fun(self:GameObject, methodName:string, parameter:System.Object, options:SendMessageOptions)
+---@field BroadcastMessage fun(self:GameObject, methodName:string, parameter:System.Object)
+---@field BroadcastMessage fun(self:GameObject, methodName:string)
+---@field Find fun(name:string):GameObject
+---@field SampleAnimation fun(self:GameObject, clip:Object, time:number)
+---@field AddComponent fun(self:GameObject, className:string):Component
+---@field PlayAnimation fun(self:GameObject, animation:Object)
+---@field StopAnimation fun(self:GameObject)
+---@field GetInstanceID fun(self:Object):number
+---@field GetHashCode fun(self:Object):number
+---@field Equals fun(self:Object, other:System.Object):boolean
+---@field ToString fun(self:Object):string
+---@field GetType fun(self:System.Object):System.Type
+---@field GetOrAddComponent fun(go:GameObject, t:System.Type):Component
+GameObject = {}

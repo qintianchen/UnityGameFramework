@@ -8,9 +8,9 @@ public class AssetManagerWrap
 	{
 		L.BeginClass(typeof(AssetManager), typeof(SingleTon<AssetManager>));
 		L.RegFunction("Init", Init);
+		L.RegFunction("LoadAssetAsync", LoadAssetAsync);
 		L.RegFunction("UnloadAllUnusedAssetBundle", UnloadAllUnusedAssetBundle);
 		L.RegFunction("GetLoadedAssetBundlesInfo", GetLoadedAssetBundlesInfo);
-		L.RegFunction("LoadAssetAsync", LoadAssetAsync);
 		L.RegFunction("New", _CreateAssetManager);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("assetDirs", get_assetDirs, set_assetDirs);
@@ -69,6 +69,26 @@ public class AssetManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int LoadAssetAsync(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 5);
+			AssetManager obj = (AssetManager)ToLua.CheckObject<AssetManager>(L, 1);
+			string arg0 = ToLua.CheckString(L, 2);
+			AssetType arg1 = (AssetType)ToLua.CheckObject(L, 3, typeof(AssetType));
+			UnityEngine.Object arg2 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 4);
+			System.Action<UnityEngine.Object> arg3 = (System.Action<UnityEngine.Object>)ToLua.CheckDelegate<System.Action<UnityEngine.Object>>(L, 5);
+			obj.LoadAssetAsync(arg0, arg1, arg2, arg3);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int UnloadAllUnusedAssetBundle(IntPtr L)
 	{
 		try
@@ -94,26 +114,6 @@ public class AssetManagerWrap
 			string o = obj.GetLoadedAssetBundlesInfo();
 			LuaDLL.lua_pushstring(L, o);
 			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int LoadAssetAsync(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 5);
-			AssetManager obj = (AssetManager)ToLua.CheckObject<AssetManager>(L, 1);
-			string arg0 = ToLua.CheckString(L, 2);
-			AssetManager.AssetType arg1 = (AssetManager.AssetType)ToLua.CheckObject(L, 3, typeof(AssetManager.AssetType));
-			UnityEngine.Object arg2 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 4);
-			System.Action<UnityEngine.Object> arg3 = (System.Action<UnityEngine.Object>)ToLua.CheckDelegate<System.Action<UnityEngine.Object>>(L, 5);
-			obj.LoadAssetAsync(arg0, arg1, arg2, arg3);
-			return 0;
 		}
 		catch (Exception e)
 		{

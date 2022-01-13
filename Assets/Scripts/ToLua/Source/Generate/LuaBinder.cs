@@ -12,9 +12,11 @@ public static class LuaBinder
 		GameLoggerWrap.Register(L);
 		VideoManagerWrap.Register(L);
 		AssetManagerWrap.Register(L);
+		AssetTypeWrap.Register(L);
 		TimerWrap.Register(L);
 		Empty4RaycastWrap.Register(L);
 		UIEventListenerWrap.Register(L);
+		DontDestroyOnLoadWrap.Register(L);
 		SingleTon_GameLoggerWrap.Register(L);
 		SingleTon_VideoManagerWrap.Register(L);
 		SingleTon_AssetManagerWrap.Register(L);
@@ -148,9 +150,6 @@ public static class LuaBinder
 		L.BeginModule("Canvas");
 		L.RegFunction("WillRenderCanvases", UnityEngine_Canvas_WillRenderCanvases);
 		L.EndModule();
-		L.EndModule();
-		L.BeginModule("AssetManager");
-		AssetManager_AssetTypeWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("System");
 		L.RegFunction("Action", System_Action);

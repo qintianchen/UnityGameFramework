@@ -1,0 +1,36 @@
+---@class Rect:System.ValueType
+---@field zero Rect
+---@field x number
+---@field y number
+---@field position Vector2
+---@field center Vector2
+---@field min Vector2
+---@field max Vector2
+---@field width number
+---@field height number
+---@field size Vector2
+---@field xMin number
+---@field yMin number
+---@field xMax number
+---@field yMax number
+---@field left number
+---@field right number
+---@field top number
+---@field bottom number
+---@field MinMaxRect fun(xmin:number, ymin:number, xmax:number, ymax:number):Rect
+---@field Set fun(self:Rect, x:number, y:number, width:number, height:number)
+---@field Contains fun(self:Rect, point:Vector2):boolean
+---@field Contains fun(self:Rect, point:Vector3):boolean
+---@field Contains fun(self:Rect, point:Vector3, allowInverse:boolean):boolean
+---@field Overlaps fun(self:Rect, other:Rect):boolean
+---@field Overlaps fun(self:Rect, other:Rect, allowInverse:boolean):boolean
+---@field NormalizedToPoint fun(rectangle:Rect, normalizedRectCoordinates:Vector2):Vector2
+---@field PointToNormalized fun(rectangle:Rect, point:Vector2):Vector2
+---@field GetHashCode fun(self:Rect):number
+---@field Equals fun(self:Rect, other:System.Object):boolean
+---@field Equals fun(self:Rect, other:Rect):boolean
+---@field ToString fun(self:Rect):string
+---@field ToString fun(self:Rect, format:string):string
+---@field ToString fun(self:Rect, format:string, formatProvider:System.IFormatProvider):string
+---@field GetType fun(self:System.Object):System.Type
+Rect = {}

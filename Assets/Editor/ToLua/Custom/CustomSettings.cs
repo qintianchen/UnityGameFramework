@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 using UnityEngine.Video;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
+using Object = UnityEngine.Object;
 using Slider = UnityEngine.UI.Slider;
 using Toggle = UnityEngine.UI.Toggle;
 
@@ -37,6 +38,7 @@ public static class CustomSettings
     };
 
     //附加导出委托类型(在导出委托时, customTypeList 中牵扯的委托类型都会导出， 无需写在这里)
+
     public static DelegateType[] customDelegateList = 
     {        
         _DT(typeof(Action)),                
@@ -47,12 +49,15 @@ public static class CustomSettings
         _DT(typeof(System.Func<int, int>)),
     };
 
-    //在这里添加你要导出注册到lua的类型列表
 
+    //在这里添加你要导出注册到lua的类型列表
     public static BindType[] customTypeList =
     {
         // Default
         _GT(typeof(InjectType)),
+        
+        // System
+        _GT(typeof(System.Object)),
         
         // DOTween
         _GT(typeof(DG.Tweening.DOTween)),
@@ -66,9 +71,11 @@ public static class CustomSettings
         _GT(typeof(DG.Tweening.Ease)),
 
         // UnityEngine
-        _GT(typeof(GameObject)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        _GT(typeof(Component)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
+        _GT(typeof(Object)),
+        _GT(typeof(GameObject)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)).AddExtendType(typeof(Extensions)),
+        _GT(typeof(Component)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)).AddExtendType(typeof(Extensions)),
         _GT(typeof(Transform)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
+        _GT(typeof(Canvas)),
         _GT(typeof(Light)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(LineRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(TrailRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
@@ -101,7 +108,6 @@ public static class CustomSettings
         // UnityEngine.UI
         _GT(typeof(RectTransform)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(RectTransformUtility)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        _GT(typeof(Canvas)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(CanvasScaler)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Image)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Text)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
@@ -119,11 +125,13 @@ public static class CustomSettings
         _GT(typeof(GameLogger)),
         _GT(typeof(VideoManager)),
         _GT(typeof(AssetManager)),
-        _GT(typeof(AssetManager.AssetType)),
+        _GT(typeof(AssetType)),
         _GT(typeof(Timer)),
         _GT(typeof(Empty4Raycast)),
         _GT(typeof(UIEventListener)),
+        _GT(typeof(DontDestroyOnLoad)),
     };
+
 
     public static List<Type> dynamicList = new List<Type>()
     {

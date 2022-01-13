@@ -1,0 +1,19 @@
+---@class AnimationEvent:System.Object
+---@field data string
+---@field stringParameter string
+---@field floatParameter number
+---@field intParameter number
+---@field objectReferenceParameter Object
+---@field functionName string
+---@field time number
+---@field messageOptions SendMessageOptions
+---@field isFiredByLegacy boolean
+---@field isFiredByAnimator boolean
+---@field animationState AnimationState
+---@field animatorStateInfo AnimatorStateInfo
+---@field animatorClipInfo AnimatorClipInfo
+---@field Equals fun(self:System.Object, obj:System.Object):boolean
+---@field GetHashCode fun(self:System.Object):number
+---@field GetType fun(self:System.Object):System.Type
+---@field ToString fun(self:System.Object):string
+AnimationEvent = {}

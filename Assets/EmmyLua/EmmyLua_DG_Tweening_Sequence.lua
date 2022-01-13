@@ -5,8 +5,17 @@
 ---@field hasLoops boolean
 ---@field playedOnce boolean
 ---@field position number
----@field Equals fun(obj:System.Object):boolean
----@field GetHashCode fun():number
----@field GetType fun():System.Type
----@field ToString fun():string
+---@field Equals fun(self:System.Object, obj:System.Object):boolean
+---@field GetHashCode fun(self:System.Object):number
+---@field GetType fun(self:System.Object):System.Type
+---@field ToString fun(self:System.Object):string
+---@field Append fun(s:DG.Tweening.Sequence, t:DG.Tweening.Tween):DG.Tweening.Sequence
+---@field Prepend fun(s:DG.Tweening.Sequence, t:DG.Tweening.Tween):DG.Tweening.Sequence
+---@field Join fun(s:DG.Tweening.Sequence, t:DG.Tweening.Tween):DG.Tweening.Sequence
+---@field Insert fun(s:DG.Tweening.Sequence, atPosition:number, t:DG.Tweening.Tween):DG.Tweening.Sequence
+---@field AppendInterval fun(s:DG.Tweening.Sequence, interval:number):DG.Tweening.Sequence
+---@field PrependInterval fun(s:DG.Tweening.Sequence, interval:number):DG.Tweening.Sequence
+---@field AppendCallback fun(s:DG.Tweening.Sequence, callback:DG.Tweening.TweenCallback):DG.Tweening.Sequence
+---@field PrependCallback fun(s:DG.Tweening.Sequence, callback:DG.Tweening.TweenCallback):DG.Tweening.Sequence
+---@field InsertCallback fun(s:DG.Tweening.Sequence, atPosition:number, callback:DG.Tweening.TweenCallback):DG.Tweening.Sequence
 DG.Tweening.Sequence = {}

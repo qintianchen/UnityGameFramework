@@ -14,10 +14,7 @@ public class Timer
     public bool isBoundToMono; // 是否将生命周期绑定到某个MonoBehavior上
     public MonoBehaviour mono; // 生命周期会绑定到这个MonoBehavior上
 
-    public bool isDone // 是否结束了，包括正常结束和非正常结束（主动取消或绑定消失）
-    {
-        get { return this.isCompleted || this.isCancelled || (isBoundToMono && mono == null); }
-    }
+    public bool isDone => isCompleted || isCancelled || (isBoundToMono && mono == null); // 是否结束了，包括正常结束和非正常结束（主动取消或绑定消失）
 
     public Action onComplete; // 完成的回调，在非正常结束的情况下，该回调不会被调用
     public Action<float> onUpdate; // 每帧回调，返回从定时器开始到当前回调的帧开始；定时器开始的当帧会调用一次

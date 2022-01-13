@@ -1,0 +1,52 @@
+---@class Texture3D:Texture
+---@field depth number
+---@field format TextureFormat
+---@field isReadable boolean
+---@field mipmapCount number
+---@field graphicsFormat Experimental.Rendering.GraphicsFormat
+---@field width number
+---@field height number
+---@field dimension Rendering.TextureDimension
+---@field wrapMode TextureWrapMode
+---@field wrapModeU TextureWrapMode
+---@field wrapModeV TextureWrapMode
+---@field wrapModeW TextureWrapMode
+---@field filterMode FilterMode
+---@field anisoLevel number
+---@field mipMapBias number
+---@field texelSize Vector2
+---@field updateCount System.UInt32
+---@field imageContentsHash Hash128
+---@field name string
+---@field hideFlags HideFlags
+---@field UpdateExternalTexture fun(self:Texture3D, nativeTex:System.IntPtr)
+---@field GetPixels fun(self:Texture3D, miplevel:number):Color[]
+---@field GetPixels fun(self:Texture3D):Color[]
+---@field GetPixels32 fun(self:Texture3D, miplevel:number):Color32[]
+---@field GetPixels32 fun(self:Texture3D):Color32[]
+---@field SetPixels fun(self:Texture3D, colors:Color[], miplevel:number)
+---@field SetPixels fun(self:Texture3D, colors:Color[])
+---@field SetPixels32 fun(self:Texture3D, colors:Color32[], miplevel:number)
+---@field SetPixels32 fun(self:Texture3D, colors:Color32[])
+---@field CreateExternalTexture fun(width:number, height:number, depth:number, format:TextureFormat, mipChain:boolean, nativeTex:System.IntPtr):Texture3D
+---@field Apply fun(self:Texture3D, updateMipmaps:boolean, makeNoLongerReadable:boolean)
+---@field Apply fun(self:Texture3D, updateMipmaps:boolean)
+---@field Apply fun(self:Texture3D)
+---@field SetPixel fun(self:Texture3D, x:number, y:number, z:number, color:Color)
+---@field SetPixel fun(self:Texture3D, x:number, y:number, z:number, color:Color, mipLevel:number)
+---@field GetPixel fun(self:Texture3D, x:number, y:number, z:number):Color
+---@field GetPixel fun(self:Texture3D, x:number, y:number, z:number, mipLevel:number):Color
+---@field GetPixelBilinear fun(self:Texture3D, u:number, v:number, w:number):Color
+---@field GetPixelBilinear fun(self:Texture3D, u:number, v:number, w:number, mipLevel:number):Color
+---@field SetPixelData fun(self:Texture3D, data:T[], mipLevel:number, sourceDataStartIndex:number)
+---@field SetPixelData fun(self:Texture3D, data:nil, mipLevel:number, sourceDataStartIndex:number)
+---@field GetPixelData fun(self:Texture3D, mipLevel:number):nil
+---@field GetNativeTexturePtr fun(self:Texture):System.IntPtr
+---@field GetNativeTextureID fun(self:Texture):number
+---@field IncrementUpdateCount fun(self:Texture)
+---@field GetInstanceID fun(self:Object):number
+---@field GetHashCode fun(self:Object):number
+---@field Equals fun(self:Object, other:System.Object):boolean
+---@field ToString fun(self:Object):string
+---@field GetType fun(self:System.Object):System.Type
+Texture3D = {}

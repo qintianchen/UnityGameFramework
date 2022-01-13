@@ -1,0 +1,131 @@
+---@class Rigidbody:Component
+---@field velocity Vector3
+---@field angularVelocity Vector3
+---@field drag number
+---@field angularDrag number
+---@field mass number
+---@field useGravity boolean
+---@field maxDepenetrationVelocity number
+---@field isKinematic boolean
+---@field freezeRotation boolean
+---@field constraints RigidbodyConstraints
+---@field collisionDetectionMode CollisionDetectionMode
+---@field centerOfMass Vector3
+---@field worldCenterOfMass Vector3
+---@field inertiaTensorRotation Quaternion
+---@field inertiaTensor Vector3
+---@field detectCollisions boolean
+---@field position Vector3
+---@field rotation Quaternion
+---@field interpolation RigidbodyInterpolation
+---@field solverIterations number
+---@field sleepThreshold number
+---@field maxAngularVelocity number
+---@field solverVelocityIterations number
+---@field sleepVelocity number
+---@field sleepAngularVelocity number
+---@field useConeFriction boolean
+---@field solverIterationCount number
+---@field solverVelocityIterationCount number
+---@field transform Transform
+---@field gameObject GameObject
+---@field tag string
+---@field rigidbody Component
+---@field rigidbody2D Component
+---@field camera Component
+---@field light Component
+---@field animation Component
+---@field constantForce Component
+---@field renderer Component
+---@field audio Component
+---@field networkView Component
+---@field collider Component
+---@field collider2D Component
+---@field hingeJoint Component
+---@field particleSystem Component
+---@field name string
+---@field hideFlags HideFlags
+---@field SetDensity fun(self:Rigidbody, density:number)
+---@field MovePosition fun(self:Rigidbody, position:Vector3)
+---@field MoveRotation fun(self:Rigidbody, rot:Quaternion)
+---@field Sleep fun(self:Rigidbody)
+---@field IsSleeping fun(self:Rigidbody):boolean
+---@field WakeUp fun(self:Rigidbody)
+---@field ResetCenterOfMass fun(self:Rigidbody)
+---@field ResetInertiaTensor fun(self:Rigidbody)
+---@field GetRelativePointVelocity fun(self:Rigidbody, relativePoint:Vector3):Vector3
+---@field GetPointVelocity fun(self:Rigidbody, worldPoint:Vector3):Vector3
+---@field SetMaxAngularVelocity fun(self:Rigidbody, a:number)
+---@field AddForce fun(self:Rigidbody, force:Vector3, mode:ForceMode)
+---@field AddForce fun(self:Rigidbody, force:Vector3)
+---@field AddForce fun(self:Rigidbody, x:number, y:number, z:number, mode:ForceMode)
+---@field AddForce fun(self:Rigidbody, x:number, y:number, z:number)
+---@field AddRelativeForce fun(self:Rigidbody, force:Vector3, mode:ForceMode)
+---@field AddRelativeForce fun(self:Rigidbody, force:Vector3)
+---@field AddRelativeForce fun(self:Rigidbody, x:number, y:number, z:number, mode:ForceMode)
+---@field AddRelativeForce fun(self:Rigidbody, x:number, y:number, z:number)
+---@field AddTorque fun(self:Rigidbody, torque:Vector3, mode:ForceMode)
+---@field AddTorque fun(self:Rigidbody, torque:Vector3)
+---@field AddTorque fun(self:Rigidbody, x:number, y:number, z:number, mode:ForceMode)
+---@field AddTorque fun(self:Rigidbody, x:number, y:number, z:number)
+---@field AddRelativeTorque fun(self:Rigidbody, torque:Vector3, mode:ForceMode)
+---@field AddRelativeTorque fun(self:Rigidbody, torque:Vector3)
+---@field AddRelativeTorque fun(self:Rigidbody, x:number, y:number, z:number, mode:ForceMode)
+---@field AddRelativeTorque fun(self:Rigidbody, x:number, y:number, z:number)
+---@field AddForceAtPosition fun(self:Rigidbody, force:Vector3, position:Vector3, mode:ForceMode)
+---@field AddForceAtPosition fun(self:Rigidbody, force:Vector3, position:Vector3)
+---@field AddExplosionForce fun(self:Rigidbody, explosionForce:number, explosionPosition:Vector3, explosionRadius:number, upwardsModifier:number, mode:ForceMode)
+---@field AddExplosionForce fun(self:Rigidbody, explosionForce:number, explosionPosition:Vector3, explosionRadius:number, upwardsModifier:number)
+---@field AddExplosionForce fun(self:Rigidbody, explosionForce:number, explosionPosition:Vector3, explosionRadius:number)
+---@field ClosestPointOnBounds fun(self:Rigidbody, position:Vector3):Vector3
+---@field SweepTest fun(self:Rigidbody, direction:Vector3, hitInfo:RaycastHit&, maxDistance:number, queryTriggerInteraction:QueryTriggerInteraction):boolean
+---@field SweepTest fun(self:Rigidbody, direction:Vector3, hitInfo:RaycastHit&, maxDistance:number):boolean
+---@field SweepTest fun(self:Rigidbody, direction:Vector3, hitInfo:RaycastHit&):boolean
+---@field SweepTestAll fun(self:Rigidbody, direction:Vector3, maxDistance:number, queryTriggerInteraction:QueryTriggerInteraction):RaycastHit[]
+---@field SweepTestAll fun(self:Rigidbody, direction:Vector3, maxDistance:number):RaycastHit[]
+---@field SweepTestAll fun(self:Rigidbody, direction:Vector3):RaycastHit[]
+---@field GetComponent fun(self:Component, type:System.Type):Component
+---@field GetComponent fun(self:Component):nil
+---@field TryGetComponent fun(self:Component, type:System.Type, component:Component&):boolean
+---@field TryGetComponent fun(self:Component, component:nil):boolean
+---@field GetComponent fun(self:Component, type:string):Component
+---@field GetComponentInChildren fun(self:Component, t:System.Type, includeInactive:boolean):Component
+---@field GetComponentInChildren fun(self:Component, t:System.Type):Component
+---@field GetComponentInChildren fun(self:Component, includeInactive:boolean):nil
+---@field GetComponentInChildren fun(self:Component):nil
+---@field GetComponentsInChildren fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
+---@field GetComponentsInChildren fun(self:Component, t:System.Type):Component[]
+---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean, result:nil)
+---@field GetComponentsInChildren fun(self:Component):T[]
+---@field GetComponentsInChildren fun(self:Component, results:nil)
+---@field GetComponentInParent fun(self:Component, t:System.Type):Component
+---@field GetComponentInParent fun(self:Component):nil
+---@field GetComponentsInParent fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
+---@field GetComponentsInParent fun(self:Component, t:System.Type):Component[]
+---@field GetComponentsInParent fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInParent fun(self:Component, includeInactive:boolean, results:nil)
+---@field GetComponentsInParent fun(self:Component):T[]
+---@field GetComponents fun(self:Component, type:System.Type):Component[]
+---@field GetComponents fun(self:Component, type:System.Type, results:System.Collections.Generic.List`1[[Component, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
+---@field GetComponents fun(self:Component, results:nil)
+---@field GetComponents fun(self:Component):T[]
+---@field CompareTag fun(self:Component, tag:string):boolean
+---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object, options:SendMessageOptions)
+---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object)
+---@field SendMessageUpwards fun(self:Component, methodName:string)
+---@field SendMessageUpwards fun(self:Component, methodName:string, options:SendMessageOptions)
+---@field SendMessage fun(self:Component, methodName:string, value:System.Object)
+---@field SendMessage fun(self:Component, methodName:string)
+---@field SendMessage fun(self:Component, methodName:string, value:System.Object, options:SendMessageOptions)
+---@field SendMessage fun(self:Component, methodName:string, options:SendMessageOptions)
+---@field BroadcastMessage fun(self:Component, methodName:string, parameter:System.Object, options:SendMessageOptions)
+---@field BroadcastMessage fun(self:Component, methodName:string, parameter:System.Object)
+---@field BroadcastMessage fun(self:Component, methodName:string)
+---@field BroadcastMessage fun(self:Component, methodName:string, options:SendMessageOptions)
+---@field GetInstanceID fun(self:Object):number
+---@field GetHashCode fun(self:Object):number
+---@field Equals fun(self:Object, other:System.Object):boolean
+---@field ToString fun(self:Object):string
+---@field GetType fun(self:System.Object):System.Type
+Rigidbody = {}

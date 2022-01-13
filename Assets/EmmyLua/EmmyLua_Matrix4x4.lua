@@ -1,0 +1,43 @@
+---@class Matrix4x4:System.ValueType
+---@field rotation Quaternion
+---@field lossyScale Vector3
+---@field isIdentity boolean
+---@field determinant number
+---@field decomposeProjection FrustumPlanes
+---@field inverse Matrix4x4
+---@field transpose Matrix4x4
+---@field Item number
+---@field Item number
+---@field zero Matrix4x4
+---@field identity Matrix4x4
+---@field ValidTRS fun(self:Matrix4x4):boolean
+---@field Determinant fun(m:Matrix4x4):number
+---@field TRS fun(pos:Vector3, q:Quaternion, s:Vector3):Matrix4x4
+---@field SetTRS fun(self:Matrix4x4, pos:Vector3, q:Quaternion, s:Vector3)
+---@field Inverse3DAffine fun(input:Matrix4x4, result:Matrix4x4&):boolean
+---@field Inverse fun(m:Matrix4x4):Matrix4x4
+---@field Transpose fun(m:Matrix4x4):Matrix4x4
+---@field Ortho fun(left:number, right:number, bottom:number, top:number, zNear:number, zFar:number):Matrix4x4
+---@field Perspective fun(fov:number, aspect:number, zNear:number, zFar:number):Matrix4x4
+---@field LookAt fun(from:Vector3, to:Vector3, up:Vector3):Matrix4x4
+---@field Frustum fun(left:number, right:number, bottom:number, top:number, zNear:number, zFar:number):Matrix4x4
+---@field Frustum fun(fp:FrustumPlanes):Matrix4x4
+---@field GetHashCode fun(self:Matrix4x4):number
+---@field Equals fun(self:Matrix4x4, other:System.Object):boolean
+---@field Equals fun(self:Matrix4x4, other:Matrix4x4):boolean
+---@field GetColumn fun(self:Matrix4x4, index:number):Vector4
+---@field GetRow fun(self:Matrix4x4, index:number):Vector4
+---@field SetColumn fun(self:Matrix4x4, index:number, column:Vector4)
+---@field SetRow fun(self:Matrix4x4, index:number, row:Vector4)
+---@field MultiplyPoint fun(self:Matrix4x4, point:Vector3):Vector3
+---@field MultiplyPoint3x4 fun(self:Matrix4x4, point:Vector3):Vector3
+---@field MultiplyVector fun(self:Matrix4x4, vector:Vector3):Vector3
+---@field TransformPlane fun(self:Matrix4x4, plane:Plane):Plane
+---@field Scale fun(vector:Vector3):Matrix4x4
+---@field Translate fun(vector:Vector3):Matrix4x4
+---@field Rotate fun(q:Quaternion):Matrix4x4
+---@field ToString fun(self:Matrix4x4):string
+---@field ToString fun(self:Matrix4x4, format:string):string
+---@field ToString fun(self:Matrix4x4, format:string, formatProvider:System.IFormatProvider):string
+---@field GetType fun(self:System.Object):System.Type
+Matrix4x4 = {}

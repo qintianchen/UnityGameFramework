@@ -1,10 +1,12 @@
----@class AssetManager:any
+---@class AssetManager:SingleTon`1[[AssetManager, Core.Scripts, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
 ---@field ASSETBUNDLE_DIR string
----@field LoadAsset fun(assetName:string, objRef:UnityEngine.Object):nil
----@field UnloadAllUnusedAssetBundle fun()
----@field GetLoadedAssetBundlesInfo fun():string
----@field Equals fun(obj:System.Object):boolean
----@field GetHashCode fun():number
----@field GetType fun():System.Type
----@field ToString fun():string
+---@field LoadAsset fun(self:AssetManager, assetName:string, objRef:Object):nil
+---@field LoadAssetAsync fun(self:AssetManager, assetName:string, assetType:AssetType, objRef:Object, onLoaded:System.Action`1[[Object, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
+---@field LoadAssetAsync fun(self:AssetManager, assetName:string, objRef:Object, onLoaded:fun()):AssetWrap
+---@field UnloadAllUnusedAssetBundle fun(self:AssetManager)
+---@field GetLoadedAssetBundlesInfo fun(self:AssetManager):string
+---@field Equals fun(self:System.Object, obj:System.Object):boolean
+---@field GetHashCode fun(self:System.Object):number
+---@field GetType fun(self:System.Object):System.Type
+---@field ToString fun(self:System.Object):string
 AssetManager = {}

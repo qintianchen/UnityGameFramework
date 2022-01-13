@@ -1,0 +1,17 @@
+---@class AnimatorStateInfo:System.ValueType
+---@field fullPathHash number
+---@field nameHash number
+---@field shortNameHash number
+---@field normalizedTime number
+---@field length number
+---@field speed number
+---@field speedMultiplier number
+---@field tagHash number
+---@field loop boolean
+---@field IsName fun(self:AnimatorStateInfo, name:string):boolean
+---@field IsTag fun(self:AnimatorStateInfo, tag:string):boolean
+---@field Equals fun(self:System.ValueType, obj:System.Object):boolean
+---@field GetHashCode fun(self:System.ValueType):number
+---@field ToString fun(self:System.ValueType):string
+---@field GetType fun(self:System.Object):System.Type
+AnimatorStateInfo = {}

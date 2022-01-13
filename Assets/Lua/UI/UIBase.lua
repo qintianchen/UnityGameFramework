@@ -1,5 +1,6 @@
-﻿UIBase = setmetatable({}, LuaObject)
+﻿---@class UIBase
+UIBase = NewObjectFrom(LuaObject)
 
-function UIBase:Close()
+function UIBase:OnDestroy()
     
-end 
+end

@@ -1,0 +1,108 @@
+---@class Animation:Behaviour
+---@field clip AnimationClip
+---@field playAutomatically boolean
+---@field wrapMode WrapMode
+---@field isPlaying boolean
+---@field Item AnimationState
+---@field animatePhysics boolean
+---@field animateOnlyIfVisible boolean
+---@field cullingType AnimationCullingType
+---@field localBounds Bounds
+---@field enabled boolean
+---@field isActiveAndEnabled boolean
+---@field transform Transform
+---@field gameObject GameObject
+---@field tag string
+---@field rigidbody Component
+---@field rigidbody2D Component
+---@field camera Component
+---@field light Component
+---@field animation Component
+---@field constantForce Component
+---@field renderer Component
+---@field audio Component
+---@field networkView Component
+---@field collider Component
+---@field collider2D Component
+---@field hingeJoint Component
+---@field particleSystem Component
+---@field name string
+---@field hideFlags HideFlags
+---@field Stop fun(self:Animation)
+---@field Stop fun(self:Animation, name:string)
+---@field Rewind fun(self:Animation)
+---@field Rewind fun(self:Animation, name:string)
+---@field Sample fun(self:Animation)
+---@field IsPlaying fun(self:Animation, name:string):boolean
+---@field Play fun(self:Animation):boolean
+---@field Play fun(self:Animation, mode:PlayMode):boolean
+---@field Play fun(self:Animation, animation:string):boolean
+---@field Play fun(self:Animation, animation:string, mode:PlayMode):boolean
+---@field CrossFade fun(self:Animation, animation:string)
+---@field CrossFade fun(self:Animation, animation:string, fadeLength:number)
+---@field CrossFade fun(self:Animation, animation:string, fadeLength:number, mode:PlayMode)
+---@field Blend fun(self:Animation, animation:string)
+---@field Blend fun(self:Animation, animation:string, targetWeight:number)
+---@field Blend fun(self:Animation, animation:string, targetWeight:number, fadeLength:number)
+---@field CrossFadeQueued fun(self:Animation, animation:string):AnimationState
+---@field CrossFadeQueued fun(self:Animation, animation:string, fadeLength:number):AnimationState
+---@field CrossFadeQueued fun(self:Animation, animation:string, fadeLength:number, queue:QueueMode):AnimationState
+---@field CrossFadeQueued fun(self:Animation, animation:string, fadeLength:number, queue:QueueMode, mode:PlayMode):AnimationState
+---@field PlayQueued fun(self:Animation, animation:string):AnimationState
+---@field PlayQueued fun(self:Animation, animation:string, queue:QueueMode):AnimationState
+---@field PlayQueued fun(self:Animation, animation:string, queue:QueueMode, mode:PlayMode):AnimationState
+---@field AddClip fun(self:Animation, clip:AnimationClip, newName:string)
+---@field AddClip fun(self:Animation, clip:AnimationClip, newName:string, firstFrame:number, lastFrame:number)
+---@field AddClip fun(self:Animation, clip:AnimationClip, newName:string, firstFrame:number, lastFrame:number, addLoopFrame:boolean)
+---@field RemoveClip fun(self:Animation, clip:AnimationClip)
+---@field RemoveClip fun(self:Animation, clipName:string)
+---@field GetClipCount fun(self:Animation):number
+---@field Play fun(self:Animation, mode:AnimationPlayMode):boolean
+---@field Play fun(self:Animation, animation:string, mode:AnimationPlayMode):boolean
+---@field SyncLayer fun(self:Animation, layer:number)
+---@field GetClip fun(self:Animation, name:string):AnimationClip
+---@field GetComponent fun(self:Component, type:System.Type):Component
+---@field GetComponent fun(self:Component):nil
+---@field TryGetComponent fun(self:Component, type:System.Type, component:Component&):boolean
+---@field TryGetComponent fun(self:Component, component:nil):boolean
+---@field GetComponent fun(self:Component, type:string):Component
+---@field GetComponentInChildren fun(self:Component, t:System.Type, includeInactive:boolean):Component
+---@field GetComponentInChildren fun(self:Component, t:System.Type):Component
+---@field GetComponentInChildren fun(self:Component, includeInactive:boolean):nil
+---@field GetComponentInChildren fun(self:Component):nil
+---@field GetComponentsInChildren fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
+---@field GetComponentsInChildren fun(self:Component, t:System.Type):Component[]
+---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean, result:nil)
+---@field GetComponentsInChildren fun(self:Component):T[]
+---@field GetComponentsInChildren fun(self:Component, results:nil)
+---@field GetComponentInParent fun(self:Component, t:System.Type):Component
+---@field GetComponentInParent fun(self:Component):nil
+---@field GetComponentsInParent fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
+---@field GetComponentsInParent fun(self:Component, t:System.Type):Component[]
+---@field GetComponentsInParent fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInParent fun(self:Component, includeInactive:boolean, results:nil)
+---@field GetComponentsInParent fun(self:Component):T[]
+---@field GetComponents fun(self:Component, type:System.Type):Component[]
+---@field GetComponents fun(self:Component, type:System.Type, results:System.Collections.Generic.List`1[[Component, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
+---@field GetComponents fun(self:Component, results:nil)
+---@field GetComponents fun(self:Component):T[]
+---@field CompareTag fun(self:Component, tag:string):boolean
+---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object, options:SendMessageOptions)
+---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object)
+---@field SendMessageUpwards fun(self:Component, methodName:string)
+---@field SendMessageUpwards fun(self:Component, methodName:string, options:SendMessageOptions)
+---@field SendMessage fun(self:Component, methodName:string, value:System.Object)
+---@field SendMessage fun(self:Component, methodName:string)
+---@field SendMessage fun(self:Component, methodName:string, value:System.Object, options:SendMessageOptions)
+---@field SendMessage fun(self:Component, methodName:string, options:SendMessageOptions)
+---@field BroadcastMessage fun(self:Component, methodName:string, parameter:System.Object, options:SendMessageOptions)
+---@field BroadcastMessage fun(self:Component, methodName:string, parameter:System.Object)
+---@field BroadcastMessage fun(self:Component, methodName:string)
+---@field BroadcastMessage fun(self:Component, methodName:string, options:SendMessageOptions)
+---@field GetInstanceID fun(self:Object):number
+---@field GetHashCode fun(self:Object):number
+---@field Equals fun(self:Object, other:System.Object):boolean
+---@field ToString fun(self:Object):string
+---@field GetType fun(self:System.Object):System.Type
+Animation = {}

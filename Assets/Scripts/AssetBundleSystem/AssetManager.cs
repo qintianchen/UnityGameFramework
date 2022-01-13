@@ -21,23 +21,36 @@ using Object = UnityEngine.Object;
 // assetBundle的名字由目录的路径唯一确定
 // 上层只需要传文件名，即可加载出资源，由上层业务决定资源具体是什么类型。比如 icon.png 可以是 Sprite，也可以是 Texture2D
 
+public enum AssetMode
+{
+    AssetBundle,
+    AssetDataBase
+}
+    
+public enum AssetType
+{
+    UnityObject,
+    GameObject,
+    Material,
+    Sprite,
+    Texture,
+    AnimationClip,
+    VideoClip,
+    Scene,
+    TextAsset,
+}
 
 // 基于AssetBundle的资产管理
-public partial class AssetManager : SingleTon<AssetManager>
+public class AssetManager : SingleTon<AssetManager>
 {
     #region 属性
-
-    public enum AssetMode
-    {
-        AssetBundle,
-        AssetDataBase
-    }
 
     public List<string> assetDirs = new List<string> // 定义哪些目录的资产将会被打成AssetBundle作为合法的资产加载目录
     {
         "Assets/Content/Environment",
         "Assets/Content/Scenes",
         "Assets/Content/Shaders",
+        "Assets/Content/UI",
     };
 
     public List<string> singleAssetDirs = new List<string> // 这里定义的目录下的所有文件，都会相应地单独打成一个包
@@ -147,6 +160,42 @@ public partial class AssetManager : SingleTon<AssetManager>
         var assetBundle = assetBundleWrap.syncAB;
 
         return assetBundle.LoadAsset<T>(assetFullName);
+    }
+
+    public void LoadAssetAsync(string assetName, AssetType assetType, Object objRef, Action<Object> onLoaded)
+    {
+        switch (assetType)
+        {
+            case AssetType.UnityObject:
+                LoadAssetAsync<Object>(assetName, objRef, onLoaded);
+                break;
+            case AssetType.GameObject:
+                LoadAssetAsync<GameObject>(assetName, objRef, onLoaded);
+                break;
+            case AssetType.Material:
+                LoadAssetAsync<Material>(assetName, objRef, onLoaded);
+                break;
+            case AssetType.Sprite:
+                LoadAssetAsync<Sprite>(assetName, objRef, onLoaded);
+                break;
+            case AssetType.Texture:
+                LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
+                break;
+            case AssetType.AnimationClip:
+                LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
+                break;
+            case AssetType.VideoClip:
+                LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
+                break;
+            case AssetType.Scene:
+                LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
+                break;
+            case AssetType.TextAsset:
+                LoadAssetAsync<TextAsset>(assetName, objRef, onLoaded);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(assetType), assetType, null);
+        }
     }
 
     public AssetWrap LoadAssetAsync<T>(string assetName, Object objRef, Action<T> onLoaded) where T : Object

@@ -1,0 +1,80 @@
+---@class RenderTexture:Texture
+---@field width number
+---@field height number
+---@field dimension Rendering.TextureDimension
+---@field graphicsFormat Experimental.Rendering.GraphicsFormat
+---@field useMipMap boolean
+---@field sRGB boolean
+---@field vrUsage VRTextureUsage
+---@field memorylessMode RenderTextureMemoryless
+---@field format RenderTextureFormat
+---@field stencilFormat Experimental.Rendering.GraphicsFormat
+---@field autoGenerateMips boolean
+---@field volumeDepth number
+---@field antiAliasing number
+---@field bindTextureMS boolean
+---@field enableRandomWrite boolean
+---@field useDynamicScale boolean
+---@field isPowerOfTwo boolean
+---@field active RenderTexture
+---@field colorBuffer RenderBuffer
+---@field depthBuffer RenderBuffer
+---@field depth number
+---@field descriptor RenderTextureDescriptor
+---@field generateMips boolean
+---@field isCubemap boolean
+---@field isVolume boolean
+---@field enabled boolean
+---@field mipmapCount number
+---@field isReadable boolean
+---@field wrapMode TextureWrapMode
+---@field wrapModeU TextureWrapMode
+---@field wrapModeV TextureWrapMode
+---@field wrapModeW TextureWrapMode
+---@field filterMode FilterMode
+---@field anisoLevel number
+---@field mipMapBias number
+---@field texelSize Vector2
+---@field updateCount System.UInt32
+---@field imageContentsHash Hash128
+---@field name string
+---@field hideFlags HideFlags
+---@field GetNativeDepthBufferPtr fun(self:RenderTexture):System.IntPtr
+---@field DiscardContents fun(self:RenderTexture, discardColor:boolean, discardDepth:boolean)
+---@field MarkRestoreExpected fun(self:RenderTexture)
+---@field DiscardContents fun(self:RenderTexture)
+---@field ResolveAntiAliasedSurface fun(self:RenderTexture)
+---@field ResolveAntiAliasedSurface fun(self:RenderTexture, target:RenderTexture)
+---@field SetGlobalShaderProperty fun(self:RenderTexture, propertyName:string)
+---@field Create fun(self:RenderTexture):boolean
+---@field Release fun(self:RenderTexture)
+---@field IsCreated fun(self:RenderTexture):boolean
+---@field GenerateMips fun(self:RenderTexture)
+---@field ConvertToEquirect fun(self:RenderTexture, equirect:RenderTexture, eye:Camera.MonoOrStereoscopicEye)
+---@field SupportsStencil fun(rt:RenderTexture):boolean
+---@field ReleaseTemporary fun(temp:RenderTexture)
+---@field GetTemporary fun(desc:RenderTextureDescriptor):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:Experimental.Rendering.GraphicsFormat, antiAliasing:number, memorylessMode:RenderTextureMemoryless, vrUsage:VRTextureUsage, useDynamicScale:boolean):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:Experimental.Rendering.GraphicsFormat, antiAliasing:number, memorylessMode:RenderTextureMemoryless, vrUsage:VRTextureUsage):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:Experimental.Rendering.GraphicsFormat, antiAliasing:number, memorylessMode:RenderTextureMemoryless):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:Experimental.Rendering.GraphicsFormat, antiAliasing:number):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:Experimental.Rendering.GraphicsFormat):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:RenderTextureFormat, readWrite:RenderTextureReadWrite, antiAliasing:number, memorylessMode:RenderTextureMemoryless, vrUsage:VRTextureUsage, useDynamicScale:boolean):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:RenderTextureFormat, readWrite:RenderTextureReadWrite, antiAliasing:number, memorylessMode:RenderTextureMemoryless, vrUsage:VRTextureUsage):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:RenderTextureFormat, readWrite:RenderTextureReadWrite, antiAliasing:number, memorylessMode:RenderTextureMemoryless):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:RenderTextureFormat, readWrite:RenderTextureReadWrite, antiAliasing:number):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:RenderTextureFormat, readWrite:RenderTextureReadWrite):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number, format:RenderTextureFormat):RenderTexture
+---@field GetTemporary fun(width:number, height:number, depthBuffer:number):RenderTexture
+---@field GetTemporary fun(width:number, height:number):RenderTexture
+---@field SetBorderColor fun(self:RenderTexture, color:Color)
+---@field GetTexelOffset fun(self:RenderTexture):Vector2
+---@field GetNativeTexturePtr fun(self:Texture):System.IntPtr
+---@field GetNativeTextureID fun(self:Texture):number
+---@field IncrementUpdateCount fun(self:Texture)
+---@field GetInstanceID fun(self:Object):number
+---@field GetHashCode fun(self:Object):number
+---@field Equals fun(self:Object, other:System.Object):boolean
+---@field ToString fun(self:Object):string
+---@field GetType fun(self:System.Object):System.Type
+RenderTexture = {}
