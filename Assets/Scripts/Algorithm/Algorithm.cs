@@ -4,7 +4,7 @@ public static class Algorithm
 {
     private static Random random = new Random(DateTime.Now.Millisecond);
 
-    /// 从 [1, N] 中等概率，随机地挑选 K 个整数
+    /// Pick K integers at random from [1, N] with medium probability
     public static int[] NChooseK(int N, int K)
     {
         var result = new int[K];

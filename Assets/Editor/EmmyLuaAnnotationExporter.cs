@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using UnityEditor;
 
+// ToLua导出到C#的类导出EmmyLua注解
 public static class EmmyLuaAnnotationExporter
 {
     private static string SAVE_PATH = "Assets/EmmyLua";
@@ -29,16 +31,19 @@ public static class EmmyLuaAnnotationExporter
 
         var typeInfo = "";
         typeInfo += $"---@class {GetNameOfType(t)}:{GetNameOfType(t.BaseType)}\n";
-
-        var ps = t.GetProperties();
+    
+        // 属性部分
+        PropertyInfo[] ps = t.GetProperties();
         foreach (var p in ps)
         {
             typeInfo += $"---@field {p.Name} {GetNameOfType(p.PropertyType)}\n";
         }
 
-        var ms = t.GetMethods();
+        // 方法部分
+        MethodInfo[] ms = t.GetMethods();
         foreach (var m in ms)
         {
+            // 对于 get/set 方法，以及返回类型是接口类型的，不会导出
             if (m.IsSpecialName || m.ReturnType.IsInterface) continue;
 
             var args = m.GetParameters();
@@ -46,6 +51,7 @@ public static class EmmyLuaAnnotationExporter
             bool isContainGenericParam = false;
             foreach (var arg in args)
             {
+                // 含有泛型参数的方法不会导出
                 if (arg.ParameterType.IsGenericType)
                 {
                     isContainGenericParam = true;
@@ -56,10 +62,12 @@ public static class EmmyLuaAnnotationExporter
             }
 
             if (isContainGenericParam) continue;
+            
             argsInfo = argsInfo.TrimEnd(' ').TrimEnd(',');
             typeInfo += $"---@field {m.Name} fun({argsInfo})";
+            
             var returnTypeName = GetNameOfType(m.ReturnType);
-            if (returnTypeName == "System.Void")
+            if (returnTypeName == "System.Void") // 没有返回值的方法
             {
                 typeInfo += "\n";
             }

@@ -4,7 +4,10 @@ using UnityEditor;
 using UnityEngine;
 
 // 资产导入的规则：
-// 1. Content 下资源一律小写，包括扩展名。原因是很多版本管理软件对大小写支持不好，比如GitHub，P4。但是又不能完全要求脚本也用小写+蛇形命名，故仅对美术资源做限定。
+// 1. Content 下资源一律小写，包括扩展名。原因是很多版本管理软件对大小写支持不好，比如GitHub，P4，同时Windows系统也不区分大小写
+// 这会造成很多问题，一个问题是，你可以无法在windows下创建两个除了大小之外完全同名的文件，但是却可以想办法把他们都上传到仓库上去
+// 然后拉取的时候你会发现始终有一个文件无法拉取下来，而你并不能保证你拉取到的文件是你想要的
+// 另外也是减少美术同学在命名规则上的关注度
 public enum AssetType
 {
     Prefab,
@@ -29,6 +32,7 @@ public class AssetPostManager : AssetPostprocessor
 
     static void OnAssetNewToFolder(string assetPath)
     {
+        // 不对目录的命名做限制，因为我们假定目录都是大驼峰命名，同时目录被创建的机会比较少，不容易犯错
         if (Directory.Exists(assetPath))
         {
             return;
@@ -42,23 +46,6 @@ public class AssetPostManager : AssetPostprocessor
             var fileDir = Path.GetDirectoryName(assetPath);
             File.Move(assetPath, fileDir + $"/{fileName.ToLower()}");
             AssetDatabase.Refresh();
-        }
-    }
-
-    static AssetType TryGetTypeFromAssetPath(string assetPath)
-    {
-        try
-        {
-            var ext = Path.GetExtension(assetPath);
-            return ext switch
-            {
-                ".prefab" => AssetType.Prefab,
-                _ => AssetType.Unknown
-            };
-        }
-        catch (Exception)
-        {
-            return AssetType.Unknown;
         }
     }
 }
