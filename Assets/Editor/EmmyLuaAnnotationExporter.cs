@@ -32,20 +32,20 @@ public static class EmmyLuaAnnotationExporter
     
     static void GenFileForType(Type t, List<Type> extendTypes)
     {
-        Debug.Log($"开始导出类型 {GetNameOfType(t)}");
-        var fileName = "EmmyLua_" + GetNameOfType(t).Replace(".", "_").Replace("+", "_");
+        Debug.Log($"开始导出类型 {EmmyLuaUtil.GetNameOfType(t)}");
+        var fileName = "EmmyLua_" + EmmyLuaUtil.GetNameOfType(t).Replace(".", "_").Replace("+", "_");
         var filePath = SAVE_PATH + $"/{fileName}.lua";
         File.Create(filePath).Close();
 
         var typeInfo = "";
-        typeInfo += $"---@class {GetNameOfType(t)}:{GetNameOfType(t.BaseType)}\n";
+        typeInfo += $"---@class {EmmyLuaUtil.GetNameOfType(t)}:{EmmyLuaUtil.GetNameOfType(t.BaseType)}\n";
 
         if (t.IsEnum)
         {
             var fs = t.GetFields();
             foreach (var f in fs)
             {
-                typeInfo += $"---@field {f.Name} {GetNameOfType(f.FieldType)}\n";
+                typeInfo += $"---@field {f.Name} {EmmyLuaUtil.GetNameOfType(f.FieldType)}\n";
             }
         }
         else
@@ -54,7 +54,7 @@ public static class EmmyLuaAnnotationExporter
             PropertyInfo[] ps = t.GetProperties();
             foreach (var p in ps)
             {
-                typeInfo += $"---@field {p.Name} {GetNameOfType(p.PropertyType)}\n";
+                typeInfo += $"---@field {p.Name} {EmmyLuaUtil.GetNameOfType(p.PropertyType)}\n";
             }
 
             // 方法部分
@@ -88,7 +88,7 @@ public static class EmmyLuaAnnotationExporter
             }
         }
 
-        typeInfo += GetNameOfType(t) + " = {}\n";
+        typeInfo += EmmyLuaUtil.GetNameOfType(t) + " = {}\n";
         File.WriteAllText(filePath, typeInfo);
     }
 
@@ -103,17 +103,17 @@ public static class EmmyLuaAnnotationExporter
         string argsInfo = "";
         if (!m.IsStatic)
         {
-            argsInfo += $"self:{GetNameOfType(m.DeclaringType)}, ";
+            argsInfo += $"self:{EmmyLuaUtil.GetNameOfType(m.DeclaringType)}, ";
         }
         foreach (var arg in args)
         {
-            argsInfo += $"{arg.Name}:{GetNameOfType(arg.ParameterType)}, ";
+            argsInfo += $"{arg.Name}:{EmmyLuaUtil.GetNameOfType(arg.ParameterType)}, ";
         }
 
         argsInfo = argsInfo.TrimEnd(' ').TrimEnd(',');
         info += $"---@field {m.Name} fun({argsInfo})";
             
-        var returnTypeName = GetNameOfType(m.ReturnType);
+        var returnTypeName = EmmyLuaUtil.GetNameOfType(m.ReturnType);
         if (returnTypeName == "System.Void") // 没有返回值的方法
         {
             info += "\n";
@@ -124,44 +124,5 @@ public static class EmmyLuaAnnotationExporter
         }
 
         return info;
-    }
-
-    static string GetNameOfType(Type t)
-    {
-        if (t == null)
-        {
-            return "{}";
-        }
-        string name = t.FullName;
-        if (name == null)
-        {
-            name = t.Name;
-            if (name.Contains("Action"))
-            {
-                return "fun()";
-            }
-            
-            return "nil";
-        }
-
-        name = name.Replace("+", ".");
-
-        if (name == "System.Boolean")
-        {
-            name = "boolean";
-        }
-        else if (name == "float" || name == "double" || name == "System.Int32" || name == "System.Single" || name == "System.UInt64")
-        {
-            name = "number";
-        }
-        else if (name == "System.String")
-        {
-            name = "string";
-        }
-
-        name = name.Replace("UnityEngine.UI.", "");
-        name = name.Replace("UnityEngine.", "");
-
-        return name;
     }
 }

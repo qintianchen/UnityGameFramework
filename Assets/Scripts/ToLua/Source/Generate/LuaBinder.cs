@@ -17,6 +17,7 @@ public static class LuaBinder
 		Empty4RaycastWrap.Register(L);
 		UIEventListenerWrap.Register(L);
 		DontDestroyOnLoadWrap.Register(L);
+		LuaBehaviourWrap.Register(L);
 		SingleTon_GameLoggerWrap.Register(L);
 		SingleTon_VideoManagerWrap.Register(L);
 		SingleTon_AssetManagerWrap.Register(L);
@@ -72,6 +73,7 @@ public static class LuaBinder
 		UnityEngine_GameObjectWrap.Register(L);
 		UnityEngine_ComponentWrap.Register(L);
 		UnityEngine_TransformWrap.Register(L);
+		UnityEngine_CanvasWrap.Register(L);
 		UnityEngine_LightWrap.Register(L);
 		UnityEngine_LineRendererWrap.Register(L);
 		UnityEngine_TrailRendererWrap.Register(L);
@@ -95,7 +97,6 @@ public static class LuaBinder
 		UnityEngine_TimeWrap.Register(L);
 		UnityEngine_RectTransformWrap.Register(L);
 		UnityEngine_RectTransformUtilityWrap.Register(L);
-		UnityEngine_CanvasWrap.Register(L);
 		UnityEngine_CanvasGroupWrap.Register(L);
 		UnityEngine_BehaviourWrap.Register(L);
 		UnityEngine_RendererWrap.Register(L);
@@ -141,14 +142,14 @@ public static class LuaBinder
 		L.BeginModule("Events");
 		L.RegFunction("UnityAction", UnityEngine_Events_UnityAction);
 		L.EndModule();
+		L.BeginModule("Canvas");
+		L.RegFunction("WillRenderCanvases", UnityEngine_Canvas_WillRenderCanvases);
+		L.EndModule();
 		L.BeginModule("Camera");
 		L.RegFunction("CameraCallback", UnityEngine_Camera_CameraCallback);
 		L.EndModule();
 		L.BeginModule("RectTransform");
 		L.RegFunction("ReapplyDrivenProperties", UnityEngine_RectTransform_ReapplyDrivenProperties);
-		L.EndModule();
-		L.BeginModule("Canvas");
-		L.RegFunction("WillRenderCanvases", UnityEngine_Canvas_WillRenderCanvases);
 		L.EndModule();
 		L.EndModule();
 		L.BeginModule("System");
@@ -1121,6 +1122,33 @@ public static class LuaBinder
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UnityEngine_Canvas_WillRenderCanvases(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+
+			if (count == 1)
+			{
+				Delegate arg1 = DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Create(func);
+				ToLua.Push(L, arg1);
+			}
+			else
+			{
+				LuaTable self = ToLua.CheckLuaTable(L, 2);
+				Delegate arg1 = DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Create(func, self);
+				ToLua.Push(L, arg1);
+			}
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int UnityEngine_Camera_CameraCallback(IntPtr L)
 	{
 		try
@@ -1164,33 +1192,6 @@ public static class LuaBinder
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Create(func, self);
-				ToLua.Push(L, arg1);
-			}
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int UnityEngine_Canvas_WillRenderCanvases(IntPtr L)
-	{
-		try
-		{
-			int count = LuaDLL.lua_gettop(L);
-			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
-
-			if (count == 1)
-			{
-				Delegate arg1 = DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Create(func);
-				ToLua.Push(L, arg1);
-			}
-			else
-			{
-				LuaTable self = ToLua.CheckLuaTable(L, 2);
-				Delegate arg1 = DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Create(func, self);
 				ToLua.Push(L, arg1);
 			}
 			return 1;

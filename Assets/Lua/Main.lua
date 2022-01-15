@@ -15,4 +15,11 @@ require("UIManager")
 GameObject = UnityEngine.GameObject
 Instantiate = UnityEngine.Object.Instantiate
 
+GameLogger.Info(("GameObject = %s, LuaBehaviour = %s, Object = %s, Instantiate = %s"):format(GameObject, LuaBehaviour, UnityEngine.Object, Instantiate))
+
 UIManager.Init()
+
+WaitToDo(1, function()
+    UIManager.OpenWindow("TestWindow", nil)
+end) 
+

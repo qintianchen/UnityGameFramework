@@ -7,4 +7,6 @@
     DontDestroyOnLoad = DontDestroyOnLoad,
     ---@type Canvas
     Canvas = UnityEngine.Canvas,
+    ---@type LuaBehaviour
+    LuaBehaviour = LuaBehaviour
 }

@@ -130,6 +130,7 @@ public static class CustomSettings
         _GT(typeof(Empty4Raycast)),
         _GT(typeof(UIEventListener)),
         _GT(typeof(DontDestroyOnLoad)),
+        _GT(typeof(LuaBehaviour)),
     };
 
 
