@@ -111,3 +111,17 @@ function GetLuaObject(go)
     return behaviour:GetLuaObject()
 end
 --endregion
+
+--region UI
+---@param go Component|GameObject
+---@param onClick fun(data: EventSystems.PointerEventData)
+function SetButton(go, onClick)
+    LuaUtil.SetButton(go, onClick)
+end
+
+---@param go Component|GameObject
+---@param content string
+function SetText(go, content)
+    LuaUtil.SetText(go, content)
+end
+--endregion

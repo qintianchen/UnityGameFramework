@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using LuaInterface;
 using UnityEditor;
+using UnityEngine.EventSystems;
 using BindType = ToLuaMenu.BindType;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -105,6 +106,7 @@ public static class CustomSettings
         _GT(typeof(RuntimeAnimatorController)),
         _GT(typeof(Time)),
         _GT(typeof(GraphicRaycaster)),
+        _GT(typeof(PointerEventData)),
 
         // UnityEngine.UI
         _GT(typeof(RectTransform)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
@@ -112,6 +114,7 @@ public static class CustomSettings
         _GT(typeof(CanvasScaler)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Image)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Text)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
+        _GT(typeof(InputField)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Button)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Toggle)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Slider)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),

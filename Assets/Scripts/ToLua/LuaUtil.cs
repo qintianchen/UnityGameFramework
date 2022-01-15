@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public static class LuaUtil
 {
@@ -15,5 +18,52 @@ public static class LuaUtil
     public static Transform TransformFind(Component comp, string name)
     {
         return comp == null ? null : TransformFind(comp.gameObject, name);
+    }
+        
+    public static void SetButton(GameObject go, Action<PointerEventData> onClick)
+    {
+        if (go == null)
+        {
+            return;
+        }
+        
+        var btn = go.GetComponent<Button>();
+        if (btn != null)
+        {
+            btn.onClick.AddListener(() =>
+            {
+                onClick?.Invoke(null);
+            });
+        }
+    }
+    
+    public static void SetButton(Component comp, Action<PointerEventData> onClick)
+    {
+        if (comp != null)
+        {
+            SetButton(comp.gameObject, onClick);
+        }
+    }
+    
+    public static void SetText(GameObject go, string content)
+    {
+        if (go == null)
+        {
+            return;
+        }
+        
+        var txt = go.GetComponent<Text>();
+        if (txt != null)
+        {
+            txt.text = content;
+        }
+    }
+    
+    public static void SetText(Component comp, string content)
+    {
+        if (comp != null)
+        {
+            SetText(comp.gameObject, content);
+        }
     }
 }

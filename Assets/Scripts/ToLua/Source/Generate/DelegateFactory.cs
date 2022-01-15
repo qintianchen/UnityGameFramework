@@ -61,6 +61,7 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.Video.VideoPlayer.TimeEventHandler), factory.UnityEngine_Video_VideoPlayer_TimeEventHandler);
 		dict.Add(typeof(UnityEngine.Video.VideoPlayer.FrameReadyEventHandler), factory.UnityEngine_Video_VideoPlayer_FrameReadyEventHandler);
 		dict.Add(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
+		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), factory.UnityEngine_UI_InputField_OnValidateInput);
 		dict.Add(typeof(System.Action<UnityEngine.UIElements.MeshGenerationContext>), factory.System_Action_UnityEngine_UIElements_MeshGenerationContext);
 		dict.Add(typeof(System.Comparison<UnityEngine.UIElements.VisualElement>), factory.System_Comparison_UnityEngine_UIElements_VisualElement);
 		dict.Add(typeof(System.Action<UnityEngine.Object>), factory.System_Action_UnityEngine_Object);
@@ -111,6 +112,7 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.Video.VideoPlayer.TimeEventHandler>.Init(factory.UnityEngine_Video_VideoPlayer_TimeEventHandler);
 		DelegateTraits<UnityEngine.Video.VideoPlayer.FrameReadyEventHandler>.Init(factory.UnityEngine_Video_VideoPlayer_FrameReadyEventHandler);
 		DelegateTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
+		DelegateTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.UnityEngine_UI_InputField_OnValidateInput);
 		DelegateTraits<System.Action<UnityEngine.UIElements.MeshGenerationContext>>.Init(factory.System_Action_UnityEngine_UIElements_MeshGenerationContext);
 		DelegateTraits<System.Comparison<UnityEngine.UIElements.VisualElement>>.Init(factory.System_Comparison_UnityEngine_UIElements_VisualElement);
 		DelegateTraits<System.Action<UnityEngine.Object>>.Init(factory.System_Action_UnityEngine_Object);
@@ -161,6 +163,7 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.Video.VideoPlayer.TimeEventHandler>.Init(factory.Check_UnityEngine_Video_VideoPlayer_TimeEventHandler);
 		TypeTraits<UnityEngine.Video.VideoPlayer.FrameReadyEventHandler>.Init(factory.Check_UnityEngine_Video_VideoPlayer_FrameReadyEventHandler);
 		TypeTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.Check_UnityEngine_RectTransform_ReapplyDrivenProperties);
+		TypeTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.Check_UnityEngine_UI_InputField_OnValidateInput);
 		TypeTraits<System.Action<UnityEngine.UIElements.MeshGenerationContext>>.Init(factory.Check_System_Action_UnityEngine_UIElements_MeshGenerationContext);
 		TypeTraits<System.Comparison<UnityEngine.UIElements.VisualElement>>.Init(factory.Check_System_Comparison_UnityEngine_UIElements_VisualElement);
 		TypeTraits<System.Action<UnityEngine.Object>>.Init(factory.Check_System_Action_UnityEngine_Object);
@@ -211,6 +214,7 @@ public class DelegateFactory
 		StackTraits<UnityEngine.Video.VideoPlayer.TimeEventHandler>.Push = factory.Push_UnityEngine_Video_VideoPlayer_TimeEventHandler;
 		StackTraits<UnityEngine.Video.VideoPlayer.FrameReadyEventHandler>.Push = factory.Push_UnityEngine_Video_VideoPlayer_FrameReadyEventHandler;
 		StackTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Push = factory.Push_UnityEngine_RectTransform_ReapplyDrivenProperties;
+		StackTraits<UnityEngine.UI.InputField.OnValidateInput>.Push = factory.Push_UnityEngine_UI_InputField_OnValidateInput;
 		StackTraits<System.Action<UnityEngine.UIElements.MeshGenerationContext>>.Push = factory.Push_System_Action_UnityEngine_UIElements_MeshGenerationContext;
 		StackTraits<System.Comparison<UnityEngine.UIElements.VisualElement>>.Push = factory.Push_System_Comparison_UnityEngine_UIElements_VisualElement;
 		StackTraits<System.Action<UnityEngine.Object>>.Push = factory.Push_System_Action_UnityEngine_Object;
@@ -2869,6 +2873,71 @@ public class DelegateFactory
 	}
 
 	void Push_UnityEngine_RectTransform_ReapplyDrivenProperties(IntPtr L, UnityEngine.RectTransform.ReapplyDrivenProperties o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class UnityEngine_UI_InputField_OnValidateInput_Event : LuaDelegate
+	{
+		public UnityEngine_UI_InputField_OnValidateInput_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_UI_InputField_OnValidateInput_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public char Call(string param0, int param1, char param2)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.Push(param1);
+			func.Push(param2);
+			func.PCall();
+			char ret = (char)func.CheckNumber();
+			func.EndPCall();
+			return ret;
+		}
+
+		public char CallWithSelf(string param0, int param1, char param2)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.Push(param2);
+			func.PCall();
+			char ret = (char)func.CheckNumber();
+			func.EndPCall();
+			return ret;
+		}
+	}
+
+	public UnityEngine.UI.InputField.OnValidateInput UnityEngine_UI_InputField_OnValidateInput(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			UnityEngine.UI.InputField.OnValidateInput fn = delegate(string param0, int param1, char param2) { return '\0'; };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			UnityEngine_UI_InputField_OnValidateInput_Event target = new UnityEngine_UI_InputField_OnValidateInput_Event(func);
+			UnityEngine.UI.InputField.OnValidateInput d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			UnityEngine_UI_InputField_OnValidateInput_Event target = new UnityEngine_UI_InputField_OnValidateInput_Event(func, self);
+			UnityEngine.UI.InputField.OnValidateInput d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_UnityEngine_UI_InputField_OnValidateInput(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(UnityEngine.UI.InputField.OnValidateInput), L, pos);
+	}
+
+	void Push_UnityEngine_UI_InputField_OnValidateInput(IntPtr L, UnityEngine.UI.InputField.OnValidateInput o)
 	{
 		ToLua.Push(L, o);
 	}

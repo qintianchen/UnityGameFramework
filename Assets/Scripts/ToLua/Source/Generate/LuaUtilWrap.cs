@@ -8,6 +8,8 @@ public class LuaUtilWrap
 	{
 		L.BeginStaticLibs("LuaUtil");
 		L.RegFunction("TransformFind", TransformFind);
+		L.RegFunction("SetButton", SetButton);
+		L.RegFunction("SetText", SetText);
 		L.EndStaticLibs();
 	}
 
@@ -37,6 +39,70 @@ public class LuaUtilWrap
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaUtil.TransformFind");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetButton(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2 && TypeChecker.CheckTypes<UnityEngine.GameObject, System.Action<UnityEngine.EventSystems.PointerEventData>>(L, 1))
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
+				System.Action<UnityEngine.EventSystems.PointerEventData> arg1 = (System.Action<UnityEngine.EventSystems.PointerEventData>)ToLua.ToObject(L, 2);
+				LuaUtil.SetButton(arg0, arg1);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes<UnityEngine.Component, System.Action<UnityEngine.EventSystems.PointerEventData>>(L, 1))
+			{
+				UnityEngine.Component arg0 = (UnityEngine.Component)ToLua.ToObject(L, 1);
+				System.Action<UnityEngine.EventSystems.PointerEventData> arg1 = (System.Action<UnityEngine.EventSystems.PointerEventData>)ToLua.ToObject(L, 2);
+				LuaUtil.SetButton(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaUtil.SetButton");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetText(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2 && TypeChecker.CheckTypes<UnityEngine.GameObject, string>(L, 1))
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
+				string arg1 = ToLua.ToString(L, 2);
+				LuaUtil.SetText(arg0, arg1);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes<UnityEngine.Component, string>(L, 1))
+			{
+				UnityEngine.Component arg0 = (UnityEngine.Component)ToLua.ToObject(L, 1);
+				string arg1 = ToLua.ToString(L, 2);
+				LuaUtil.SetText(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaUtil.SetText");
 			}
 		}
 		catch (Exception e)

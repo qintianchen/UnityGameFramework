@@ -172,6 +172,10 @@ public class LuaBehaviourInspector : Editor
 
         string filePath = LuaBehaviour.LuaFileRoot + "/" + behaviour.LuaFileName.TrimStart('/') + ".lua";
         var luaObjectName = behaviour.GetLuaObjectName();
+
+        var dir = Path.GetDirectoryName(filePath);
+        if (!Directory.Exists(dir))
+            Directory.CreateDirectory(dir);
         
         if (!File.Exists(filePath))
         {
@@ -200,7 +204,14 @@ public class LuaBehaviourInspector : Editor
         }
 
         var header = startLine + "\n";
-        header += $"---@class {luaObjectName}\n";
+        if (luaObjectName.EndsWith("Window"))
+        {
+            header += $"---@class {luaObjectName}: UIWindow\n";
+        }
+        else
+        {
+            header += $"---@class {luaObjectName}: UIBase\n";
+        }
         foreach (var element in behaviour.elements)
         {
             header += $"---@field {element.luaName} {EmmyLuaUtil.GetNameOfType(element.type)}\n";

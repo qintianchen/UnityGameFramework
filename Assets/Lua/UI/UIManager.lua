@@ -2,6 +2,8 @@
 require("UIBase")
 
 --[[
+三种窗口请查看 E_WINDOW_TYPE 的注释
+
 N: 可以使用 UIManager.OpenWindow 来打开窗口
 Y: 建议使用 UIWindow 的 OpenWindow 来打开窗口，窗口的生命周期会跟着打开它的窗口走，建议只有在打开第一个窗口的时候才使用  UIManager.OpenWindow
 N: 不建议使用 UIManager.CloseWindow 来关闭窗口
@@ -11,8 +13,10 @@ Y: 建议使用 UIWindow 的 Close 来关闭自己，同时如果当前窗口并
 UIManager = {}
 local mgr = {}
 mgr.isInit = false -- 是否初始化
-mgr.loading_queue = LuaQueue(100) -- queue of element like {state = LOAD_STATE.loading, parentLuaObject = parentLuaObject, args = {...}}
-mgr.window_stack = LuaStack(100) -- stack of element like { luaObj = wndLuaObj }
+mgr.loading_queue = LuaQueue(100) -- queue of element like {state = LOAD_STATE.loading, parentLuaObj = parentLuaObj, args = {...}}
+mgr.main_ui_stack = LuaStack(100) -- stack of element like { luaObj = wndLuaObj }
+mgr.upper_ui_stack = LuaStack(100) -- stack of element like { luaObj = wndLuaObj }
+mgr.system_ui_stack = LuaStack(1) -- we assume that there can be only one system type window on the scene
 
 local LOAD_STATE = {
     loading = 2,    -- 加载中
@@ -23,31 +27,41 @@ local LOAD_STATE = {
 local UIROOT_NAME = "UIRoot"
 
 ---@param wndName string
----@param parentLuaObject UIBase
-function UIManager.OpenWindow(wndName, parentLuaObject, ...)
-    if parentLuaObject then
-        if IsNull(parentLuaObject.gameObject) then
+---@param parentLuaObj UIWindow
+function UIManager.OpenWindow(wndName, parentLuaObj, ...)
+    if parentLuaObj then
+        if IsNull(parentLuaObj.gameObject) then
             LogError("打开窗口失败，上下文已丢失：".. wndName)
             return
         end
 
-        local peekWnd = mgr.window_stack:Peek()
-        if peekWnd and peekWnd.luaObj ~= parentLuaObject then
-            LogError("栈顶窗口上下文丢失：".. wndName)
-            return
+        if parentLuaObj.sysType ~= E_WINDOW_TYPE.Main then
+            LogError("不支持将生命周期绑定到其他Canvas下的窗口上")
+        else
+            local peekWnd = mgr.main_ui_stack:Peek()
+            if peekWnd and peekWnd.luaObj ~= parentLuaObj then
+                LogError("栈顶窗口上下文丢失：".. wndName)
+                return
+            end
         end
     end
     
-    local load_request = {state = LOAD_STATE.loading, parentLuaObject = parentLuaObject, args = {...}}
+    local load_request = { state = LOAD_STATE.loading, parentLuaObj = parentLuaObj, args = { ...}}
     LoadGameObject(wndName, UIManager.MainUICanvas.gameObject, function(go)
         -- 如果回调的 go 是空，说明已超时
         if IsNull(go) then
             load_request.state = LOAD_STATE.dead
             return
         end
+
+        -- 生命周期已经过期，比如切换了场景之类的
+        if load_request.state == LOAD_STATE.dead then
+            GameObject.Destroy(go)
+            return
+        end
         
         -- 如果上下文已丢失，就销毁窗口
-        if parentLuaObject and IsNull(parentLuaObject.gameObject) then
+        if parentLuaObj and IsNull(parentLuaObj.gameObject) then
             load_request.state = LOAD_STATE.dead
             GameObject.Destroy(go)
             return
@@ -62,18 +76,29 @@ function UIManager.OpenWindow(wndName, parentLuaObject, ...)
     mgr.loading_queue:Enqueue(load_request)
 end
 
+---@param wndLuaObj UIWindow
 function UIManager.CloseWindow(wndLuaObj)
     if not wndLuaObj or IsNull(wndLuaObj.gameObject) then
         return
     end
 
-    if mgr.window_stack:IsEmpty() then
+    if wndLuaObj.sysType == E_WINDOW_TYPE.Main and mgr.main_ui_stack:IsEmpty() 
+        or wndLuaObj.sysType == E_WINDOW_TYPE.Upper and mgr.upper_ui_stack:IsEmpty()
+    then
         LogError("尝试关闭窗口，但是窗口堆栈为空：", wndLuaObj.gameObject.name)
         GameObject.Destroy(wndLuaObj.gameObject)
         return
     end
     
-    local peekWnd = mgr.window_stack:Peek()
+    local stack
+    if wndLuaObj.sysType == E_WINDOW_TYPE.Main then
+        stack = mgr.main_ui_stack
+    elseif wndLuaObj.sysType == E_WINDOW_TYPE.Upper then
+        stack = mgr.upper_ui_stack
+    else
+        stack = mgr.system_ui_stack
+    end
+    local peekWnd = stack:Peek()
     
     local count = 0
     while true do
@@ -86,14 +111,14 @@ function UIManager.CloseWindow(wndLuaObj)
         -- 有些游戏可能采取另一种做法，即不允许这种事情的发生
         if peekWnd.luaObj ~= wndLuaObj then
             peekWnd.luaObj:Close()
-            mgr.window_stack:Pop()
-            if mgr.window_stack:IsEmpty() then
+            stack:Pop()
+            if stack:IsEmpty() then
                 return
             end
-            peekWnd = mgr.window_stack:Peek()
+            peekWnd = stack:Peek()
         else
             GameObject.Destroy(wndLuaObj.gameObject)
-            mgr.window_stack:Pop()
+            stack:Pop()
             return
         end
     end
@@ -134,7 +159,62 @@ function UIManagerUpdate()
     mgr.Update()
 end
 
+function UIManager.Clear()
+    while true do
+        local peek = mgr.main_ui_stack:Pop()
+        if not peek then
+            break
+        end
+        
+        peek.luaObj:Close()
+    end
+
+    while true do
+        local peek = mgr.upper_ui_stack:Pop()
+        if not peek then
+            break
+        end
+
+        peek.luaObj:Close()
+    end
+
+    while true do
+        local peek = mgr.system_ui_stack:Pop()
+        if not peek then
+            break
+        end
+
+        peek.luaObj:Close()
+    end
+
+    while true do
+        local peek = mgr.loading_queue:Dequeue()
+        if not peek then
+            break
+        end
+        
+        peek.state = LOAD_STATE.dead
+    end
+end
+
+---@param wndLuaObj UIWindow
 function mgr.RegisterWindow(wndLuaObj)
+    -- System 和 Upper 的层级总是很特殊，因为当他们出现的时候总是希望自己在最上层
+    -- 所以我们假设首先 System 和 Upper 类型的窗口不会太多，其次他们需要自己处理层级关系
+    if wndLuaObj.sysType == E_WINDOW_TYPE.Upper then
+        local ret = mgr.upper_ui_stack:Push({
+            luaObj = wndLuaObj,
+        })
+        return ret
+    end
+
+    if wndLuaObj.sysType == E_WINDOW_TYPE.System then
+        local ret = mgr.system_ui_stack:Push({
+            luaObj = wndLuaObj,
+        })
+        return ret
+    end
+    
     local parentCanvas = GetComponentInParent(wndLuaObj.gameObject, E_SYS_TYPE.Canvas)
     
     local canvas = GetOrAddComponent(wndLuaObj.gameObject, E_SYS_TYPE.Canvas)
@@ -142,9 +222,9 @@ function mgr.RegisterWindow(wndLuaObj)
     
     canvas.overrideSorting = true
     canvas.sortingLayerName = parentCanvas.sortingLayerName
-    canvas.sortingOrder = parentCanvas.sortingOrder + 5 + mgr.window_stack:Size() * 50
+    canvas.sortingOrder = parentCanvas.sortingOrder + 5 + mgr.main_ui_stack:Size() * 50
     
-    local ret = mgr.window_stack:Push({
+    local ret = mgr.main_ui_stack:Push({
         luaObj = wndLuaObj,
     })
     return ret
@@ -169,12 +249,19 @@ function mgr.Update()
             -- loaded 状态
             mgr.loading_queue:Dequeue()
             local go = request.gameObject
-            if request.parentLuaObject and IsNull(request.parentLuaObject.gameObject) then
+            if request.parentLuaObj and IsNull(request.parentLuaObj.gameObject) then
                 -- 上下文已丢失
                 GameObject.Destroy(go)
             else
-                go:SetActive(true)
                 local luaObj = GetLuaObject(go)
+                if luaObj.sysType == E_WINDOW_TYPE.Upper then
+                    go.transform:SetParent(UIManager.UpperUICanvas.transform)
+                elseif luaObj.sysType == E_WINDOW_TYPE.System then
+                    go.transform:SetParent(UIManager.SystemUICanvas.transform)
+                end
+
+                go:SetActive(true)
+                go.transform.localScale = Vector3.one
                 local ret = mgr.RegisterWindow(luaObj)
                 if not ret then
                     LogError("窗口入栈失败: ".. go.name)
