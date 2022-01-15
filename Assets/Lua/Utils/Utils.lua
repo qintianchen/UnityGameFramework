@@ -36,6 +36,19 @@ function GetComponent(go, t)
 
     return go.gameObject:GetComponent(typeof(t))
 end
+
+---@generic T
+---@param go GameObject|Component
+---@param t T
+---@return T
+function GetComponentInParent(go, t)
+    if IsNull(go) or IsNull(t) then
+        GameLogger.Error(("GetComponent Error: go or type can not be null. go = %s, t = %s"):format(go, t))
+        return
+    end
+
+    return go.gameObject:GetComponentInParent(typeof(t))
+end
 --endregion
 
 --region corotine
@@ -79,13 +92,22 @@ function Async2Sync(func, callbackPos)
     end
 end
 
-function WaitToDo(secs, action)
-    local c = coroutine.create( function()
-        Yield(WaitForSeconds(secs))
-        xpcall(action, GameLogger.Error)
-        --PCALL(action)
-    end )
-    coroutine.resume(c)
-    return c
+WaitForSeconds = Async2Sync(function(sec, action)
+    UnityTimer.New(sec, action):Start()
+end)
+--endregion
+
+--region Lua
+function GetLuaObject(go)
+    if IsNull(go) then
+        return nil
+    end
+    
+    local behaviour = GetComponent(go, E_SYS_TYPE.LuaBehaviour)
+    if IsNull(behaviour) then
+        return nil
+    end
+    
+    return behaviour:GetLuaObject()
 end
 --endregion

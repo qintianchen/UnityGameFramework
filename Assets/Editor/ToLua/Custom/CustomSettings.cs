@@ -104,6 +104,7 @@ public static class CustomSettings
         _GT(typeof(AnimatorStateInfo)),
         _GT(typeof(RuntimeAnimatorController)),
         _GT(typeof(Time)),
+        _GT(typeof(GraphicRaycaster)),
 
         // UnityEngine.UI
         _GT(typeof(RectTransform)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
@@ -126,11 +127,12 @@ public static class CustomSettings
         _GT(typeof(VideoManager)),
         _GT(typeof(AssetManager)),
         _GT(typeof(AssetType)),
-        _GT(typeof(Timer)),
+        _GT(typeof(UnityTimer)),
         _GT(typeof(Empty4Raycast)),
         _GT(typeof(UIEventListener)),
         _GT(typeof(DontDestroyOnLoad)),
         _GT(typeof(LuaBehaviour)),
+        _GT(typeof(LuaUtil)),
     };
 
 

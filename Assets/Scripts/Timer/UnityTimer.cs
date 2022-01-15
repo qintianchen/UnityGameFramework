@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 // 仿照 https://github.com/akbiggs/UnityTimer 重新写了一版，有所修改，思路上没有太大的变化
-public class Timer
+public class UnityTimer
 {
     public float duration; // 定时器的时长
     public bool isLooped; // 是否循环（在Completed之后自动开启下一轮）
@@ -31,7 +31,7 @@ public class Timer
     /// <param name="isLooped">是否循环</param>
     /// <param name="useTimeScale">是否受TimeScale影响</param>
     /// <param name="mono">与一个MonoBehavior的生命周期绑定，在MonoBehavior生命周期结束的时候，定时器也会自动结束（非正常）</param>
-    public Timer(float duration, Action onComplete = null, Action<float> onUpdate = null, bool isLooped = false, bool useTimeScale = false, MonoBehaviour mono = null)
+    public UnityTimer(float duration, Action onComplete = null, Action<float> onUpdate = null, bool isLooped = false, bool useTimeScale = false, MonoBehaviour mono = null)
     {
         this.duration = duration;
         this.onComplete = onComplete;

@@ -1,7 +1,10 @@
 ﻿inspect = require("inspect")
 
--- 基础数据结构和算法部分
+-- 基础设施，数据结构和算法部分
+require("Log")
 require("LuaObject")
+require("LuaStack")
+require("LuaQueue")
 require("DefCommon")
 
 -- 基础框架部分
@@ -14,12 +17,12 @@ require("UIManager")
 -- 全局
 GameObject = UnityEngine.GameObject
 Instantiate = UnityEngine.Object.Instantiate
+TransformFind = LuaUtil.TransformFind
 
-GameLogger.Info(("GameObject = %s, LuaBehaviour = %s, Object = %s, Instantiate = %s"):format(GameObject, LuaBehaviour, UnityEngine.Object, Instantiate))
+StartCoroutine(function()
+    UIManager.CoInit()
 
-UIManager.Init()
+    UIManager.OpenWindow("TestWindow1", nil, 1111, 332)
+end)
 
-WaitToDo(1, function()
-    UIManager.OpenWindow("TestWindow", nil)
-end) 
 

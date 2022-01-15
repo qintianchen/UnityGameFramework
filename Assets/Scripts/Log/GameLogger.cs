@@ -13,7 +13,7 @@ public class GameLogger : SingleTon<GameLogger>
 #if UNITY_EDITOR
             return "./GameLogs";
 #else
-				return Application.persistentDataPath + "/Logs";
+            return Application.persistentDataPath + "/Logs";
 #endif
         }
     }

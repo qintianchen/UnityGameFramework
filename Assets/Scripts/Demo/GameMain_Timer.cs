@@ -15,7 +15,7 @@ public class GameMain_Timer : MonoBehaviour
 		
         // 定时器测试
         var startTime = Time.unscaledTime;
-        var timer = new Timer(5, () =>
+        var timer = new UnityTimer(5, () =>
         {
             var endTime = Time.unscaledTime;
             GameLogger.Info($"经历了 {endTime - startTime} s");

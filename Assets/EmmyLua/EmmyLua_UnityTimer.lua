@@ -1,12 +1,12 @@
----@class Timer:System.Object
+---@class UnityTimer:System.Object
 ---@field isDone boolean
----@field Start fun(self:Timer)
----@field Update fun(self:Timer)
----@field Pause fun(self:Timer)
----@field Resume fun(self:Timer)
----@field Cancel fun(self:Timer)
+---@field Start fun(self:UnityTimer)
+---@field Update fun(self:UnityTimer)
+---@field Pause fun(self:UnityTimer)
+---@field Resume fun(self:UnityTimer)
+---@field Cancel fun(self:UnityTimer)
 ---@field Equals fun(self:System.Object, obj:System.Object):boolean
 ---@field GetHashCode fun(self:System.Object):number
 ---@field GetType fun(self:System.Object):System.Type
 ---@field ToString fun(self:System.Object):string
-Timer = {}
+UnityTimer = {}

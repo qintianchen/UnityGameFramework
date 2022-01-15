@@ -13,11 +13,12 @@ public static class LuaBinder
 		VideoManagerWrap.Register(L);
 		AssetManagerWrap.Register(L);
 		AssetTypeWrap.Register(L);
-		TimerWrap.Register(L);
+		UnityTimerWrap.Register(L);
 		Empty4RaycastWrap.Register(L);
 		UIEventListenerWrap.Register(L);
 		DontDestroyOnLoadWrap.Register(L);
 		LuaBehaviourWrap.Register(L);
+		LuaUtilWrap.Register(L);
 		SingleTon_GameLoggerWrap.Register(L);
 		SingleTon_VideoManagerWrap.Register(L);
 		SingleTon_AssetManagerWrap.Register(L);
@@ -115,6 +116,7 @@ public static class LuaBinder
 		L.EndModule();
 		L.EndModule();
 		L.BeginModule("UI");
+		UnityEngine_UI_GraphicRaycasterWrap.Register(L);
 		UnityEngine_UI_CanvasScalerWrap.Register(L);
 		UnityEngine_UI_ImageWrap.Register(L);
 		UnityEngine_UI_TextWrap.Register(L);
@@ -137,6 +139,7 @@ public static class LuaBinder
 		UnityEngine_UIElements_CallbackEventHandlerWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("EventSystems");
+		UnityEngine_EventSystems_BaseRaycasterWrap.Register(L);
 		UnityEngine_EventSystems_UIBehaviourWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("Events");

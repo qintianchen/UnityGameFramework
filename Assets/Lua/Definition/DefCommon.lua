@@ -8,5 +8,7 @@
     ---@type Canvas
     Canvas = UnityEngine.Canvas,
     ---@type LuaBehaviour
-    LuaBehaviour = LuaBehaviour
+    LuaBehaviour = LuaBehaviour,
+    ---@type GraphicRaycaster
+    GraphicRaycaster = UnityEngine.UI.GraphicRaycaster
 }

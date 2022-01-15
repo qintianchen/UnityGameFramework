@@ -2,17 +2,17 @@
 using System;
 using LuaInterface;
 
-public class TimerWrap
+public class UnityTimerWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(Timer), typeof(System.Object));
+		L.BeginClass(typeof(UnityTimer), typeof(System.Object));
 		L.RegFunction("Start", Start);
 		L.RegFunction("Update", Update);
 		L.RegFunction("Pause", Pause);
 		L.RegFunction("Resume", Resume);
 		L.RegFunction("Cancel", Cancel);
-		L.RegFunction("New", _CreateTimer);
+		L.RegFunction("New", _CreateUnityTimer);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("duration", get_duration, set_duration);
 		L.RegVar("isLooped", get_isLooped, set_isLooped);
@@ -29,7 +29,7 @@ public class TimerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int _CreateTimer(IntPtr L)
+	static int _CreateUnityTimer(IntPtr L)
 	{
 		try
 		{
@@ -38,7 +38,7 @@ public class TimerWrap
 			if (count == 1)
 			{
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
-				Timer obj = new Timer(arg0);
+				UnityTimer obj = new UnityTimer(arg0);
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
@@ -46,7 +46,7 @@ public class TimerWrap
 			{
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
 				System.Action arg1 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 2);
-				Timer obj = new Timer(arg0, arg1);
+				UnityTimer obj = new UnityTimer(arg0, arg1);
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
@@ -55,7 +55,7 @@ public class TimerWrap
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
 				System.Action arg1 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 2);
 				System.Action<float> arg2 = (System.Action<float>)ToLua.CheckDelegate<System.Action<float>>(L, 3);
-				Timer obj = new Timer(arg0, arg1, arg2);
+				UnityTimer obj = new UnityTimer(arg0, arg1, arg2);
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
@@ -65,7 +65,7 @@ public class TimerWrap
 				System.Action arg1 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 2);
 				System.Action<float> arg2 = (System.Action<float>)ToLua.CheckDelegate<System.Action<float>>(L, 3);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
-				Timer obj = new Timer(arg0, arg1, arg2, arg3);
+				UnityTimer obj = new UnityTimer(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
@@ -76,7 +76,7 @@ public class TimerWrap
 				System.Action<float> arg2 = (System.Action<float>)ToLua.CheckDelegate<System.Action<float>>(L, 3);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 5);
-				Timer obj = new Timer(arg0, arg1, arg2, arg3, arg4);
+				UnityTimer obj = new UnityTimer(arg0, arg1, arg2, arg3, arg4);
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
@@ -88,13 +88,13 @@ public class TimerWrap
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 5);
 				UnityEngine.MonoBehaviour arg5 = (UnityEngine.MonoBehaviour)ToLua.CheckObject<UnityEngine.MonoBehaviour>(L, 6);
-				Timer obj = new Timer(arg0, arg1, arg2, arg3, arg4, arg5);
+				UnityTimer obj = new UnityTimer(arg0, arg1, arg2, arg3, arg4, arg5);
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
 			else
 			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: Timer.New");
+				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: UnityTimer.New");
 			}
 		}
 		catch (Exception e)
@@ -109,7 +109,7 @@ public class TimerWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			Timer obj = (Timer)ToLua.CheckObject<Timer>(L, 1);
+			UnityTimer obj = (UnityTimer)ToLua.CheckObject<UnityTimer>(L, 1);
 			obj.Start();
 			return 0;
 		}
@@ -125,7 +125,7 @@ public class TimerWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			Timer obj = (Timer)ToLua.CheckObject<Timer>(L, 1);
+			UnityTimer obj = (UnityTimer)ToLua.CheckObject<UnityTimer>(L, 1);
 			obj.Update();
 			return 0;
 		}
@@ -141,7 +141,7 @@ public class TimerWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			Timer obj = (Timer)ToLua.CheckObject<Timer>(L, 1);
+			UnityTimer obj = (UnityTimer)ToLua.CheckObject<UnityTimer>(L, 1);
 			obj.Pause();
 			return 0;
 		}
@@ -157,7 +157,7 @@ public class TimerWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			Timer obj = (Timer)ToLua.CheckObject<Timer>(L, 1);
+			UnityTimer obj = (UnityTimer)ToLua.CheckObject<UnityTimer>(L, 1);
 			obj.Resume();
 			return 0;
 		}
@@ -173,7 +173,7 @@ public class TimerWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			Timer obj = (Timer)ToLua.CheckObject<Timer>(L, 1);
+			UnityTimer obj = (UnityTimer)ToLua.CheckObject<UnityTimer>(L, 1);
 			obj.Cancel();
 			return 0;
 		}
@@ -191,7 +191,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			float ret = obj.duration;
 			LuaDLL.lua_pushnumber(L, ret);
 			return 1;
@@ -210,7 +210,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool ret = obj.isLooped;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -229,7 +229,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool ret = obj.isCompleted;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -248,7 +248,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool ret = obj.useTimeScale;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -267,7 +267,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool ret = obj.isPause;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -286,7 +286,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool ret = obj.isCancelled;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -305,7 +305,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool ret = obj.isBoundToMono;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -324,7 +324,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			UnityEngine.MonoBehaviour ret = obj.mono;
 			ToLua.Push(L, ret);
 			return 1;
@@ -343,7 +343,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			System.Action ret = obj.onComplete;
 			ToLua.Push(L, ret);
 			return 1;
@@ -362,7 +362,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			System.Action<float> ret = obj.onUpdate;
 			ToLua.Push(L, ret);
 			return 1;
@@ -381,7 +381,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool ret = obj.isDone;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -400,7 +400,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			obj.duration = arg0;
 			return 0;
@@ -419,7 +419,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.isLooped = arg0;
 			return 0;
@@ -438,7 +438,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.isCompleted = arg0;
 			return 0;
@@ -457,7 +457,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.useTimeScale = arg0;
 			return 0;
@@ -476,7 +476,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.isPause = arg0;
 			return 0;
@@ -495,7 +495,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.isCancelled = arg0;
 			return 0;
@@ -514,7 +514,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.isBoundToMono = arg0;
 			return 0;
@@ -533,7 +533,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			UnityEngine.MonoBehaviour arg0 = (UnityEngine.MonoBehaviour)ToLua.CheckObject<UnityEngine.MonoBehaviour>(L, 2);
 			obj.mono = arg0;
 			return 0;
@@ -552,7 +552,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			System.Action arg0 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 2);
 			obj.onComplete = arg0;
 			return 0;
@@ -571,7 +571,7 @@ public class TimerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			Timer obj = (Timer)o;
+			UnityTimer obj = (UnityTimer)o;
 			System.Action<float> arg0 = (System.Action<float>)ToLua.CheckDelegate<System.Action<float>>(L, 2);
 			obj.onUpdate = arg0;
 			return 0;
