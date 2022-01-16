@@ -17,6 +17,9 @@ function LuaLoginSelectServerWindow:OnOpen(onClick)
         
         local txtName =TransformFind(child, "txtName") 
         SetText(txtName, "服务器".. i)
-        SetButton(txtName, function() onClick(i) end)
+        SetButton(txtName, function() 
+            self:Close()
+            onClick(i)
+        end)
     end
 end 

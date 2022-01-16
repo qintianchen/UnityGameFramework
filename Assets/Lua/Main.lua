@@ -22,7 +22,7 @@ TransformFind = LuaUtil.TransformFind
 StartCoroutine(function()
     UIManager.CoInit()
 
-    UIManager.OpenWindow("TestWindow1", nil, 1111, 332)
+    UIManager.OpenWindow("LoginWindow", nil, 1111, 332)
 end)
 
 

@@ -132,7 +132,8 @@ public class AssetManager : SingleTon<AssetManager>
 #if UNITY_EDITOR
         if (assetModeInEditor == AssetMode.AssetDataBase)
         {
-            return AssetDatabase.LoadAssetAtPath<T>(assetName_assetFullName[assetName]);
+            var fullName = assetName_assetFullName[assetName];
+            return AssetDatabase.LoadAssetAtPath<T>(fullName);
         }
 #endif
 

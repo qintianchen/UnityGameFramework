@@ -106,6 +106,7 @@ public static class CustomSettings
         _GT(typeof(RuntimeAnimatorController)),
         _GT(typeof(Time)),
         _GT(typeof(GraphicRaycaster)),
+        _GT(typeof(BaseEventData)),
         _GT(typeof(PointerEventData)),
 
         // UnityEngine.UI

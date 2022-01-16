@@ -54,17 +54,17 @@ public class LuaUtilWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 2 && TypeChecker.CheckTypes<UnityEngine.GameObject, System.Action<UnityEngine.EventSystems.PointerEventData>>(L, 1))
+			if (count == 2 && TypeChecker.CheckTypes<UnityEngine.GameObject, LuaInterface.LuaFunction>(L, 1))
 			{
 				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
-				System.Action<UnityEngine.EventSystems.PointerEventData> arg1 = (System.Action<UnityEngine.EventSystems.PointerEventData>)ToLua.ToObject(L, 2);
+				LuaFunction arg1 = ToLua.ToLuaFunction(L, 2);
 				LuaUtil.SetButton(arg0, arg1);
 				return 0;
 			}
-			else if (count == 2 && TypeChecker.CheckTypes<UnityEngine.Component, System.Action<UnityEngine.EventSystems.PointerEventData>>(L, 1))
+			else if (count == 2 && TypeChecker.CheckTypes<UnityEngine.Component, LuaInterface.LuaFunction>(L, 1))
 			{
 				UnityEngine.Component arg0 = (UnityEngine.Component)ToLua.ToObject(L, 1);
-				System.Action<UnityEngine.EventSystems.PointerEventData> arg1 = (System.Action<UnityEngine.EventSystems.PointerEventData>)ToLua.ToObject(L, 2);
+				LuaFunction arg1 = ToLua.ToLuaFunction(L, 2);
 				LuaUtil.SetButton(arg0, arg1);
 				return 0;
 			}

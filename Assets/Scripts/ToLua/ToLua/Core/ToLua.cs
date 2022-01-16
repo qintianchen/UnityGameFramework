@@ -216,12 +216,10 @@ namespace LuaInterface
             try
             {
                 string fileName = LuaDLL.lua_tostring(L, 1);
-                // AssetManager 下不需要前缀
-                // fileName = fileName.Replace(".", "/");
                 var cells = fileName.Split('.');
                 fileName = cells[cells.Length - 1];
                 byte[] buffer = LuaFileUtils.Instance.ReadFile(fileName);
-
+                
                 if (buffer == null)
                 {
                     string error = LuaFileUtils.Instance.FindFileError(fileName);

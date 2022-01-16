@@ -1,4 +1,5 @@
 ﻿using System;
+using LuaInterface;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -20,7 +21,7 @@ public static class LuaUtil
         return comp == null ? null : TransformFind(comp.gameObject, name);
     }
         
-    public static void SetButton(GameObject go, Action<PointerEventData> onClick)
+    public static void SetButton(GameObject go, LuaFunction onClick)
     {
         if (go == null)
         {
@@ -32,12 +33,12 @@ public static class LuaUtil
         {
             btn.onClick.AddListener(() =>
             {
-                onClick?.Invoke(null);
+                onClick?.Call();
             });
         }
     }
     
-    public static void SetButton(Component comp, Action<PointerEventData> onClick)
+    public static void SetButton(Component comp, LuaFunction onClick)
     {
         if (comp != null)
         {

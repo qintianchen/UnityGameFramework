@@ -116,7 +116,8 @@ end
 ---@param go Component|GameObject
 ---@param onClick fun(data: EventSystems.PointerEventData)
 function SetButton(go, onClick)
-    LuaUtil.SetButton(go, onClick)
+    Log(("SetButton(go = %s, onClick = %s"):format(go, onClick))
+    LuaUtil.SetButton(go.gameObject, onClick)
 end
 
 ---@param go Component|GameObject

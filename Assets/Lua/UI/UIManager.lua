@@ -1,5 +1,5 @@
-﻿require("UIWindow")
-require("UIBase")
+﻿require("UIBase")
+require("UIWindow")
 
 --[[
 三种窗口请查看 E_WINDOW_TYPE 的注释

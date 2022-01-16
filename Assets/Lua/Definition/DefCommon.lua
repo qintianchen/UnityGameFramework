@@ -10,7 +10,9 @@
     ---@type LuaBehaviour
     LuaBehaviour = LuaBehaviour,
     ---@type GraphicRaycaster
-    GraphicRaycaster = UnityEngine.UI.GraphicRaycaster
+    GraphicRaycaster = UnityEngine.UI.GraphicRaycaster,
+    ---@type InputField
+    InputField = UnityEngine.UI.InputField
 }
 
 E_WINDOW_TYPE ={
