@@ -13,6 +13,7 @@ public class UnityEngine_UIElements_ScrollViewWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("ussClassName", get_ussClassName, null);
 		L.RegVar("viewportUssClassName", get_viewportUssClassName, null);
+		L.RegVar("contentAndVerticalScrollUssClassName", get_contentAndVerticalScrollUssClassName, null);
 		L.RegVar("contentUssClassName", get_contentUssClassName, null);
 		L.RegVar("hScrollerUssClassName", get_hScrollerUssClassName, null);
 		L.RegVar("vScrollerUssClassName", get_vScrollerUssClassName, null);
@@ -20,8 +21,8 @@ public class UnityEngine_UIElements_ScrollViewWrap
 		L.RegVar("verticalVariantUssClassName", get_verticalVariantUssClassName, null);
 		L.RegVar("verticalHorizontalVariantUssClassName", get_verticalHorizontalVariantUssClassName, null);
 		L.RegVar("scrollVariantUssClassName", get_scrollVariantUssClassName, null);
-		L.RegVar("showHorizontal", get_showHorizontal, set_showHorizontal);
-		L.RegVar("showVertical", get_showVertical, set_showVertical);
+		L.RegVar("horizontalScrollerVisibility", get_horizontalScrollerVisibility, set_horizontalScrollerVisibility);
+		L.RegVar("verticalScrollerVisibility", get_verticalScrollerVisibility, set_verticalScrollerVisibility);
 		L.RegVar("scrollOffset", get_scrollOffset, set_scrollOffset);
 		L.RegVar("horizontalPageSize", get_horizontalPageSize, set_horizontalPageSize);
 		L.RegVar("verticalPageSize", get_verticalPageSize, set_verticalPageSize);
@@ -32,6 +33,7 @@ public class UnityEngine_UIElements_ScrollViewWrap
 		L.RegVar("horizontalScroller", get_horizontalScroller, null);
 		L.RegVar("verticalScroller", get_verticalScroller, null);
 		L.RegVar("contentContainer", get_contentContainer, null);
+		L.RegVar("mode", get_mode, set_mode);
 		L.EndClass();
 	}
 
@@ -103,6 +105,20 @@ public class UnityEngine_UIElements_ScrollViewWrap
 		try
 		{
 			LuaDLL.lua_pushstring(L, UnityEngine.UIElements.ScrollView.viewportUssClassName);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_contentAndVerticalScrollUssClassName(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, UnityEngine.UIElements.ScrollView.contentAndVerticalScrollUssClassName);
 			return 1;
 		}
 		catch (Exception e)
@@ -210,7 +226,7 @@ public class UnityEngine_UIElements_ScrollViewWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_showHorizontal(IntPtr L)
+	static int get_horizontalScrollerVisibility(IntPtr L)
 	{
 		object o = null;
 
@@ -218,18 +234,18 @@ public class UnityEngine_UIElements_ScrollViewWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UIElements.ScrollView obj = (UnityEngine.UIElements.ScrollView)o;
-			bool ret = obj.showHorizontal;
-			LuaDLL.lua_pushboolean(L, ret);
+			UnityEngine.UIElements.ScrollerVisibility ret = obj.horizontalScrollerVisibility;
+			ToLua.Push(L, ret);
 			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index showHorizontal on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index horizontalScrollerVisibility on a nil value");
 		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_showVertical(IntPtr L)
+	static int get_verticalScrollerVisibility(IntPtr L)
 	{
 		object o = null;
 
@@ -237,13 +253,13 @@ public class UnityEngine_UIElements_ScrollViewWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UIElements.ScrollView obj = (UnityEngine.UIElements.ScrollView)o;
-			bool ret = obj.showVertical;
-			LuaDLL.lua_pushboolean(L, ret);
+			UnityEngine.UIElements.ScrollerVisibility ret = obj.verticalScrollerVisibility;
+			ToLua.Push(L, ret);
 			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index showVertical on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index verticalScrollerVisibility on a nil value");
 		}
 	}
 
@@ -438,7 +454,7 @@ public class UnityEngine_UIElements_ScrollViewWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_showHorizontal(IntPtr L)
+	static int get_mode(IntPtr L)
 	{
 		object o = null;
 
@@ -446,18 +462,18 @@ public class UnityEngine_UIElements_ScrollViewWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UIElements.ScrollView obj = (UnityEngine.UIElements.ScrollView)o;
-			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
-			obj.showHorizontal = arg0;
-			return 0;
+			UnityEngine.UIElements.ScrollViewMode ret = obj.mode;
+			ToLua.Push(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index showHorizontal on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index mode on a nil value");
 		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_showVertical(IntPtr L)
+	static int set_horizontalScrollerVisibility(IntPtr L)
 	{
 		object o = null;
 
@@ -465,13 +481,32 @@ public class UnityEngine_UIElements_ScrollViewWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UIElements.ScrollView obj = (UnityEngine.UIElements.ScrollView)o;
-			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
-			obj.showVertical = arg0;
+			UnityEngine.UIElements.ScrollerVisibility arg0 = (UnityEngine.UIElements.ScrollerVisibility)ToLua.CheckObject(L, 2, typeof(UnityEngine.UIElements.ScrollerVisibility));
+			obj.horizontalScrollerVisibility = arg0;
 			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index showVertical on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index horizontalScrollerVisibility on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_verticalScrollerVisibility(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.UIElements.ScrollView obj = (UnityEngine.UIElements.ScrollView)o;
+			UnityEngine.UIElements.ScrollerVisibility arg0 = (UnityEngine.UIElements.ScrollerVisibility)ToLua.CheckObject(L, 2, typeof(UnityEngine.UIElements.ScrollerVisibility));
+			obj.verticalScrollerVisibility = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index verticalScrollerVisibility on a nil value");
 		}
 	}
 
@@ -586,6 +621,25 @@ public class UnityEngine_UIElements_ScrollViewWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index touchScrollBehavior on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_mode(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.UIElements.ScrollView obj = (UnityEngine.UIElements.ScrollView)o;
+			UnityEngine.UIElements.ScrollViewMode arg0 = (UnityEngine.UIElements.ScrollViewMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.UIElements.ScrollViewMode));
+			obj.mode = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index mode on a nil value");
 		}
 	}
 }

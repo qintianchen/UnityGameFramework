@@ -1,4 +1,6 @@
 ---@class UIElements.ScrollView:UIElements.VisualElement
+---@field horizontalScrollerVisibility UIElements.ScrollerVisibility
+---@field verticalScrollerVisibility UIElements.ScrollerVisibility
 ---@field showHorizontal boolean
 ---@field showVertical boolean
 ---@field scrollOffset Vector2
@@ -11,6 +13,7 @@
 ---@field horizontalScroller UIElements.Scroller
 ---@field verticalScroller UIElements.Scroller
 ---@field contentContainer UIElements.VisualElement
+---@field mode UIElements.ScrollViewMode
 ---@field viewDataKey string
 ---@field userData System.Object
 ---@field canGrabFocus boolean
@@ -33,6 +36,7 @@
 ---@field cacheAsBitmap boolean
 ---@field parent UIElements.VisualElement
 ---@field panel UIElements.IPanel
+---@field visualTreeAssetSource UIElements.VisualTreeAsset
 ---@field Item UIElements.VisualElement
 ---@field childCount number
 ---@field schedule UIElements.IVisualElementScheduler

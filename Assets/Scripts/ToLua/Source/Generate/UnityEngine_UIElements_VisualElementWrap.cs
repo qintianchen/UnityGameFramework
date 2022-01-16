@@ -66,6 +66,7 @@ public class UnityEngine_UIElements_VisualElementWrap
 		L.RegVar("parent", get_parent, null);
 		L.RegVar("panel", get_panel, null);
 		L.RegVar("contentContainer", get_contentContainer, null);
+		L.RegVar("visualTreeAssetSource", get_visualTreeAssetSource, null);
 		L.RegVar("childCount", get_childCount, null);
 		L.RegVar("schedule", get_schedule, null);
 		L.RegVar("style", get_style, null);
@@ -1110,6 +1111,25 @@ public class UnityEngine_UIElements_VisualElementWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index contentContainer on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_visualTreeAssetSource(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.UIElements.VisualElement obj = (UnityEngine.UIElements.VisualElement)o;
+			UnityEngine.UIElements.VisualTreeAsset ret = obj.visualTreeAssetSource;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index visualTreeAssetSource on a nil value");
 		}
 	}
 

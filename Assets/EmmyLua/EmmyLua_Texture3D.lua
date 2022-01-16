@@ -38,7 +38,7 @@
 ---@field GetPixel fun(self:Texture3D, x:number, y:number, z:number, mipLevel:number):Color
 ---@field GetPixelBilinear fun(self:Texture3D, u:number, v:number, w:number):Color
 ---@field GetPixelBilinear fun(self:Texture3D, u:number, v:number, w:number, mipLevel:number):Color
----@field SetPixelData fun(self:Texture3D, data:T[], mipLevel:number, sourceDataStartIndex:number)
+---@field SetPixelData fun(self:Texture3D, data:nil, mipLevel:number, sourceDataStartIndex:number)
 ---@field SetPixelData fun(self:Texture3D, data:nil, mipLevel:number, sourceDataStartIndex:number)
 ---@field GetPixelData fun(self:Texture3D, mipLevel:number):nil
 ---@field GetNativeTexturePtr fun(self:Texture):System.IntPtr

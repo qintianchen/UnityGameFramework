@@ -61,13 +61,16 @@
 ---@field LoadRawTextureData fun(self:Texture2D, data:System.IntPtr, size:number)
 ---@field LoadRawTextureData fun(self:Texture2D, data:System.Byte[])
 ---@field LoadRawTextureData fun(self:Texture2D, data:nil)
----@field SetPixelData fun(self:Texture2D, data:T[], mipLevel:number, sourceDataStartIndex:number)
+---@field SetPixelData fun(self:Texture2D, data:nil, mipLevel:number, sourceDataStartIndex:number)
 ---@field SetPixelData fun(self:Texture2D, data:nil, mipLevel:number, sourceDataStartIndex:number)
 ---@field GetPixelData fun(self:Texture2D, mipLevel:number):nil
 ---@field GetRawTextureData fun(self:Texture2D):nil
 ---@field Apply fun(self:Texture2D, updateMipmaps:boolean, makeNoLongerReadable:boolean)
 ---@field Apply fun(self:Texture2D, updateMipmaps:boolean)
 ---@field Apply fun(self:Texture2D)
+---@field Reinitialize fun(self:Texture2D, width:number, height:number):boolean
+---@field Reinitialize fun(self:Texture2D, width:number, height:number, format:TextureFormat, hasMipMap:boolean):boolean
+---@field Reinitialize fun(self:Texture2D, width:number, height:number, format:Experimental.Rendering.GraphicsFormat, hasMipMap:boolean):boolean
 ---@field Resize fun(self:Texture2D, width:number, height:number):boolean
 ---@field Resize fun(self:Texture2D, width:number, height:number, format:TextureFormat, hasMipMap:boolean):boolean
 ---@field Resize fun(self:Texture2D, width:number, height:number, format:Experimental.Rendering.GraphicsFormat, hasMipMap:boolean):boolean

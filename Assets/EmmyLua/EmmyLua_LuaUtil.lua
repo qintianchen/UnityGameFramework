@@ -1,10 +1,12 @@
 ---@class LuaUtil:System.Object
 ---@field TransformFind fun(go:GameObject, name:string):Transform
 ---@field TransformFind fun(comp:Component, name:string):Transform
----@field SetButton fun(go:GameObject, onClick:System.Action`1[[EventSystems.PointerEventData, UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]])
----@field SetButton fun(comp:Component, onClick:System.Action`1[[EventSystems.PointerEventData, UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]])
+---@field SetButton fun(go:GameObject, onClick:LuaInterface.LuaFunction)
+---@field SetButton fun(comp:Component, onClick:LuaInterface.LuaFunction)
 ---@field SetText fun(go:GameObject, content:string)
 ---@field SetText fun(comp:Component, content:string)
+---@field SetActive fun(go:GameObject, isActive:boolean)
+---@field SetActive fun(go:Component, isActive:boolean)
 ---@field Equals fun(self:System.Object, obj:System.Object):boolean
 ---@field GetHashCode fun(self:System.Object):number
 ---@field GetType fun(self:System.Object):System.Type

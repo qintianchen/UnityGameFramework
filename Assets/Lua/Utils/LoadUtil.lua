@@ -19,8 +19,14 @@ function LoadGameObject(name, parent, onLoaded, timeout)
     
     ---@param go GameObject
     AssetManager.Instance:LoadAssetAsync(name, AssetType.GameObject, parent, function(go)
+        if IsNull(go) then
+            LogError("Failed to load gameobject: ".. tostring(name))
+            return
+        end
+        
         if isTimeout then
             GameObject.Destroy(go)
+            onLoaded()
             return
         end
 

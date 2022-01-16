@@ -19,6 +19,13 @@
 ---@field useDragThreshold boolean
 ---@field dragging boolean
 ---@field button EventSystems.PointerEventData.InputButton
+---@field pressure number
+---@field tangentialPressure number
+---@field altitudeAngle number
+---@field azimuthAngle number
+---@field twist number
+---@field radius Vector2
+---@field radiusVariance Vector2
 ---@field enterEventCamera Camera
 ---@field pressEventCamera Camera
 ---@field pointerPress GameObject

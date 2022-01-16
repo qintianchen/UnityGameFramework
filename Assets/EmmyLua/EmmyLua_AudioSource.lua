@@ -7,6 +7,7 @@
 ---@field timeSamples number
 ---@field clip AudioClip
 ---@field outputAudioMixerGroup Audio.AudioMixerGroup
+---@field gamepadSpeakerOutputType GamepadSpeakerOutputType
 ---@field isPlaying boolean
 ---@field isVirtual boolean
 ---@field loop boolean
@@ -52,6 +53,12 @@
 ---@field particleSystem Component
 ---@field name string
 ---@field hideFlags HideFlags
+---@field PlayOnGamepad fun(self:AudioSource, slot:number):boolean
+---@field DisableGamepadOutput fun(self:AudioSource):boolean
+---@field SetGamepadSpeakerMixLevel fun(self:AudioSource, slot:number, mixLevel:number):boolean
+---@field SetGamepadSpeakerMixLevelDefault fun(self:AudioSource, slot:number):boolean
+---@field SetGamepadSpeakerRestrictedAudio fun(self:AudioSource, slot:number, restricted:boolean):boolean
+---@field GamepadSpeakerSupportsOutputType fun(outputType:GamepadSpeakerOutputType):boolean
 ---@field Play fun(self:AudioSource)
 ---@field Play fun(self:AudioSource, delay:number)
 ---@field PlayDelayed fun(self:AudioSource, delay:number)
@@ -86,21 +93,23 @@
 ---@field GetComponentInChildren fun(self:Component):nil
 ---@field GetComponentsInChildren fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
 ---@field GetComponentsInChildren fun(self:Component, t:System.Type):Component[]
----@field GetComponentsInChildren fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean):nil
 ---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean, result:nil)
----@field GetComponentsInChildren fun(self:Component):T[]
+---@field GetComponentsInChildren fun(self:Component):nil
 ---@field GetComponentsInChildren fun(self:Component, results:nil)
+---@field GetComponentInParent fun(self:Component, t:System.Type, includeInactive:boolean):Component
 ---@field GetComponentInParent fun(self:Component, t:System.Type):Component
+---@field GetComponentInParent fun(self:Component, includeInactive:boolean):nil
 ---@field GetComponentInParent fun(self:Component):nil
 ---@field GetComponentsInParent fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
 ---@field GetComponentsInParent fun(self:Component, t:System.Type):Component[]
----@field GetComponentsInParent fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInParent fun(self:Component, includeInactive:boolean):nil
 ---@field GetComponentsInParent fun(self:Component, includeInactive:boolean, results:nil)
----@field GetComponentsInParent fun(self:Component):T[]
+---@field GetComponentsInParent fun(self:Component):nil
 ---@field GetComponents fun(self:Component, type:System.Type):Component[]
 ---@field GetComponents fun(self:Component, type:System.Type, results:System.Collections.Generic.List`1[[Component, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
 ---@field GetComponents fun(self:Component, results:nil)
----@field GetComponents fun(self:Component):T[]
+---@field GetComponents fun(self:Component):nil
 ---@field CompareTag fun(self:Component, tag:string):boolean
 ---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object, options:SendMessageOptions)
 ---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object)

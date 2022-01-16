@@ -12,11 +12,12 @@ function LuaLoginWindow:OnOpen()
     self.accountName = self.accountName or ""
     
     SetButton(self.btnChooseServer, function(a) 
-        self:OpenWindow("LuaLoginSelectServerWindow", function(serverID)
+        self:OpenWindow("LoginSelectServerWindow", function(serverID)
             self.serverID = serverID
+            self:Refresh()
         end)
     end)
-    
+
     SetButton(self.btnConfirm, function(a)
         local inputField = GetComponent(self.inputName, E_SYS_TYPE.InputField)
         self.accountName = inputField.text

@@ -17,11 +17,10 @@ require("UIManager")
 -- 全局
 GameObject = UnityEngine.GameObject
 Instantiate = UnityEngine.Object.Instantiate
-TransformFind = LuaUtil.TransformFind
 
 StartCoroutine(function()
     UIManager.CoInit()
-
+    
     UIManager.OpenWindow("LoginWindow", nil, 1111, 332)
 end)
 

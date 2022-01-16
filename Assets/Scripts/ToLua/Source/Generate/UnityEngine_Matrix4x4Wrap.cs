@@ -24,6 +24,7 @@ public class UnityEngine_Matrix4x4Wrap
 		L.RegFunction("Equals", Equals);
 		L.RegFunction("GetColumn", GetColumn);
 		L.RegFunction("GetRow", GetRow);
+		L.RegFunction("GetPosition", GetPosition);
 		L.RegFunction("SetColumn", SetColumn);
 		L.RegFunction("SetRow", SetRow);
 		L.RegFunction("MultiplyPoint", MultiplyPoint);
@@ -623,6 +624,24 @@ public class UnityEngine_Matrix4x4Wrap
 			UnityEngine.Matrix4x4 obj = (UnityEngine.Matrix4x4)ToLua.CheckObject(L, 1, typeof(UnityEngine.Matrix4x4));
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
 			UnityEngine.Vector4 o = obj.GetRow(arg0);
+			ToLua.Push(L, o);
+			ToLua.SetBack(L, 1, obj);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetPosition(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.Matrix4x4 obj = (UnityEngine.Matrix4x4)ToLua.CheckObject(L, 1, typeof(UnityEngine.Matrix4x4));
+			UnityEngine.Vector3 o = obj.GetPosition();
 			ToLua.Push(L, o);
 			ToLua.SetBack(L, 1, obj);
 			return 1;

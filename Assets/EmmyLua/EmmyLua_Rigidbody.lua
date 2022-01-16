@@ -55,7 +55,6 @@
 ---@field ResetInertiaTensor fun(self:Rigidbody)
 ---@field GetRelativePointVelocity fun(self:Rigidbody, relativePoint:Vector3):Vector3
 ---@field GetPointVelocity fun(self:Rigidbody, worldPoint:Vector3):Vector3
----@field SetMaxAngularVelocity fun(self:Rigidbody, a:number)
 ---@field AddForce fun(self:Rigidbody, force:Vector3, mode:ForceMode)
 ---@field AddForce fun(self:Rigidbody, force:Vector3)
 ---@field AddForce fun(self:Rigidbody, x:number, y:number, z:number, mode:ForceMode)
@@ -84,6 +83,7 @@
 ---@field SweepTestAll fun(self:Rigidbody, direction:Vector3, maxDistance:number, queryTriggerInteraction:QueryTriggerInteraction):RaycastHit[]
 ---@field SweepTestAll fun(self:Rigidbody, direction:Vector3, maxDistance:number):RaycastHit[]
 ---@field SweepTestAll fun(self:Rigidbody, direction:Vector3):RaycastHit[]
+---@field SetMaxAngularVelocity fun(self:Rigidbody, a:number)
 ---@field GetComponent fun(self:Component, type:System.Type):Component
 ---@field GetComponent fun(self:Component):nil
 ---@field TryGetComponent fun(self:Component, type:System.Type, component:Component&):boolean
@@ -95,21 +95,23 @@
 ---@field GetComponentInChildren fun(self:Component):nil
 ---@field GetComponentsInChildren fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
 ---@field GetComponentsInChildren fun(self:Component, t:System.Type):Component[]
----@field GetComponentsInChildren fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean):nil
 ---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean, result:nil)
----@field GetComponentsInChildren fun(self:Component):T[]
+---@field GetComponentsInChildren fun(self:Component):nil
 ---@field GetComponentsInChildren fun(self:Component, results:nil)
+---@field GetComponentInParent fun(self:Component, t:System.Type, includeInactive:boolean):Component
 ---@field GetComponentInParent fun(self:Component, t:System.Type):Component
+---@field GetComponentInParent fun(self:Component, includeInactive:boolean):nil
 ---@field GetComponentInParent fun(self:Component):nil
 ---@field GetComponentsInParent fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
 ---@field GetComponentsInParent fun(self:Component, t:System.Type):Component[]
----@field GetComponentsInParent fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInParent fun(self:Component, includeInactive:boolean):nil
 ---@field GetComponentsInParent fun(self:Component, includeInactive:boolean, results:nil)
----@field GetComponentsInParent fun(self:Component):T[]
+---@field GetComponentsInParent fun(self:Component):nil
 ---@field GetComponents fun(self:Component, type:System.Type):Component[]
 ---@field GetComponents fun(self:Component, type:System.Type, results:System.Collections.Generic.List`1[[Component, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
 ---@field GetComponents fun(self:Component, results:nil)
----@field GetComponents fun(self:Component):T[]
+---@field GetComponents fun(self:Component):nil
 ---@field CompareTag fun(self:Component, tag:string):boolean
 ---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object, options:SendMessageOptions)
 ---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object)

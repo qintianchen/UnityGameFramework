@@ -5,6 +5,7 @@
 ---@field mainTextureOffset Vector2
 ---@field mainTextureScale Vector2
 ---@field renderQueue number
+---@field enabledKeywords Rendering.LocalKeyword[]
 ---@field globalIlluminationFlags MaterialGlobalIlluminationFlags
 ---@field doubleSidedGI boolean
 ---@field enableInstancing boolean
@@ -15,9 +16,31 @@
 ---@field Create fun(scriptContents:string):Material
 ---@field HasProperty fun(self:Material, nameID:number):boolean
 ---@field HasProperty fun(self:Material, name:string):boolean
+---@field HasFloat fun(self:Material, name:string):boolean
+---@field HasFloat fun(self:Material, nameID:number):boolean
+---@field HasInt fun(self:Material, name:string):boolean
+---@field HasInt fun(self:Material, nameID:number):boolean
+---@field HasInteger fun(self:Material, name:string):boolean
+---@field HasInteger fun(self:Material, nameID:number):boolean
+---@field HasTexture fun(self:Material, name:string):boolean
+---@field HasTexture fun(self:Material, nameID:number):boolean
+---@field HasMatrix fun(self:Material, name:string):boolean
+---@field HasMatrix fun(self:Material, nameID:number):boolean
+---@field HasVector fun(self:Material, name:string):boolean
+---@field HasVector fun(self:Material, nameID:number):boolean
+---@field HasColor fun(self:Material, name:string):boolean
+---@field HasColor fun(self:Material, nameID:number):boolean
+---@field HasBuffer fun(self:Material, name:string):boolean
+---@field HasBuffer fun(self:Material, nameID:number):boolean
+---@field HasConstantBuffer fun(self:Material, name:string):boolean
+---@field HasConstantBuffer fun(self:Material, nameID:number):boolean
 ---@field EnableKeyword fun(self:Material, keyword:string)
 ---@field DisableKeyword fun(self:Material, keyword:string)
 ---@field IsKeywordEnabled fun(self:Material, keyword:string):boolean
+---@field EnableKeyword fun(self:Material, keyword:Rendering.LocalKeyword&)
+---@field DisableKeyword fun(self:Material, keyword:Rendering.LocalKeyword&)
+---@field SetKeyword fun(self:Material, keyword:Rendering.LocalKeyword&, value:boolean)
+---@field IsKeywordEnabled fun(self:Material, keyword:Rendering.LocalKeyword&):boolean
 ---@field SetShaderPassEnabled fun(self:Material, passName:string, enabled:boolean)
 ---@field GetShaderPassEnabled fun(self:Material, passName:string):boolean
 ---@field GetPassName fun(self:Material, pass:number):string
@@ -33,10 +56,12 @@
 ---@field GetTexturePropertyNameIDs fun(self:Material):System.Int32[]
 ---@field GetTexturePropertyNames fun(self:Material, outNames:System.Collections.Generic.List`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]])
 ---@field GetTexturePropertyNameIDs fun(self:Material, outNames:System.Collections.Generic.List`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]])
----@field SetFloat fun(self:Material, name:string, value:number)
----@field SetFloat fun(self:Material, nameID:number, value:number)
 ---@field SetInt fun(self:Material, name:string, value:number)
 ---@field SetInt fun(self:Material, nameID:number, value:number)
+---@field SetFloat fun(self:Material, name:string, value:number)
+---@field SetFloat fun(self:Material, nameID:number, value:number)
+---@field SetInteger fun(self:Material, name:string, value:number)
+---@field SetInteger fun(self:Material, nameID:number, value:number)
 ---@field SetColor fun(self:Material, name:string, value:Color)
 ---@field SetColor fun(self:Material, nameID:number, value:Color)
 ---@field SetVector fun(self:Material, name:string, value:Vector4)
@@ -71,10 +96,12 @@
 ---@field SetMatrixArray fun(self:Material, nameID:number, values:System.Collections.Generic.List`1[[Matrix4x4, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
 ---@field SetMatrixArray fun(self:Material, name:string, values:Matrix4x4[])
 ---@field SetMatrixArray fun(self:Material, nameID:number, values:Matrix4x4[])
----@field GetFloat fun(self:Material, name:string):number
----@field GetFloat fun(self:Material, nameID:number):number
 ---@field GetInt fun(self:Material, name:string):number
 ---@field GetInt fun(self:Material, nameID:number):number
+---@field GetFloat fun(self:Material, name:string):number
+---@field GetFloat fun(self:Material, nameID:number):number
+---@field GetInteger fun(self:Material, name:string):number
+---@field GetInteger fun(self:Material, nameID:number):number
 ---@field GetColor fun(self:Material, name:string):Color
 ---@field GetColor fun(self:Material, nameID:number):Color
 ---@field GetVector fun(self:Material, name:string):Vector4

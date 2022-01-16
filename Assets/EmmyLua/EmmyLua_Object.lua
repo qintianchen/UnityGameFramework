@@ -25,8 +25,8 @@
 ---@field DestroyObject fun(obj:Object)
 ---@field FindSceneObjectsOfType fun(type:System.Type):Object[]
 ---@field FindObjectsOfTypeIncludingAssets fun(type:System.Type):Object[]
----@field FindObjectsOfType fun():T[]
----@field FindObjectsOfType fun(includeInactive:boolean):T[]
+---@field FindObjectsOfType fun():nil
+---@field FindObjectsOfType fun(includeInactive:boolean):nil
 ---@field FindObjectOfType fun():nil
 ---@field FindObjectOfType fun(includeInactive:boolean):nil
 ---@field FindObjectsOfTypeAll fun(type:System.Type):Object[]

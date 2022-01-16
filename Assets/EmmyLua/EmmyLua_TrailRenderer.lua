@@ -24,11 +24,13 @@
 ---@field motionVectors boolean
 ---@field useLightProbes boolean
 ---@field bounds Bounds
+---@field localBounds Bounds
 ---@field enabled boolean
 ---@field isVisible boolean
 ---@field shadowCastingMode Rendering.ShadowCastingMode
 ---@field receiveShadows boolean
 ---@field forceRenderingOff boolean
+---@field staticShadowCaster boolean
 ---@field motionVectorGenerationMode MotionVectorGenerationMode
 ---@field lightProbeUsage Rendering.LightProbeUsage
 ---@field reflectionProbeUsage Rendering.ReflectionProbeUsage
@@ -85,6 +87,8 @@
 ---@field GetPositions fun(self:TrailRenderer, positions:Unity.Collections.NativeSlice`1[[Vector3, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]):number
 ---@field AddPositions fun(self:TrailRenderer, positions:Unity.Collections.NativeArray`1[[Vector3, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
 ---@field AddPositions fun(self:TrailRenderer, positions:Unity.Collections.NativeSlice`1[[Vector3, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
+---@field ResetBounds fun(self:Renderer)
+---@field ResetLocalBounds fun(self:Renderer)
 ---@field HasPropertyBlock fun(self:Renderer):boolean
 ---@field SetPropertyBlock fun(self:Renderer, properties:MaterialPropertyBlock)
 ---@field SetPropertyBlock fun(self:Renderer, properties:MaterialPropertyBlock, materialIndex:number)
@@ -104,21 +108,23 @@
 ---@field GetComponentInChildren fun(self:Component):nil
 ---@field GetComponentsInChildren fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
 ---@field GetComponentsInChildren fun(self:Component, t:System.Type):Component[]
----@field GetComponentsInChildren fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean):nil
 ---@field GetComponentsInChildren fun(self:Component, includeInactive:boolean, result:nil)
----@field GetComponentsInChildren fun(self:Component):T[]
+---@field GetComponentsInChildren fun(self:Component):nil
 ---@field GetComponentsInChildren fun(self:Component, results:nil)
+---@field GetComponentInParent fun(self:Component, t:System.Type, includeInactive:boolean):Component
 ---@field GetComponentInParent fun(self:Component, t:System.Type):Component
+---@field GetComponentInParent fun(self:Component, includeInactive:boolean):nil
 ---@field GetComponentInParent fun(self:Component):nil
 ---@field GetComponentsInParent fun(self:Component, t:System.Type, includeInactive:boolean):Component[]
 ---@field GetComponentsInParent fun(self:Component, t:System.Type):Component[]
----@field GetComponentsInParent fun(self:Component, includeInactive:boolean):T[]
+---@field GetComponentsInParent fun(self:Component, includeInactive:boolean):nil
 ---@field GetComponentsInParent fun(self:Component, includeInactive:boolean, results:nil)
----@field GetComponentsInParent fun(self:Component):T[]
+---@field GetComponentsInParent fun(self:Component):nil
 ---@field GetComponents fun(self:Component, type:System.Type):Component[]
 ---@field GetComponents fun(self:Component, type:System.Type, results:System.Collections.Generic.List`1[[Component, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
 ---@field GetComponents fun(self:Component, results:nil)
----@field GetComponents fun(self:Component):T[]
+---@field GetComponents fun(self:Component):nil
 ---@field CompareTag fun(self:Component, tag:string):boolean
 ---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object, options:SendMessageOptions)
 ---@field SendMessageUpwards fun(self:Component, methodName:string, value:System.Object)

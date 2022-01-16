@@ -163,40 +163,50 @@ public class AssetManager : SingleTon<AssetManager>
         return assetBundle.LoadAsset<T>(assetFullName);
     }
 
+    /// 这个是给Lua导出的接口，因为ToLua无法导出泛型方法
     public void LoadAssetAsync(string assetName, AssetType assetType, Object objRef, Action<Object> onLoaded)
     {
-        switch (assetType)
+        try
         {
-            case AssetType.UnityObject:
-                LoadAssetAsync<Object>(assetName, objRef, onLoaded);
-                break;
-            case AssetType.GameObject:
-                LoadAssetAsync<GameObject>(assetName, objRef, onLoaded);
-                break;
-            case AssetType.Material:
-                LoadAssetAsync<Material>(assetName, objRef, onLoaded);
-                break;
-            case AssetType.Sprite:
-                LoadAssetAsync<Sprite>(assetName, objRef, onLoaded);
-                break;
-            case AssetType.Texture:
-                LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
-                break;
-            case AssetType.AnimationClip:
-                LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
-                break;
-            case AssetType.VideoClip:
-                LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
-                break;
-            case AssetType.Scene:
-                LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
-                break;
-            case AssetType.TextAsset:
-                LoadAssetAsync<TextAsset>(assetName, objRef, onLoaded);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(assetType), assetType, null);
+            switch (assetType)
+            {
+                case AssetType.UnityObject:
+                    LoadAssetAsync<Object>(assetName, objRef, onLoaded);
+                    break;
+                case AssetType.GameObject:
+                    LoadAssetAsync<GameObject>(assetName, objRef, onLoaded);
+                    break;
+                case AssetType.Material:
+                    LoadAssetAsync<Material>(assetName, objRef, onLoaded);
+                    break;
+                case AssetType.Sprite:
+                    LoadAssetAsync<Sprite>(assetName, objRef, onLoaded);
+                    break;
+                case AssetType.Texture:
+                    LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
+                    break;
+                case AssetType.AnimationClip:
+                    LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
+                    break;
+                case AssetType.VideoClip:
+                    LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
+                    break;
+                case AssetType.Scene:
+                    LoadAssetAsync<Texture>(assetName, objRef, onLoaded);
+                    break;
+                case AssetType.TextAsset:
+                    LoadAssetAsync<TextAsset>(assetName, objRef, onLoaded);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(assetType), assetType, null);
+            }
         }
+        catch (Exception e)
+        {
+            GameLogger.Error(e.ToString());
+            throw;
+        }
+        
     }
 
     public AssetWrap LoadAssetAsync<T>(string assetName, Object objRef, Action<T> onLoaded) where T : Object
@@ -558,6 +568,11 @@ public class AssetManager : SingleTon<AssetManager>
 
         if (wrap.isDone)
         {
+            if (wrap.request.assetBundle == null)
+            {
+                GameLogger.Error($"加载AssetBundle失败: {wrap.assetBundleFullName}");
+                return;
+            }
             Debug.Log($"完成加载AB:{wrap.request.assetBundle.name}");
             wrap.onLoaded?.Invoke(wrap);
             assetBundleName_loadedAssetBundle[wrap.assetBundleName] = wrap;

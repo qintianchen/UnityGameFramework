@@ -27,6 +27,7 @@
 ---@field Equals fun(self:Matrix4x4, other:Matrix4x4):boolean
 ---@field GetColumn fun(self:Matrix4x4, index:number):Vector4
 ---@field GetRow fun(self:Matrix4x4, index:number):Vector4
+---@field GetPosition fun(self:Matrix4x4):Vector3
 ---@field SetColumn fun(self:Matrix4x4, index:number, column:Vector4)
 ---@field SetRow fun(self:Matrix4x4, index:number, row:Vector4)
 ---@field MultiplyPoint fun(self:Matrix4x4, point:Vector3):Vector3

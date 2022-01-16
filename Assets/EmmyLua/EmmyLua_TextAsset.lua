@@ -1,9 +1,11 @@
 ---@class TextAsset:Object
 ---@field bytes System.Byte[]
 ---@field text string
+---@field dataSize System.Int64
 ---@field name string
 ---@field hideFlags HideFlags
 ---@field ToString fun(self:TextAsset):string
+---@field GetData fun(self:TextAsset):nil
 ---@field GetInstanceID fun(self:Object):number
 ---@field GetHashCode fun(self:Object):number
 ---@field Equals fun(self:Object, other:System.Object):boolean

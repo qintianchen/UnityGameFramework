@@ -10,6 +10,7 @@ public class LuaUtilWrap
 		L.RegFunction("TransformFind", TransformFind);
 		L.RegFunction("SetButton", SetButton);
 		L.RegFunction("SetText", SetText);
+		L.RegFunction("SetActive", SetActive);
 		L.EndStaticLibs();
 	}
 
@@ -103,6 +104,38 @@ public class LuaUtilWrap
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaUtil.SetText");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetActive(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2 && TypeChecker.CheckTypes<UnityEngine.GameObject, bool>(L, 1))
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.ToObject(L, 1);
+				bool arg1 = LuaDLL.lua_toboolean(L, 2);
+				LuaUtil.SetActive(arg0, arg1);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes<UnityEngine.Component, bool>(L, 1))
+			{
+				UnityEngine.Component arg0 = (UnityEngine.Component)ToLua.ToObject(L, 1);
+				bool arg1 = LuaDLL.lua_toboolean(L, 2);
+				LuaUtil.SetActive(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaUtil.SetActive");
 			}
 		}
 		catch (Exception e)

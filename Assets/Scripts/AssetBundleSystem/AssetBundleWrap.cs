@@ -17,7 +17,7 @@ public class AssetBundleWrap
     public AssetBundleCreateRequest request; // 存放异步加载的产物
 
     public AssetBundle syncAB; // 存放同步加载的产物
-
+    
     public bool isDone
     {
         get

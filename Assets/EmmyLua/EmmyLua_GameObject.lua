@@ -37,20 +37,20 @@
 ---@field GetComponentInParent fun(self:GameObject):nil
 ---@field GetComponentInParent fun(self:GameObject, includeInactive:boolean):nil
 ---@field GetComponents fun(self:GameObject, type:System.Type):Component[]
----@field GetComponents fun(self:GameObject):T[]
+---@field GetComponents fun(self:GameObject):nil
 ---@field GetComponents fun(self:GameObject, type:System.Type, results:System.Collections.Generic.List`1[[Component, CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]])
 ---@field GetComponents fun(self:GameObject, results:nil)
 ---@field GetComponentsInChildren fun(self:GameObject, type:System.Type):Component[]
 ---@field GetComponentsInChildren fun(self:GameObject, type:System.Type, includeInactive:boolean):Component[]
----@field GetComponentsInChildren fun(self:GameObject, includeInactive:boolean):T[]
+---@field GetComponentsInChildren fun(self:GameObject, includeInactive:boolean):nil
 ---@field GetComponentsInChildren fun(self:GameObject, includeInactive:boolean, results:nil)
----@field GetComponentsInChildren fun(self:GameObject):T[]
+---@field GetComponentsInChildren fun(self:GameObject):nil
 ---@field GetComponentsInChildren fun(self:GameObject, results:nil)
 ---@field GetComponentsInParent fun(self:GameObject, type:System.Type):Component[]
 ---@field GetComponentsInParent fun(self:GameObject, type:System.Type, includeInactive:boolean):Component[]
 ---@field GetComponentsInParent fun(self:GameObject, includeInactive:boolean, results:nil)
----@field GetComponentsInParent fun(self:GameObject, includeInactive:boolean):T[]
----@field GetComponentsInParent fun(self:GameObject):T[]
+---@field GetComponentsInParent fun(self:GameObject, includeInactive:boolean):nil
+---@field GetComponentsInParent fun(self:GameObject):nil
 ---@field TryGetComponent fun(self:GameObject, component:nil):boolean
 ---@field TryGetComponent fun(self:GameObject, type:System.Type, component:Component&):boolean
 ---@field FindWithTag fun(tag:string):GameObject

@@ -9,6 +9,7 @@
 ---@field memorylessMode RenderTextureMemoryless
 ---@field format RenderTextureFormat
 ---@field stencilFormat Experimental.Rendering.GraphicsFormat
+---@field depthStencilFormat Experimental.Rendering.GraphicsFormat
 ---@field autoGenerateMips boolean
 ---@field volumeDepth number
 ---@field antiAliasing number
