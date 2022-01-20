@@ -18,10 +18,4 @@ public class GameMain : MonoBehaviour
 
 		isInited = true;
 	}
-
-	private void Update()
-	{
-		if(isInited)
-			LuaMain.Instance.lua.Call("UIManagerUpdate", false);
-	}
 }

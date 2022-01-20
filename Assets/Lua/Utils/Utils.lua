@@ -112,6 +112,30 @@ function GetLuaObject(go)
     
     return behaviour:GetLuaObject()
 end
+
+function DeepCopy(o)
+    if type(o) ~= "table" then
+        return o
+    end
+
+    local result = {}
+    for k, v in pairs(o or {}) do
+        if type(v) ~= "table" then
+            result[k] = v
+        else
+            result[k] = table.copy(v)
+        end
+    end
+
+    local mt = getmetatable(o)
+    if mt then
+        local new_mt = table.copy(mt)
+        result = setmetatable(result, new_mt)
+    end
+    return result
+end
+
+function PCALL(func, arg) return xpcall(function() return func(arg) end, LogError)  end
 --endregion
 
 --region UI

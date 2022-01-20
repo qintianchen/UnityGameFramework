@@ -1,4 +1,5 @@
 ---@class LuaUtil:System.Object
+---@field IsStringNullOrEmpty fun(str:string):boolean
 ---@field TransformFind fun(go:GameObject, name:string):Transform
 ---@field TransformFind fun(comp:Component, name:string):Transform
 ---@field SetButton fun(go:GameObject, onClick:LuaInterface.LuaFunction)

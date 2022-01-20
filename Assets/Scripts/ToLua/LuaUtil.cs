@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public static class LuaUtil
 {
+    public static bool IsStringNullOrEmpty(string str)
+    {
+        return string.IsNullOrEmpty(str);
+    }
+    
     public static Transform TransformFind(GameObject go, string name)
     {
         if (go == null || string.IsNullOrEmpty(name))

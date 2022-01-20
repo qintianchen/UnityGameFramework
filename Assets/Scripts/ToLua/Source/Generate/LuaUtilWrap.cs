@@ -7,11 +7,29 @@ public class LuaUtilWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginStaticLibs("LuaUtil");
+		L.RegFunction("IsStringNullOrEmpty", IsStringNullOrEmpty);
 		L.RegFunction("TransformFind", TransformFind);
 		L.RegFunction("SetButton", SetButton);
 		L.RegFunction("SetText", SetText);
 		L.RegFunction("SetActive", SetActive);
 		L.EndStaticLibs();
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int IsStringNullOrEmpty(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			bool o = LuaUtil.IsStringNullOrEmpty(arg0);
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

@@ -15,6 +15,8 @@ public class LuaMain : SingleTon<LuaMain>
         LuaBinder.Bind(lua);
         DelegateFactory.Init();
         LuaCoroutine.Register(lua, this.behaviour.GetComponent<MonoBehaviour>());
+        var luaLooper = this.behaviour.GetOrAddComponent<LuaLooper>();
+        luaLooper.luaState = lua;
         lua.Start();
 
         lua.DoFile("Main");
