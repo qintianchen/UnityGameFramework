@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using LuaInterface;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMain : MonoBehaviour
 {
@@ -15,7 +16,11 @@ public class GameMain : MonoBehaviour
 		yield return AssetManager.Instance.Init();
 		
 		LuaMain.Instance.Init(this);
+		
+		// LuaMain.Instance.lua.DoFile("Main");
 
 		isInited = true;
+
+		SceneManager.LoadScene("scene_test_timer");
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LuaInterface;
 using UnityEditor;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using BindType = ToLuaMenu.BindType;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -83,7 +84,7 @@ public static class CustomSettings
         _GT(typeof(Material)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Camera)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         _GT(typeof(Rigidbody)),
-        _GT(typeof(AudioSource)),
+        // _GT(typeof(AudioSource)),  // 包含按宏编译的方法
         _GT(typeof(Texture)),
         _GT(typeof(Texture2D)),
         _GT(typeof(Texture3D)),
@@ -108,6 +109,7 @@ public static class CustomSettings
         _GT(typeof(GraphicRaycaster)),
         _GT(typeof(BaseEventData)),
         _GT(typeof(PointerEventData)),
+        _GT(typeof(SceneManager)),
 
         // UnityEngine.UI
         _GT(typeof(RectTransform)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),

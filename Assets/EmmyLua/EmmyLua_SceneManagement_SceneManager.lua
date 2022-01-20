@@ -1,0 +1,40 @@
+---@class SceneManagement.SceneManager:System.Object
+---@field sceneCount number
+---@field sceneCountInBuildSettings number
+---@field GetActiveScene fun():SceneManagement.Scene
+---@field SetActiveScene fun(scene:SceneManagement.Scene):boolean
+---@field GetSceneByPath fun(scenePath:string):SceneManagement.Scene
+---@field GetSceneByName fun(name:string):SceneManagement.Scene
+---@field GetSceneByBuildIndex fun(buildIndex:number):SceneManagement.Scene
+---@field GetSceneAt fun(index:number):SceneManagement.Scene
+---@field CreateScene fun(sceneName:string, parameters:SceneManagement.CreateSceneParameters):SceneManagement.Scene
+---@field MergeScenes fun(sourceScene:SceneManagement.Scene, destinationScene:SceneManagement.Scene)
+---@field MoveGameObjectToScene fun(go:GameObject, scene:SceneManagement.Scene)
+---@field GetAllScenes fun():SceneManagement.Scene[]
+---@field CreateScene fun(sceneName:string):SceneManagement.Scene
+---@field LoadScene fun(sceneName:string, mode:SceneManagement.LoadSceneMode)
+---@field LoadScene fun(sceneName:string)
+---@field LoadScene fun(sceneName:string, parameters:SceneManagement.LoadSceneParameters):SceneManagement.Scene
+---@field LoadScene fun(sceneBuildIndex:number, mode:SceneManagement.LoadSceneMode)
+---@field LoadScene fun(sceneBuildIndex:number)
+---@field LoadScene fun(sceneBuildIndex:number, parameters:SceneManagement.LoadSceneParameters):SceneManagement.Scene
+---@field LoadSceneAsync fun(sceneBuildIndex:number, mode:SceneManagement.LoadSceneMode):AsyncOperation
+---@field LoadSceneAsync fun(sceneBuildIndex:number):AsyncOperation
+---@field LoadSceneAsync fun(sceneBuildIndex:number, parameters:SceneManagement.LoadSceneParameters):AsyncOperation
+---@field LoadSceneAsync fun(sceneName:string, mode:SceneManagement.LoadSceneMode):AsyncOperation
+---@field LoadSceneAsync fun(sceneName:string):AsyncOperation
+---@field LoadSceneAsync fun(sceneName:string, parameters:SceneManagement.LoadSceneParameters):AsyncOperation
+---@field UnloadScene fun(scene:SceneManagement.Scene):boolean
+---@field UnloadScene fun(sceneBuildIndex:number):boolean
+---@field UnloadScene fun(sceneName:string):boolean
+---@field UnloadSceneAsync fun(sceneBuildIndex:number):AsyncOperation
+---@field UnloadSceneAsync fun(sceneName:string):AsyncOperation
+---@field UnloadSceneAsync fun(scene:SceneManagement.Scene):AsyncOperation
+---@field UnloadSceneAsync fun(sceneBuildIndex:number, options:SceneManagement.UnloadSceneOptions):AsyncOperation
+---@field UnloadSceneAsync fun(sceneName:string, options:SceneManagement.UnloadSceneOptions):AsyncOperation
+---@field UnloadSceneAsync fun(scene:SceneManagement.Scene, options:SceneManagement.UnloadSceneOptions):AsyncOperation
+---@field Equals fun(self:System.Object, obj:System.Object):boolean
+---@field GetHashCode fun(self:System.Object):number
+---@field GetType fun(self:System.Object):System.Type
+---@field ToString fun(self:System.Object):string
+SceneManagement.SceneManager = {}

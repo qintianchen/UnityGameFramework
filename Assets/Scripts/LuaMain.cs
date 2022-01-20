@@ -18,7 +18,5 @@ public class LuaMain : SingleTon<LuaMain>
         var luaLooper = this.behaviour.GetOrAddComponent<LuaLooper>();
         luaLooper.luaState = lua;
         lua.Start();
-
-        lua.DoFile("Main");
     }
 }

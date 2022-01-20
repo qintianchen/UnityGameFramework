@@ -48,7 +48,6 @@ public class AssetManager : SingleTon<AssetManager>
     public List<string> assetDirs = new List<string> // 定义哪些目录的资产将会被打成AssetBundle作为合法的资产加载目录
     {
         "Assets/Content/Environment",
-        "Assets/Content/Scenes",
         "Assets/Content/Shaders",
         "Assets/Content/UI",
     };
@@ -74,7 +73,7 @@ public class AssetManager : SingleTon<AssetManager>
         }
     }
 
-    private AssetMode assetModeInEditor = AssetMode.AssetDataBase; // 指示编辑器使用AssetBundleMode，否则默认走AssetDataBase机制
+    private AssetMode assetModeInEditor = AssetMode.AssetBundle; // 指示编辑器使用AssetBundleMode，否则默认走AssetDataBase机制
 
     // 这里开始会建立一些名称的映射关系，其中，assetName是上层代码用来索引资源的标识符，因为我们规定了打进包的资源是不能重名的
     // assetFullName 用来从AssetBundle中加载资源
