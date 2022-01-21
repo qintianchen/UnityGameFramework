@@ -1,26 +1,14 @@
-﻿using System.Net;
-using System.Net.Sockets;
-using System.Net.Sockets.Kcp;
+﻿using System.Text;
+using KCPNet;
 
 // 这个网络模块只是随便写写，一个基于KCP的简易通信模块
 public class NetClient: SingleTon<NetClient>
 {
-    public enum NetClientState
-    {
-        None,
-        Connected,
-        DisConnected
-    }
+    private KCPClient kcpClient;
     
-    private uint sid; // Session ID
-    private IPEndPoint remoteEndPoint;
-    private Kcp kcp;
-    private UdpClient udpClient;
-
-    public void Start(string ip, int port)
+    public bool TryLogin()
     {
-        this.remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+        var ret = kcpClient.SendMessage(Encoding.ASCII.GetBytes("登录游戏"));
+        return ret;
     }
-    
-    // public void ConnectToServer()
 }
